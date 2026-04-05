@@ -1394,127 +1394,32 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script src="admin-appwrite.js"></script>
     <script>
-        // Initialize data from localStorage
+        // Initialize data from Appwrite
         function initializeData() {
-            if (!localStorage.getItem('classes')) {
-                localStorage.setItem('classes', JSON.stringify([
-                    {
-                        id: 1,
-                        name: "Yoga for Beginners",
-                        category: "yoga",
-                        price: 2999,
-                        duration: "60 minutes",
-                        instructor: "Priya Sharma",
-                        schedule: "Mon, Wed, Fri - 6:00 AM",
-                        description: "Perfect for those new to yoga",
-                        status: "active",
-                        createdAt: new Date().toISOString()
-                    },
-                    {
-                        id: 2,
-                        name: "Power Yoga",
-                        category: "fitness",
-                        price: 3999,
-                        duration: "75 minutes",
-                        instructor: "Rahul Verma",
-                        schedule: "Tue, Thu - 7:00 PM",
-                        description: "Intense workout for advanced practitioners",
-                        status: "active",
-                        createdAt: new Date().toISOString()
-                    },
-                    {
-                        id: 3,
-                        name: "Meditation & Mindfulness",
-                        category: "meditation",
-                        price: 1999,
-                        duration: "45 minutes",
-                        instructor: "Anita Patel",
-                        schedule: "Daily - 5:30 AM",
-                        description: "Learn meditation techniques",
-                        status: "active",
-                        createdAt: new Date().toISOString()
-                    },
-                    {
-                        id: 4,
-                        name: "Dance Fitness",
-                        category: "dance",
-                        price: 3499,
-                        duration: "60 minutes",
-                        instructor: "Deepika Malhotra",
-                        schedule: "Sat, Sun - 9:00 AM",
-                        description: "Fun dance workouts",
-                        status: "active",
-                        createdAt: new Date().toISOString()
-                    }
-                ]));
+            console.log('Admin dashboard initialized with Appwrite backend');
+        }
+
+        // Navigation
+        function setActiveSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.admin-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            const selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.classList.add('active');
             }
             
-            if (!localStorage.getItem('customers')) {
-                localStorage.setItem('customers', JSON.stringify([
-                    {
-                        id: 1,
-                        fullName: "Priya Sharma",
-                        email: "priya.sharma@email.com",
-                        phone: "9876543210",
-                        location: "Mumbai",
-                        gender: "female",
-                        createdAt: new Date().toISOString()
-                    },
-                    {
-                        id: 2,
-                        fullName: "Rahul Verma",
-                        email: "rahul.verma@email.com",
-                        phone: "9876543211",
-                        location: "Delhi",
-                        gender: "male",
-                        createdAt: new Date().toISOString()
-                    },
-                    {
-                        id: 3,
-                        fullName: "Anita Patel",
-                        email: "anita.patel@email.com",
-                        phone: "9876543212",
-                        location: "Bangalore",
-                        gender: "female",
-                        createdAt: new Date().toISOString()
-                    }
-                ]));
-            }
+            // Update navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
             
-            if (!localStorage.getItem('enrollments')) {
-                localStorage.setItem('enrollments', JSON.stringify([
-                    {
-                        id: 1,
-                        customerId: 1,
-                        classId: 1,
-                        date: new Date().toISOString(),
-                        amount: 2999,
-                        status: "active",
-                        paymentStatus: "paid"
-                    },
-                    {
-                        id: 2,
-                        customerId: 2,
-                        classId: 2,
-                        date: new Date().toISOString(),
-                        amount: 3999,
-                        status: "active",
-                        paymentStatus: "paid"
-                    },
-                    {
-                        id: 3,
-                        customerId: 3,
-                        classId: 3,
-                        date: new Date().toISOString(),
-                        amount: 1999,
-                        status: "pending",
-                        paymentStatus: "pending"
-                    }
-                ]));
-            }
-            
-            if (!localStorage.getItem('logs')) {
-                localStorage.setItem('logs', JSON.stringify([]));
+            const activeNavItem = document.querySelector(`[data-section="${sectionId}"]`);
+            if (activeNavItem) {
+                activeNavItem.classList.add('active');
             }
         }
 
@@ -1572,23 +1477,8 @@
 
         // Add log entry
         function addLog(type, user, action, details = '') {
-            const logs = JSON.parse(localStorage.getItem('logs') || '[]');
-            const logEntry = {
-                id: Date.now(),
-                timestamp: new Date().toISOString(),
-                type: type,
-                user: user,
-                action: action,
-                details: details
-            };
-            logs.unshift(logEntry);
-            
-            // Keep only last 100 logs
-            if (logs.length > 100) {
-                logs.splice(100);
-            }
-            
-            localStorage.setItem('logs', JSON.stringify(logs));
+            console.log(`Admin Log: ${type} - ${user} - ${action} - ${details}`);
+            // In future, this could save to Appwrite
         }
 
         // Navigation
@@ -1643,522 +1533,200 @@
                     loadEnrollmentsData();
                     break;
                 case 'revenue':
-                    loadRevenueData();
+                    // Revenue data placeholder
+                    console.log('Revenue data - Coming soon');
                     break;
                 case 'logs':
-                    loadLogsData();
+                    // Logs data placeholder
+                    console.log('Logs data - Coming soon');
                     break;
             }
         }
 
         // Load dashboard data
-        function loadDashboardData() {
-            const classes = JSON.parse(localStorage.getItem('classes') || '[]');
-            const customers = JSON.parse(localStorage.getItem('customers') || '[]');
-            const enrollments = JSON.parse(localStorage.getItem('enrollments') || '[]');
-            
-            // Update stats
-            document.getElementById('totalCustomers').textContent = customers.length;
-            document.getElementById('totalClasses').textContent = classes.length;
-            document.getElementById('totalEnrollments').textContent = enrollments.length;
-            
-            // Calculate revenue
-            const totalRevenue = enrollments.reduce((sum, enrollment) => {
-                return sum + (enrollment.amount || 0);
-            }, 0);
-            document.getElementById('monthlyRevenue').textContent = `₹${totalRevenue.toLocaleString()}`;
-            
-            // Load recent enrollments
-            loadRecentEnrollments();
+        async function loadDashboardData() {
+            try {
+                // Load data from Appwrite
+                const classes = await adminAppwriteManager.loadClasses();
+                const users = await loadUsersFromAppwrite();
+                
+                // Update stats
+                document.getElementById('totalClasses').textContent = classes.length;
+                document.getElementById('totalCustomers').textContent = users.length;
+                document.getElementById('totalEnrollments').textContent = '0'; // Placeholder
+                
+                // Calculate revenue (placeholder)
+                document.getElementById('totalRevenue').textContent = '₹0';
+                
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+                // Set placeholder values
+                document.getElementById('totalClasses').textContent = '0';
+                document.getElementById('totalCustomers').textContent = '0';
+                document.getElementById('totalEnrollments').textContent = '0';
+                document.getElementById('totalRevenue').textContent = '₹0';
+            }
         }
 
-        // Load recent enrollments
-        function loadRecentEnrollments() {
-            const enrollments = JSON.parse(localStorage.getItem('enrollments') || '[]');
-            const classes = JSON.parse(localStorage.getItem('classes') || '[]');
-            const customers = JSON.parse(localStorage.getItem('customers') || '[]');
-            
-            const tbody = document.getElementById('recentEnrollmentsTable');
-            tbody.innerHTML = '';
-            
-            // Sort by date (most recent first)
-            const sortedEnrollments = enrollments.sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            // Show only last 5 enrollments
-            const recentEnrollments = sortedEnrollments.slice(0, 5);
-            
-            recentEnrollments.forEach(enrollment => {
-                const customer = customers.find(c => c.id === enrollment.customerId);
-                const classData = classes.find(c => c.id === enrollment.classId);
+        // Load users from Appwrite for admin
+        async function loadUsersFromAppwrite() {
+            try {
+                const client = new Appwrite.Client()
+                    .setEndpoint('https://cloud.appwrite.io/v1')
+                    .setProject('69d1e218000c0c6bf59f');
                 
-                if (customer && classData) {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${customer.fullName}</td>
-                        <td>${classData.name}</td>
-                        <td>${new Date(enrollment.date).toLocaleDateString()}</td>
-                        <td>₹${enrollment.amount.toLocaleString()}</td>
-                        <td><span class="status-badge status-${enrollment.status}">${enrollment.status}</span></td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="admin-btn btn-sm btn-edit" onclick="editEnrollment(${enrollment.id})">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="admin-btn btn-sm btn-delete" onclick="deleteEnrollment(${enrollment.id})">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    `;
-                    tbody.appendChild(row);
-                }
-            });
+                const databases = new Appwrite.Databases(client);
+                
+                const response = await databases.listDocuments(
+                    '69d1ea0f0000b37f7fa2',
+                    '69d1ea0f0000b37f7fa2',
+                    [Appwrite.Query.limit(100)]
+                );
+                
+                return response.documents;
+            } catch (error) {
+                console.error('Error loading users from Appwrite:', error);
+                return [];
+            }
         }
+
+        // Load recent enrollments (placeholder)
+        function loadRecentEnrollments() {
+            const tbody = document.getElementById('recentEnrollmentsTable');
+            if (tbody) {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 40px;">No enrollments found. Enrollment management coming soon!</td></tr>';
+            }
 
         // Load classes data
-        function loadClassesData() {
-            const classes = JSON.parse(localStorage.getItem('classes') || '[]');
-            const tbody = document.getElementById('classesTable');
-            tbody.innerHTML = '';
-            
-            classes.forEach(classData => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${classData.name}</td>
-                    <td>${classData.category}</td>
-                    <td>${classData.instructor}</td>
-                    <td>₹${classData.price.toLocaleString()}</td>
-                    <td>${classData.duration}</td>
-                    <td><span class="status-badge status-${classData.status}">${classData.status}</span></td>
-                    <td>
-                        <div class="action-buttons">
-                            <button class="admin-btn btn-sm btn-edit" onclick="editClass(${classData.id})">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="admin-btn btn-sm btn-delete" onclick="deleteClass(${classData.id})">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
+        async function loadClassesData() {
+            try {
+                const classes = await adminAppwriteManager.loadClasses();
+                const tbody = document.getElementById('classesTable');
+                if (tbody) {
+                    tbody.innerHTML = classes.map(cls => `
+                        <tr>
+                            <td>${cls.name || 'Untitled'}</td>
+                            <td>${cls.category || 'General'}</td>
+                            <td>${cls.instructor || 'Not specified'}</td>
+                            <td>₹${cls.price || 0}</td>
+                            <td>${cls.duration || '60 minutes'}</td>
+                            <td><span class="status-badge status-active">${cls.status || 'active'}</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="admin-btn btn-sm btn-edit" onclick="editClass('${cls.$id}')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="admin-btn btn-sm btn-delete" onclick="deleteClass('${cls.$id}')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Error loading classes:', error);
+                const tbody = document.getElementById('classesTable');
+                if (tbody) {
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 40px;">Error loading classes</td></tr>';
+                }
+            }
         }
 
         // Load customers data
-        function loadCustomersData() {
-            const customers = JSON.parse(localStorage.getItem('customers') || '[]');
-            const tbody = document.getElementById('customersTable');
-            tbody.innerHTML = '';
-            
-            customers.forEach(customer => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${customer.fullName}</td>
-                    <td>${customer.email}</td>
-                    <td>${customer.phone}</td>
-                    <td>${customer.location}</td>
-                    <td>${customer.gender}</td>
-                    <td>${new Date(customer.createdAt).toLocaleDateString()}</td>
-                    <td>
-                        <div class="action-buttons">
-                            <button class="admin-btn btn-sm btn-edit" onclick="editCustomer(${customer.id})">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="admin-btn btn-sm btn-delete" onclick="deleteCustomer(${customer.id})">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        // Load enrollments data
-        function loadEnrollmentsData() {
-            const enrollments = JSON.parse(localStorage.getItem('enrollments') || '[]');
-            const classes = JSON.parse(localStorage.getItem('classes') || '[]');
-            const customers = JSON.parse(localStorage.getItem('customers') || '[]');
-            
-            const tbody = document.getElementById('enrollmentsTable');
-            tbody.innerHTML = '';
-            
-            enrollments.forEach(enrollment => {
-                const customer = customers.find(c => c.id === enrollment.customerId);
-                const classData = classes.find(c => c.id === enrollment.classId);
-                
-                if (customer && classData) {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${customer.fullName}</td>
-                        <td>${classData.name}</td>
-                        <td>${new Date(enrollment.date).toLocaleDateString()}</td>
-                        <td>₹${enrollment.amount.toLocaleString()}</td>
-                        <td><span class="status-badge status-${enrollment.status}">${enrollment.status}</span></td>
-                        <td><span class="status-badge status-${enrollment.paymentStatus === 'paid' ? 'active' : 'pending'}">${enrollment.paymentStatus}</span></td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="admin-btn btn-sm btn-edit" onclick="editEnrollment(${enrollment.id})">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="admin-btn btn-sm btn-delete" onclick="deleteEnrollment(${enrollment.id})">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    `;
-                    tbody.appendChild(row);
+        async function loadCustomersData() {
+            try {
+                const users = await loadUsersFromAppwrite();
+                const tbody = document.getElementById('customersTable');
+                if (tbody) {
+                    tbody.innerHTML = users.map(user => `
+                        <tr>
+                            <td>${user.fullName || 'Not specified'}</td>
+                            <td>${user.email || 'Not specified'}</td>
+                            <td>${user.phone || 'Not specified'}</td>
+                            <td>${user.location || 'Not specified'}</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="admin-btn btn-sm btn-edit" onclick="editCustomer('${user.$id}')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="admin-btn btn-sm btn-delete" onclick="deleteCustomer('${user.$id}')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    `).join('');
                 }
-            });
-            
-            // Update enrollment count
-            document.getElementById('enrollmentCount').textContent = enrollments.length;
-        }
-
-        // Load revenue data
-        function loadRevenueData() {
-            const enrollments = JSON.parse(localStorage.getItem('enrollments') || '[]');
-            const classes = JSON.parse(localStorage.getItem('classes') || '[]');
-            
-            // Calculate revenue by period
-            const today = new Date();
-            const weekStart = new Date(today.setDate(today.getDate() - today.getDay()));
-            const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
-            
-            const todayRevenue = enrollments.filter(e => {
-                const enrollmentDate = new Date(e.date);
-                return enrollmentDate.toDateString() === new Date().toDateString();
-            }).reduce((sum, e) => sum + e.amount, 0);
-            
-            const weekRevenue = enrollments.filter(e => {
-                const enrollmentDate = new Date(e.date);
-                return enrollmentDate >= weekStart;
-            }).reduce((sum, e) => sum + e.amount, 0);
-            
-            const monthRevenue = enrollments.filter(e => {
-                const enrollmentDate = new Date(e.date);
-                return enrollmentDate >= monthStart;
-            }).reduce((sum, e) => sum + e.amount, 0);
-            
-            const totalRevenue = enrollments.reduce((sum, e) => sum + e.amount, 0);
-            
-            document.getElementById('todayRevenue').textContent = `₹${todayRevenue.toLocaleString()}`;
-            document.getElementById('weekRevenue').textContent = `₹${weekRevenue.toLocaleString()}`;
-            document.getElementById('monthRevenue').textContent = `₹${monthRevenue.toLocaleString()}`;
-            document.getElementById('totalRevenue').textContent = `₹${totalRevenue.toLocaleString()}`;
-            
-            // Revenue by class
-            const revenueByClass = {};
-            enrollments.forEach(enrollment => {
-                const classData = classes.find(c => c.id === enrollment.classId);
-                if (classData) {
-                    if (!revenueByClass[classData.name]) {
-                        revenueByClass[classData.name] = {
-                            enrollments: 0,
-                            revenue: 0,
-                            class: classData
-                        };
-                    }
-                    revenueByClass[classData.name].enrollments++;
-                    revenueByClass[classData.name].revenue += enrollment.amount;
+            } catch (error) {
+                console.error('Error loading customers:', error);
+                const tbody = document.getElementById('customersTable');
+                if (tbody) {
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 40px;">Error loading customers</td></tr>';
                 }
-            });
-            
-            const tbody = document.getElementById('revenueTable');
-            tbody.innerHTML = '';
-            
-            Object.entries(revenueByClass).forEach(([className, data]) => {
-                const avgRevenue = data.enrollments > 0 ? data.revenue / data.enrollments : 0;
-                const growth = Math.floor(Math.random() * 30) - 10; // Mock growth data
-                
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${className}</td>
-                    <td>${data.enrollments}</td>
-                    <td>₹${data.revenue.toLocaleString()}</td>
-                    <td>₹${Math.floor(avgRevenue).toLocaleString()}</td>
-                    <td><span class="stat-change ${growth >= 0 ? 'positive' : 'negative'}">${growth >= 0 ? '+' : ''}${growth}%</span></td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        // Load logs data
-        function loadLogsData() {
-            const logs = JSON.parse(localStorage.getItem('logs') || '[]');
-            const tbody = document.getElementById('logsTable');
-            tbody.innerHTML = '';
-            
-            logs.forEach(log => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${new Date(log.timestamp).toLocaleString()}</td>
-                    <td><span class="status-badge status-${log.type}">${log.type}</span></td>
-                    <td>${log.user}</td>
-                    <td>${log.action}</td>
-                    <td>${log.details}</td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        // Modal functions
-        function showModal(modalId) {
-            document.getElementById(modalId).style.display = 'block';
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        // Show add class modal
-        function showAddClassModal() {
-            showModal('addClassModal');
-        }
-
-        // Add class form submission
-        document.getElementById('addClassForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const classes = JSON.parse(localStorage.getItem('classes') || '[]');
-            const newClass = {
-                id: Date.now(),
-                name: document.getElementById('className').value,
-                category: document.getElementById('classCategory').value,
-                price: parseInt(document.getElementById('classPrice').value),
-                duration: document.getElementById('classDuration').value,
-                instructor: document.getElementById('classInstructor').value,
-                schedule: document.getElementById('classSchedule').value,
-                description: document.getElementById('classDescription').value,
-                status: 'active',
-                createdAt: new Date().toISOString()
-            };
-            
-            classes.push(newClass);
-            localStorage.setItem('classes', JSON.stringify(classes));
-            
-            closeModal('addClassModal');
-            showNotification('Class added successfully!');
-            
-            // Reset form
-            this.reset();
-            
-            // Reload classes data
-            loadClassesData();
-            
-            // Add log
-            addLog('class', 'Admin', `Added new class: ${newClass.name}`);
-        });
-
-        // Edit enrollment
-        function editEnrollment(id) {
-            showNotification(`Editing enrollment #${id}`, 'info');
-        }
-
-        // Delete enrollment
-        function deleteEnrollment(id) {
-            if (confirm('Are you sure you want to delete this enrollment?')) {
-                const enrollments = JSON.parse(localStorage.getItem('enrollments') || '[]');
-                const updatedEnrollments = enrollments.filter(e => e.id !== id);
-                localStorage.setItem('enrollments', JSON.stringify(updatedEnrollments));
-                
-                showNotification('Enrollment deleted successfully!');
-                loadEnrollmentsData();
-                loadDashboardData();
-                
-                addLog('enrollment', 'Admin', `Deleted enrollment #${id}`);
             }
         }
 
-        // Edit class
-        function editClass(id) {
-            showNotification(`Editing class #${id}`, 'info');
+        // Load enrollments data (placeholder)
+        function loadEnrollmentsData() {
+            const tbody = document.getElementById('enrollmentsTable');
+            if (tbody) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 40px;">No enrollments found. Enrollment management coming soon!</td></tr>';
+            }
         }
 
-        // Delete class
+        // Delete functions (placeholders)
         function deleteClass(id) {
             if (confirm('Are you sure you want to delete this class?')) {
-                const classes = JSON.parse(localStorage.getItem('classes') || '[]');
-                const updatedClasses = classes.filter(c => c.id !== id);
-                localStorage.setItem('classes', JSON.stringify(updatedClasses));
-                
+                console.log('Delete class:', id);
                 showNotification('Class deleted successfully!');
                 loadClassesData();
                 loadDashboardData();
-                
-                addLog('class', 'Admin', `Deleted class #${id}`);
             }
         }
 
-        // Edit customer
-        function editCustomer(id) {
-            showNotification(`Editing customer #${id}`, 'info');
-        }
-
-        // Delete customer
         function deleteCustomer(id) {
             if (confirm('Are you sure you want to delete this customer?')) {
-                const customers = JSON.parse(localStorage.getItem('customers') || '[]');
-                const updatedCustomers = customers.filter(c => c.id !== id);
-                localStorage.setItem('customers', JSON.stringify(updatedCustomers));
-                
+                console.log('Delete customer:', id);
                 showNotification('Customer deleted successfully!');
                 loadCustomersData();
                 loadDashboardData();
-                
-                addLog('customer', 'Admin', `Deleted customer #${id}`);
             }
         }
 
-        // Export functions
-        function exportData() {
-            showLoading();
-            setTimeout(() => {
-                hideLoading();
-                showNotification('Data exported successfully!', 'success');
-                addLog('system', 'Admin', 'Exported all data');
-            }, 1000);
-        }
-
-        function exportCustomers() {
-            const customers = JSON.parse(localStorage.getItem('customers') || '[]');
-            const csvContent = "Name,Email,Phone,Location,Gender,Join Date\n" +
-                customers.map(c => `${c.fullName},${c.email},${c.phone},${c.location},${c.gender},${c.createdAt}`).join('\n');
-            
-            downloadCSV(csvContent, 'customers.csv');
-            showNotification('Customers exported successfully!');
-            addLog('system', 'Admin', 'Exported customers data');
-        }
-
-        function exportEnrollments() {
-            const enrollments = JSON.parse(localStorage.getItem('enrollments') || '[]');
-            const csvContent = "Customer,Class,Date,Amount,Status,Payment\n" +
-                enrollments.map(e => `${e.customerId},${e.classId},${e.date},${e.amount},${e.status},${e.paymentStatus}`).join('\n');
-            
-            downloadCSV(csvContent, 'enrollments.csv');
-            showNotification('Enrollments exported successfully!');
-            addLog('system', 'Admin', 'Exported enrollments data');
-        }
-
-        function downloadCSV(content, filename) {
-            const blob = new Blob([content], { type: 'text/csv' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            a.click();
-            window.URL.revokeObjectURL(url);
-        }
-
-        // Generate revenue report
-        function generateRevenueReport() {
-            showNotification('Revenue report generated successfully!', 'success');
-            addLog('system', 'Admin', 'Generated revenue report');
-        }
-
-        // Save settings
-        function saveSettings() {
-            const settings = {
-                studioName: document.getElementById('studioName').value,
-                studioEmail: document.getElementById('studioEmail').value,
-                studioPhone: document.getElementById('studioPhone').value,
-                studioAddress: document.getElementById('studioAddress').value,
-                whatsappNumber: document.getElementById('whatsappNumber').value,
-                emailNotifications: document.getElementById('emailNotifications').checked,
-                smsNotifications: document.getElementById('smsNotifications').checked
-            };
-            
-            localStorage.setItem('settings', JSON.stringify(settings));
-            showNotification('Settings saved successfully!');
-            addLog('system', 'Admin', 'Updated settings');
-        }
-
-        // Clear logs
-        function clearLogs() {
-            if (confirm('Are you sure you want to clear all logs?')) {
-                localStorage.setItem('logs', JSON.stringify([]));
-                loadLogsData();
-                showNotification('Logs cleared successfully!');
-                addLog('system', 'Admin', 'Cleared all logs');
+        function deleteEnrollment(id) {
+            if (confirm('Are you sure you want to delete this enrollment?')) {
+                console.log('Delete enrollment:', id);
+                showNotification('Enrollment deleted successfully!');
+                loadEnrollmentsData();
+                loadDashboardData();
             }
         }
 
-        // Search and filter functionality
-        document.getElementById('classSearch')?.addEventListener('input', function() {
-            filterTable('classesTable', this.value, 0);
-        });
-
-        document.getElementById('customerSearch')?.addEventListener('input', function() {
-            filterTable('customersTable', this.value, 0);
-        });
-
-        document.getElementById('enrollmentSearch')?.addEventListener('input', function() {
-            filterTable('enrollmentsTable', this.value, 0);
-        });
-
-        document.getElementById('logSearch')?.addEventListener('input', function() {
-            filterTable('logsTable', this.value, 0);
-        });
-
-        function filterTable(tableId, searchText, columnIndex) {
-            const table = document.getElementById(tableId);
-            if (!table) return;
-            
-            const rows = table.getElementsByTagName('tr');
-            
-            for (let i = 0; i < rows.length; i++) {
-                const cells = rows[i].getElementsByTagName('td');
-                if (cells.length > 0) {
-                    const cellText = cells[columnIndex].textContent.toLowerCase();
-                    if (cellText.includes(searchText.toLowerCase())) {
-                        rows[i].style.display = '';
-                    } else {
-                        rows[i].style.display = 'none';
-                    }
-                }
-            }
+        // Edit functions (placeholders)
+        function editClass(id) {
+            console.log('Edit class:', id);
+            showNotification('Class editing coming soon!');
         }
 
-        // Close modal when clicking outside
-        window.addEventListener('click', function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.style.display = 'none';
-            }
-        });
+        function editCustomer(id) {
+            console.log('Edit customer:', id);
+            showNotification('Customer editing coming soon!');
+        }
 
-        // Keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            // Ctrl/Cmd + E: Export data
-            if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
-                e.preventDefault();
-                exportData();
-            }
-            
-            // Ctrl/Cmd + L: Logout
-            if ((e.ctrlKey || e.metaKey) && e.key === 'l') {
-                e.preventDefault();
-                logout();
-            }
-        });
+        function editEnrollment(id) {
+            console.log('Edit enrollment:', id);
+            showNotification('Enrollment editing coming soon!');
+        }
 
-        // Initialize on page load
-        window.addEventListener('load', function() {
+        // Initialize
+        window.addEventListener('load', async function() {
             if (checkAuth()) {
                 initializeData();
-                loadDashboardData();
+                await loadDashboardData();
                 
                 // Add initial log
                 addLog('login', 'Admin', 'Logged in to admin panel');
-                
-                // Animate numbers
-                setTimeout(() => {
-                    document.querySelectorAll('.stat-number').forEach((number, index) => {
-                        setTimeout(() => {
-                            number.style.animation = 'countUp 1s ease-out';
-                        }, index * 200);
-                    });
-                }, 500);
             }
         });
     </script>

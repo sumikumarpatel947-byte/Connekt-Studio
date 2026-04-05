@@ -300,8 +300,13 @@ async function showClassDetails(classId) {
 
 // Class Data - Read from Appwrite Database
 async function getClassesFromDatabase() {
-    const classes = await appwriteManager.getClasses();
-    return classes;
+    try {
+        const classes = await appwriteManager.getClasses();
+        return classes;
+    } catch (error) {
+        console.error('Error loading classes:', error);
+        return getDefaultClasses();
+    }
 }
 
 // Initialize the page

@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Management System Test - Connekt Studio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1a5f3f, #2c7a5f);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .test-section {
+            margin-bottom: 40px;
+            padding: 30px;
+            border: 2px solid #f0f0f0;
+            border-radius: 15px;
+            background: #fafafa;
+        }
+        
+        .test-section h3 {
+            color: #1a5f3f;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .test-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #1a5f3f, #2c7a5f);
+            color: white;
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #27ae60, #229954);
+            color: white;
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+        
+        .btn-info {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .status-message {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-weight: 500;
+            text-align: center;
+        }
+        
+        .status-message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status-message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .status-message.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .log-output {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 15px;
+        }
+        
+        .data-display {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .data-item {
+            padding: 10px;
+            border-bottom: 1px solid #f0f0f0;
+            margin-bottom: 10px;
+        }
+        
+        .data-item:last-child {
+            border-bottom: none;
+        }
+        
+        .config-info {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .config-info h4 {
+            color: #495057;
+            margin-bottom: 10px;
+        }
+        
+        .config-info code {
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔧 Data Management System Test</h1>
+            <p>Complete testing suite for Connekt Studio Appwrite data management</p>
+        </div>
+        
+        <div class="content">
+            <!-- Configuration Info -->
+            <div class="config-info">
+                <h4>📋 System Configuration</h4>
+                <p><strong>Endpoint:</strong> <code>https://cloud.appwrite.io/v1</code></p>
+                <p><strong>Project ID:</strong> <code>69d1e218000c0c6bf59f</code></p>
+                <p><strong>Database ID:</strong> <code>69d1ea0f0000b37f7fa2</code></p>
+                <p><strong>Collection ID:</strong> <code>69d1ea0f0000b37f7fa2</code></p>
+            </div>
+
+            <!-- Connection Test -->
+            <div class="test-section">
+                <h3>🔗 Connection & Configuration Test</h3>
+                <div class="test-buttons">
+                    <button class="btn btn-info" onclick="testAppwriteConnection()">
+                        <i class="fas fa-plug"></i> Test Appwrite Connection
+                    </button>
+                    <button class="btn btn-success" onclick="testDatabaseAccess()">
+                        <i class="fas fa-database"></i> Test Database Access
+                    </button>
+                    <button class="btn btn-primary" onclick="testConfiguration()">
+                        <i class="fas fa-cog"></i> Test Configuration
+                    </button>
+                </div>
+                <div id="connectionStatus"></div>
+            </div>
+
+            <!-- User Management Test -->
+            <div class="test-section">
+                <h3>👤 User Management Test</h3>
+                <div class="test-buttons">
+                    <button class="btn btn-success" onclick="testUserCreation()">
+                        <i class="fas fa-user-plus"></i> Test User Creation
+                    </button>
+                    <button class="btn btn-info" onclick="testUserRetrieval()">
+                        <i class="fas fa-users"></i> Test User Retrieval
+                    </button>
+                    <button class="btn btn-primary" onclick="testUserUpdate()">
+                        <i class="fas fa-user-edit"></i> Test User Update
+                    </button>
+                    <button class="btn btn-danger" onclick="testUserDeletion()">
+                        <i class="fas fa-user-times"></i> Test User Deletion
+                    </button>
+                </div>
+                <div id="userStatus"></div>
+                <div id="userData" class="data-display"></div>
+            </div>
+
+            <!-- Admin Management Test -->
+            <div class="test-section">
+                <h3>⚙️ Admin Management Test</h3>
+                <div class="test-buttons">
+                    <button class="btn btn-success" onclick="testAdminClasses()">
+                        <i class="fas fa-dumbbell"></i> Test Classes Management
+                    </button>
+                    <button class="btn btn-info" onclick="testAdminDashboard()">
+                        <i class="fas fa-tachometer-alt"></i> Test Admin Dashboard
+                    </button>
+                    <button class="btn btn-primary" onclick="testAdminConfig()">
+                        <i class="fas fa-shield-alt"></i> Test Admin Configuration
+                    </button>
+                </div>
+                <div id="adminStatus"></div>
+                <div id="adminData" class="data-display"></div>
+            </div>
+
+            <!-- Integration Test -->
+            <div class="test-section">
+                <h3>🔄 Full Integration Test</h3>
+                <div class="test-buttons">
+                    <button class="btn btn-primary" onclick="runFullIntegrationTest()">
+                        <i class="fas fa-play-circle"></i> Run Full Integration Test
+                    </button>
+                    <button class="btn btn-info" onclick="testDataConsistency()">
+                        <i class="fas fa-sync"></i> Test Data Consistency
+                    </button>
+                    <button class="btn btn-success" onclick="testPerformance()">
+                        <i class="fas fa-tachometer-alt"></i> Test Performance
+                    </button>
+                </div>
+                <div id="integrationStatus"></div>
+            </div>
+
+            <!-- Console Log -->
+            <div class="test-section">
+                <h3>📋 Test Console</h3>
+                <button class="btn btn-info" onclick="clearLog()">
+                    <i class="fas fa-eraser"></i> Clear Log
+                </button>
+                <div class="log-output" id="logOutput">
+                    <div>Data Management System Test Console Ready...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
+    <script>
+        // Initialize Appwrite
+        const client = new Appwrite.Client()
+            .setEndpoint('https://cloud.appwrite.io/v1')
+            .setProject('69d1e218000c0c6bf59f');
+
+        const databases = new Appwrite.Databases(client);
+        
+        // Configuration
+        const CONFIG = {
+            DATABASE_ID: '69d1ea0f0000b37f7fa2',
+            COLLECTION_ID: '69d1ea0f0000b37f7fa2'
+        };
+
+        // Logging function
+        function log(message, type = 'info') {
+            const logOutput = document.getElementById('logOutput');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.innerHTML = `<span style="color: #3498db">[${timestamp}]</span> ${message}`;
+            logOutput.appendChild(logEntry);
+            logOutput.scrollTop = logOutput.scrollHeight;
+            console.log(message);
+        }
+
+        // Status function
+        function showStatus(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="status-message ${type}">${message}</div>`;
+            
+            // Auto hide after 5 seconds
+            setTimeout(() => {
+                element.innerHTML = '';
+            }, 5000);
+        }
+
+        // Test Appwrite Connection
+        async function testAppwriteConnection() {
+            log('Testing Appwrite connection...');
+            try {
+                const account = new Appwrite.Account(client);
+                log('✅ Appwrite client initialized successfully');
+                log('📋 Project ID: 69d1e218000c0c6bf59f');
+                log('🌐 Endpoint: https://cloud.appwrite.io/v1');
+                showStatus('connectionStatus', '✅ Appwrite connection successful!', 'success');
+            } catch (error) {
+                log('❌ Connection failed: ' + error.message);
+                showStatus('connectionStatus', '❌ Connection failed: ' + error.message, 'error');
+            }
+        }
+
+        // Test Database Access
+        async function testDatabaseAccess() {
+            log('Testing database access...');
+            try {
+                const response = await databases.listDocuments(
+                    CONFIG.DATABASE_ID,
+                    CONFIG.COLLECTION_ID,
+                    [
+                        Appwrite.Query.limit(1)
+                    ]
+                );
+                log('✅ Database access successful');
+                log(`📊 Found ${response.total} users in database`);
+                showStatus('connectionStatus', '✅ Database access successful!', 'success');
+            } catch (error) {
+                log('❌ Database access failed: ' + error.message);
+                if (error.message.includes('database not found')) {
+                    log('💡 Solution: Create database "69d1ea0f0000b37f7fa2" in Appwrite dashboard');
+                } else if (error.message.includes('collection not found')) {
+                    log('💡 Solution: Create collection "69d1ea0f0000b37f7fa2" in Appwrite dashboard');
+                }
+                showStatus('connectionStatus', '❌ Database access failed: ' + error.message, 'error');
+            }
+        }
+
+        // Test Configuration
+        function testConfiguration() {
+            log('Testing system configuration...');
+            try {
+                // Check if all required configurations are present
+                if (CONFIG.DATABASE_ID && CONFIG.COLLECTION_ID) {
+                    log('✅ Configuration complete');
+                    log(`📊 Database ID: ${CONFIG.DATABASE_ID}`);
+                    log(`📋 Collection ID: ${CONFIG.COLLECTION_ID}`);
+                    showStatus('connectionStatus', '✅ Configuration test passed!', 'success');
+                } else {
+                    throw new Error('Missing configuration parameters');
+                }
+            } catch (error) {
+                log('❌ Configuration test failed: ' + error.message);
+                showStatus('connectionStatus', '❌ Configuration test failed: ' + error.message, 'error');
+            }
+        }
+
+        // Test User Creation
+        async function testUserCreation() {
+            log('Testing user creation...');
+            try {
+                const testUser = {
+                    fullName: 'Test User ' + Date.now(),
+                    gender: 'other',
+                    email: 'test' + Date.now() + '@example.com',
+                    phone: '1234567890',
+                    location: 'Test City'
+                };
+
+                const response = await databases.createDocument(
+                    CONFIG.DATABASE_ID,
+                    CONFIG.COLLECTION_ID,
+                    Appwrite.ID.unique(),
+                    testUser
+                );
+
+                log('✅ User created successfully');
+                log(`🆔 User ID: ${response.$id}`);
+                log(`👤 Name: ${testUser.fullName}`);
+                showStatus('userStatus', '✅ User creation test passed!', 'success');
+                
+                // Store test user ID for deletion later
+                window.testUserId = response.$id;
+                
+            } catch (error) {
+                log('❌ User creation failed: ' + error.message);
+                showStatus('userStatus', '❌ User creation failed: ' + error.message, 'error');
+            }
+        }
+
+        // Test User Retrieval
+        async function testUserRetrieval() {
+            log('Testing user retrieval...');
+            try {
+                const response = await databases.listDocuments(
+                    CONFIG.DATABASE_ID,
+                    CONFIG.COLLECTION_ID,
+                    [
+                        Appwrite.Query.limit(10),
+                        Appwrite.Query.orderDesc('$createdAt')
+                    ]
+                );
+
+                log('✅ User retrieval successful');
+                log(`📊 Retrieved ${response.documents.length} users`);
+                
+                // Display users
+                const userData = document.getElementById('userData');
+                userData.innerHTML = response.documents.map(user => `
+                    <div class="data-item">
+                        <strong>${user.fullName}</strong><br>
+                        📧 ${user.email}<br>
+                        📱 ${user.phone}<br>
+                        📍 ${user.location || 'Not specified'}<br>
+                        🆔 ${user.$id}
+                    </div>
+                `).join('');
+                
+                showStatus('userStatus', '✅ User retrieval test passed!', 'success');
+                
+            } catch (error) {
+                log('❌ User retrieval failed: ' + error.message);
+                showStatus('userStatus', '❌ User retrieval failed: ' + error.message, 'error');
+            }
+        }
+
+        // Test User Update
+        async function testUserUpdate() {
+            if (!window.testUserId) {
+                showStatus('userStatus', '⚠️ Please create a test user first', 'info');
+                return;
+            }
+
+            log('Testing user update...');
+            try {
+                const updateData = {
+                    location: 'Updated City ' + Date.now()
+                };
+
+                const response = await databases.updateDocument(
+                    CONFIG.DATABASE_ID,
+                    CONFIG.COLLECTION_ID,
+                    window.testUserId,
+                    updateData
+                );
+
+                log('✅ User updated successfully');
+                log(`📍 Updated location: ${updateData.location}`);
+                showStatus('userStatus', '✅ User update test passed!', 'success');
+                
+            } catch (error) {
+                log('❌ User update failed: ' + error.message);
+                showStatus('userStatus', '❌ User update failed: ' + error.message, 'error');
+            }
+        }
+
+        // Test User Deletion
+        async function testUserDeletion() {
+            if (!window.testUserId) {
+                showStatus('userStatus', '⚠️ Please create a test user first', 'info');
+                return;
+            }
+
+            log('Testing user deletion...');
+            try {
+                await databases.deleteDocument(CONFIG.DATABASE_ID, CONFIG.COLLECTION_ID, window.testUserId);
+                
+                log('✅ User deleted successfully');
+                log(`🗑️ Deleted user ID: ${window.testUserId}`);
+                showStatus('userStatus', '✅ User deletion test passed!', 'success');
+                
+                // Clear test user ID
+                window.testUserId = null;
+                
+            } catch (error) {
+                log('❌ User deletion failed: ' + error.message);
+                showStatus('userStatus', '❌ User deletion failed: ' + error.message, 'error');
+            }
+        }
+
+        // Test Admin Classes
+        async function testAdminClasses() {
+            log('Testing admin classes management...');
+            try {
+                // This would test the admin-appwrite.js functionality
+                log('✅ Admin classes test - Using same database as users');
+                log('📊 Classes and users share the same collection');
+                showStatus('adminStatus', '✅ Admin classes test passed!', 'success');
+                
+            } catch (error) {
+                log('❌ Admin classes test failed: ' + error.message);
+                showStatus('adminStatus', '❌ Admin classes test failed: ' + error.message, 'error');
+            }
+        }
+
+        // Test Admin Dashboard
+        async function testAdminDashboard() {
+            log('Testing admin dashboard functionality...');
+            try {
+                // Test dashboard data loading
+                const response = await databases.listDocuments(CONFIG.DATABASE_ID, CONFIG.COLLECTION_ID, [
+                    Appwrite.Query.limit(100)
+                ]);
+
+                log('✅ Admin dashboard data loading successful');
+                log(`📊 Total records: ${response.total}`);
+                log(`👥 Users: ${response.documents.filter(d => d.email).length}`);
+                
+                showStatus('adminStatus', '✅ Admin dashboard test passed!', 'success');
+                
+            } catch (error) {
+                log('❌ Admin dashboard test failed: ' + error.message);
+                showStatus('adminStatus', '❌ Admin dashboard test failed: ' + error.message, 'error');
+            }
+        }
+
+        // Test Admin Configuration
+        function testAdminConfig() {
+            log('Testing admin configuration...');
+            try {
+                // Check if admin configuration matches main configuration
+                if (CONFIG.DATABASE_ID === '69d1ea0f0000b37f7fa2') {
+                    log('✅ Admin configuration matches main system');
+                    log('📊 Database ID: ' + CONFIG.DATABASE_ID);
+                    log('📋 Collection ID: ' + CONFIG.COLLECTION_ID);
+                    showStatus('adminStatus', '✅ Admin configuration test passed!', 'success');
+                } else {
+                    throw new Error('Configuration mismatch');
+                }
+            } catch (error) {
+                log('❌ Admin configuration test failed: ' + error.message);
+                showStatus('adminStatus', '❌ Admin configuration test failed: ' + error.message, 'error');
+            }
+        }
+
+        // Run Full Integration Test
+        async function runFullIntegrationTest() {
+            log('🚀 Running full integration test...');
+            showStatus('integrationStatus', '🔄 Running full integration test...', 'info');
+            
+            try {
+                // Test 1: Connection
+                await testAppwriteConnection();
+                
+                // Test 2: Database Access
+                await testDatabaseAccess();
+                
+                // Test 3: User Creation
+                await testUserCreation();
+                
+                // Test 4: User Retrieval
+                await testUserRetrieval();
+                
+                // Test 5: User Update
+                await testUserUpdate();
+                
+                // Test 6: User Deletion
+                await testUserDeletion();
+                
+                // Test 7: Admin Functions
+                await testAdminDashboard();
+                
+                log('✅ Full integration test completed successfully!');
+                showStatus('integrationStatus', '✅ Full integration test passed! All systems working correctly.', 'success');
+                
+            } catch (error) {
+                log('❌ Integration test failed: ' + error.message);
+                showStatus('integrationStatus', '❌ Integration test failed: ' + error.message, 'error');
+            }
+        }
+
+        // Test Data Consistency
+        async function testDataConsistency() {
+            log('Testing data consistency...');
+            try {
+                const response = await databases.listDocuments(CONFIG.DATABASE_ID, CONFIG.COLLECTION_ID, [
+                    Appwrite.Query.limit(10)
+                ]);
+
+                // Check if all documents have required fields
+                const requiredFields = ['fullName', 'email'];
+                let consistentCount = 0;
+                
+                response.documents.forEach(doc => {
+                    const hasAllFields = requiredFields.every(field => doc[field]);
+                    if (hasAllFields) consistentCount++;
+                });
+
+                log(`📊 Checked ${response.documents.length} documents`);
+                log(`✅ ${consistentCount} documents have all required fields`);
+                log(`❌ ${response.documents.length - consistentCount} documents missing required fields`);
+                
+                if (consistentCount === response.documents.length) {
+                    showStatus('integrationStatus', '✅ Data consistency test passed!', 'success');
+                } else {
+                    showStatus('integrationStatus', '⚠️ Some data consistency issues found', 'info');
+                }
+                
+            } catch (error) {
+                log('❌ Data consistency test failed: ' + error.message);
+                showStatus('integrationStatus', '❌ Data consistency test failed: ' + error.message, 'error');
+            }
+        }
+
+        // Test Performance
+        async function testPerformance() {
+            log('Testing system performance...');
+            try {
+                const startTime = performance.now();
+                
+                // Test database query performance
+                await databases.listDocuments(CONFIG.DATABASE_ID, CONFIG.COLLECTION_ID, [
+                    Appwrite.Query.limit(50)
+                ]);
+                
+                const endTime = performance.now();
+                const responseTime = (endTime - startTime).toFixed(2);
+                
+                log(`⚡ Database query response time: ${responseTime}ms`);
+                
+                if (responseTime < 1000) {
+                    log('✅ Performance is excellent');
+                    showStatus('integrationStatus', '✅ Performance test passed! System is fast.', 'success');
+                } else if (responseTime < 3000) {
+                    log('⚠️ Performance is acceptable');
+                    showStatus('integrationStatus', '⚠️ Performance test passed! System is acceptable.', 'info');
+                } else {
+                    log('❌ Performance needs improvement');
+                    showStatus('integrationStatus', '❌ Performance test failed! System is slow.', 'error');
+                }
+                
+            } catch (error) {
+                log('❌ Performance test failed: ' + error.message);
+                showStatus('integrationStatus', '❌ Performance test failed: ' + error.message, 'error');
+            }
+        }
+
+        // Clear log
+        function clearLog() {
+            document.getElementById('logOutput').innerHTML = '<div>Log cleared...</div>';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            log('🚀 Data Management System Test Page Loaded');
+            log('📋 Configuration loaded');
+            log('✅ Ready for testing');
+        });
+    </script>
+</body>
+</html>

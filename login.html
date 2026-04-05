@@ -701,6 +701,28 @@
             return strength;
         }
         
+        // Load users from Appwrite
+        async function loadUsersFromAppwrite() {
+            try {
+                const client = new Appwrite.Client()
+                    .setEndpoint('https://cloud.appwrite.io/v1')
+                    .setProject('69d1e218000c0c6bf59f');
+                
+                const databases = new Appwrite.Databases(client);
+                
+                const response = await databases.listDocuments(
+                    '69d1ea0f0000b37f7fa2',
+                    '69d1ea0f0000b37f7fa2',
+                    [Appwrite.Query.limit(100)]
+                );
+                
+                return response.documents;
+            } catch (error) {
+                console.error('Error loading users from Appwrite:', error);
+                return [];
+            }
+        }
+        
         // Show/hide messages
         function showMessage(type, message) {
             hideMessages();
@@ -780,11 +802,12 @@
                     return;
                 }
                 
-                // Get users from localStorage
-                const users = JSON.parse(localStorage.getItem('users') || '[]');
-                
-                // Find user
-                const user = users.find(u => u.email === email);
+                // Get users from Appwrite database
+                try {
+                    const users = await loadUsersFromAppwrite();
+                    
+                    // Find user
+                    const user = users.find(u => u.email === email);
                 
                 if (!user) {
                     showMessage('error', 'No account found with this email address');
@@ -811,15 +834,10 @@
                 };
                 
                 // Store session
-                if (rememberMe) {
-                    localStorage.setItem('userSession', encryptData(loginData));
-                } else {
-                    sessionStorage.setItem('userSession', encryptData(loginData));
-                }
+                sessionStorage.setItem('userSession', encryptData(loginData));
                 
-                // Update last login
-                user.lastLogin = new Date().toISOString();
-                localStorage.setItem('users', JSON.stringify(users));
+                // Update last login (in Appwrite, this would be handled by update operation)
+                console.log('User logged in successfully:', user.email);
                 
                 showMessage('success', 'Login successful! Redirecting...');
                 
@@ -899,12 +917,13 @@
             submitBtn.disabled = true;
             
             // Simulate API call
-            setTimeout(() => {
-                // Get users from localStorage
-                const users = JSON.parse(localStorage.getItem('users') || '[]');
-                
-                // Check if email already exists
-                if (users.find(u => u.email === formData.email)) {
+            setTimeout(async () => {
+                // Get users from Appwrite database
+                try {
+                    const users = await loadUsersFromAppwrite();
+                    
+                    // Check if email already exists
+                    if (users.find(u => u.email === formData.email)) {
                     showMessage('error', 'An account with this email already exists');
                     submitBtn.classList.remove('loading');
                     submitBtn.disabled = false;
@@ -940,21 +959,37 @@
                     }
                 };
                 
-                // Save user
-                users.push(newUser);
-                localStorage.setItem('users', JSON.stringify(users));
-                
-                // Send welcome notification to owner
-                const ownerNotification = {
-                    type: 'new_user',
-                    message: `New user registered: ${newUser.fullName}`,
-                    userData: newUser,
-                    timestamp: new Date().toISOString()
-                };
-                
-                const notifications = JSON.parse(localStorage.getItem('ownerNotifications') || '[]');
-                notifications.push(ownerNotification);
-                localStorage.setItem('ownerNotifications', JSON.stringify(notifications));
+                // Save user to Appwrite
+                try {
+                    const client = new Appwrite.Client()
+                        .setEndpoint('https://cloud.appwrite.io/v1')
+                        .setProject('69d1e218000c0c6bf59f');
+                    
+                    const databases = new Appwrite.Databases(client);
+                    
+                    const response = await databases.createDocument(
+                        '69d1ea0f0000b37f7fa2',
+                        '69d1ea0f0000b37f7fa2',
+                        Appwrite.ID.unique(),
+                        {
+                            fullName: `${formData.firstName} ${formData.lastName}`,
+                            gender: formData.gender,
+                            email: formData.email,
+                            phone: formData.mobileNumber,
+                            location: formData.location,
+                            password: encryptData(formData.password)
+                        }
+                    );
+                    
+                    console.log('User registered successfully:', response.$id);
+                    
+                } catch (error) {
+                    console.error('Error saving user to Appwrite:', error);
+                    showMessage('error', 'Registration failed. Please try again.');
+                    submitBtn.classList.remove('loading');
+                    submitBtn.disabled = false;
+                    return;
+                }
                 
                 showMessage('success', 'Account created successfully! Redirecting to login...');
                 
@@ -989,7 +1024,7 @@
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             // Check if already logged in
-            const sessionData = localStorage.getItem('userSession') || sessionStorage.getItem('userSession');
+            const sessionData = sessionStorage.getItem('userSession');
             if (sessionData) {
                 const decryptedData = decryptData(sessionData);
                 if (decryptedData) {

@@ -10,14 +10,10 @@ const adminDatabases = new Appwrite.Databases(adminClient);
 
 // Admin Appwrite Configuration
 const ADMIN_APPWRITE_CONFIG = {
-    DATABASE_ID: 'connekt_studio',
+    DATABASE_ID: '69d1ea0f0000b37f7fa2',
     COLLECTIONS: {
-        CLASSES: 'classes',
-        CUSTOMERS: 'customers', 
-        ENROLLMENTS: 'enrollments',
-        USERS: 'users',
-        SETTINGS: 'settings',
-        AUDIT_LOGS: 'audit_logs'
+        CLASSES: '69d1ea0f0000b37f7fa2',
+        USERS: '69d1ea0f0000b37f7fa2'
     }
 };
 

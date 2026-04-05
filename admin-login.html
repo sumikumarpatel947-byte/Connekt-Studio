@@ -228,23 +228,14 @@
                 // Show success message
                 successMessage.style.display = 'block';
                 
-                // Create admin account in localStorage for future use
-                const adminData = {
-                    id: 'admin-main',
-                    email: ADMIN_EMAIL,
-                    username: ADMIN_EMAIL,
-                    fullName: 'Administrator',
-                    role: 'admin',
-                    permissions: ['all'],
-                    createdAt: new Date().toISOString(),
-                    lastLogin: new Date().toISOString()
-                };
-                
-                localStorage.setItem('adminAccount', JSON.stringify(adminData));
+                // Store admin session in sessionStorage
+                sessionStorage.setItem('adminLoggedIn', 'true');
+                sessionStorage.setItem('adminUsername', ADMIN_EMAIL);
+                sessionStorage.setItem('adminId', 'admin-main');
                 
                 console.log('Admin session stored, redirecting...');
                 
-                // Redirect after delay
+                // Redirect to admin dashboard
                 setTimeout(() => {
                     window.location.href = 'admin-dashboard.html';
                 }, 1500);
