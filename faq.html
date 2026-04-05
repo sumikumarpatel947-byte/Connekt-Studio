@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Connekt Studio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="Images/logo.png" alt="Connekt Studio Logo" class="logo-img">
+                <h2><a href="index.html" style="text-decoration: none; color: inherit;">Connekt Studio</a></h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#classes">Classes</a></li>
+                <li><a href="index.html#pricing">Pricing</a></li>
+                <li><a href="index.html#testimonials">Testimonials</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- FAQ Hero Section -->
+    <section class="faq-hero">
+        <div class="hero-background">
+            <img src="https://images.unsplash.com/photo-1588286840104-8957b019727f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80" alt="FAQ">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Frequently Asked Questions</h1>
+                <p class="hero-subtitle">Everything you need to know about Connekt Studio and our services</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="faq-categories">
+                <div class="category-tabs">
+                    <button class="category-tab active" onclick="filterFAQ('all')">All Questions</button>
+                    <button class="category-tab" onclick="filterFAQ('getting-started')">Getting Started</button>
+                    <button class="category-tab" onclick="filterFAQ('classes')">Classes & Schedule</button>
+                    <button class="category-tab" onclick="filterFAQ('pricing')">Pricing & Payment</button>
+                    <button class="category-tab" onclick="filterFAQ('technical')">Technical Support</button>
+                    <button class="category-tab" onclick="filterFAQ('health')">Health & Safety</button>
+                </div>
+            </div>
+
+            <div class="faq-content">
+                <!-- Getting Started Questions -->
+                <div class="faq-item" data-category="getting-started">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>How do I get started with Connekt Studio?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Getting started is easy! Follow these simple steps:</p>
+                        <ol>
+                            <li>Browse our class offerings and choose a plan that fits your needs</li>
+                            <li>Sign up for an account with your email and basic information</li>
+                            <li>Complete your payment securely through our payment gateway</li>
+                            <li>Check your email for login credentials and class schedule</li>
+                            <li>Join your first class using the provided Zoom/Google Meet link</li>
+                        </ol>
+                        <p>New members also get a free orientation guidance to help you get familiar with our platform and answer any questions.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="getting-started">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Do I need any prior yoga experience?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No prior experience is necessary! We welcome practitioners of all levels, from complete beginners to advanced yogis. Our classes are designed to be inclusive and adaptable.</p>
+                        <p>We offer:</p>
+                        <ul>
+                            <li>Beginner-friendly classes with detailed instructions</li>
+                            <li>Modifications for different fitness levels and body types</li>
+                            <li>Progressive learning paths to help you advance at your own pace</li>
+                            <li>Private sessions for personalized guidance</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="getting-started">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>What equipment do I need for online classes?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>For most classes, you'll need minimal equipment:</p>
+                        <ul>
+                            <li><strong>Essential:</strong> Yoga mat, comfortable clothing, water bottle</li>
+                            <li><strong>Recommended:</strong> Yoga blocks, strap, blanket or cushion</li>
+                            <li><strong>Technical:</strong> Device with camera (laptop, tablet, or smartphone), stable internet connection</li>
+                        </ul>
+                        <p>For specialized classes like prenatal yoga or therapy sessions, additional props may be recommended. Your instructor will provide specific guidance for each class type.</p>
+                    </div>
+                </div>
+
+                <!-- Classes & Schedule Questions -->
+                <div class="faq-item" data-category="classes">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>How do live online classes work?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our live classes are conducted through Zoom and Google Meet platforms. Here's how it works:</p>
+                        <ol>
+                            <li>You'll receive a unique link for each class 30 minutes before start time</li>
+                            <li>Click the link to join the virtual classroom</li>
+                            <li>Your camera should be on so instructors can provide personalized feedback</li>
+                            <li>Classes are interactive - you can ask questions and receive real-time corrections</li>
+                            <li>All classes are recorded and available for 48-72 hours for review</li>
+                        </ol>
+                        <p>We recommend joining 5-10 minutes early to test your connection and set up your space.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="classes">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>What if I miss a live class?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No worries! All live classes are recorded and available for replay:</p>
+                        <ul>
+                            <li>Regular classes: Available for 48 hours after the live session</li>
+                            <li>Workshop classes: Available for 72 hours after the live session</li>
+                            <li>Course classes: Available until the end of your course period</li>
+                        </ul>
+                        <p>You can access recordings through your member dashboard. We recommend watching within the availability period as recordings are automatically removed afterward.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="classes">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Can I switch between different class types?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! Our flexible membership allows you to explore different class types based on your membership level:</p>
+                        <ul>
+                            <li><strong>Beginner Plan:</strong> Access to beginner yoga and basic fitness classes</li>
+                            <li><strong>Intermediate Plan:</strong> Access to all regular classes including advanced yoga</li>
+                            <li><strong>Advanced Plan:</strong> Unlimited access to all classes including workshops and special programs</li>
+                        </ul>
+                        <p>You can book different class types each week based on your schedule and preferences. We recommend trying various styles to find what works best for you.</p>
+                    </div>
+                </div>
+
+                <!-- Pricing & Payment Questions -->
+                <div class="faq-item" data-category="pricing">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>What payment methods do you accept?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We accept multiple payment methods for your convenience:</p>
+                        <ul>
+                            <li><strong>UPI:</strong> Google Pay, PhonePe, PayTM, and other UPI apps</li>
+                            <li><strong>Credit/Debit Cards:</strong> Visa, Mastercard, RuPay, American Express</li>
+                            <li><strong>Net Banking:</strong> All major Indian banks</li>
+                            <li><strong>Digital Wallets:</strong> PayTM Wallet, Amazon Pay, etc.</li>
+                        </ul>
+                        <p>All payments are processed securely through PCI-compliant payment gateways. We never store your card details on our servers.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="pricing">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Can I cancel or change my membership plan?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, you have full control over your membership:</p>
+                        <ul>
+                            <li><strong>Upgrade:</strong> Upgrade anytime - new benefits start immediately</li>
+                            <li><strong>Downgrade:</strong> Downgrade at the end of your current billing period</li>
+                            <li><strong>Cancel:</strong> Cancel anytime - access continues until the end of your paid period</li>
+                        </ul>
+                        <p>To make changes, simply log into your account, go to "My Membership," and select your preferred option. Changes take effect according to the billing cycle.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="pricing">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Do you offer refunds?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we have a fair refund policy:</p>
+                        <ul>
+                            <li><strong>7-Day Cooling Period:</strong> Full refund if you cancel within 7 days and haven't attended more than one class</li>
+                            <li><strong>Monthly Plans:</strong> Partial refunds available before the 15th of the month</li>
+                            <li><strong>Multi-Month Plans:</strong> Tiered refunds based on usage and time elapsed</li>
+                            <li><strong>Medical Emergencies:</strong> Special consideration with documentation</li>
+                        </ul>
+                        <p>Please refer to our detailed Refund Policy for complete terms and conditions.</p>
+                    </div>
+                </div>
+
+                <!-- Technical Support Questions -->
+                <div class="faq-item" data-category="technical">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>What are the technical requirements for online classes?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>For the best experience, we recommend:</p>
+                        <ul>
+                            <li><strong>Device:</strong> Laptop, tablet, or smartphone with camera capabilities</li>
+                            <li><strong>Internet:</strong> Minimum 5 Mbps speed for smooth video streaming</li>
+                            <li><strong>Browser:</strong> Chrome, Firefox, Safari, or Edge (latest versions)</li>
+                            <li><strong>Apps:</strong> Zoom or Google Meet (free accounts work fine)</li>
+                            <li><strong>Space:</strong> Enough room to lie down with arms extended</li>
+                        </ul>
+                        <p>We also offer a technical test session before your first class to ensure everything works smoothly.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="technical">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>What if I have technical issues during a class?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We provide comprehensive technical support:</p>
+                        <ul>
+                            <li><strong>Live Support:</strong> Technical assistant available during class hours</li>
+                            <li><strong>Quick Solutions:</strong> Common issues resolved within 2-3 minutes</li>
+                            <li><strong>Backup Options:</strong> Phone-in option if video fails completely</li>
+                            <li><strong>Recording Access:</strong> Full access to class recording if you miss portions due to technical issues</li>
+                        </ul>
+                        <p>For persistent issues, contact our support team at tech@connektstudio.com or call +91 98765 43210.</p>
+                    </div>
+                </div>
+
+                <!-- Health & Safety Questions -->
+                <div class="faq-item" data-category="health">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Is yoga safe for beginners and older adults?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, yoga is generally safe and beneficial for all ages when practiced correctly:</p>
+                        <ul>
+                            <li><strong>Beginner Classes:</strong> Specifically designed for those new to yoga</li>
+                            <li><strong>Chair Yoga:</strong> Available for those with mobility limitations</li>
+                            <li><strong>Gentle Yoga:</strong> Perfect for older adults and those recovering from injury</li>
+                            <li><strong>Modified Poses:</strong> Instructors provide alternatives for all fitness levels</li>
+                        </ul>
+                        <p><strong>Important:</strong> Always consult with your healthcare provider before starting any new exercise program, especially if you have pre-existing health conditions.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="health">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>What should I do if I have an injury or medical condition?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Your safety is our top priority. Here's how we accommodate special needs:</p>
+                        <ul>
+                            <li><strong>Health Disclosure:</strong> Inform us of any injuries or conditions during registration</li>
+                            <li><strong>Private Consultation:</strong> Free 15-minute consultation with our wellness experts</li>
+                            <li><strong>Customized Modifications:</strong> Personalized pose modifications for your condition</li>
+                            <li><strong>Specialized Classes:</strong> Therapeutic yoga and restorative sessions available</li>
+                        </ul>
+                        <p>For serious medical conditions, we require doctor's clearance before participation. Our instructors are trained to work with various health concerns and will ensure your practice is safe and beneficial.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="health">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>How soon will I see results from practicing yoga?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Results vary by individual, but here's what most people experience:</p>
+                        <ul>
+                            <li><strong>Immediate (1-2 weeks):</strong> Better sleep, reduced stress, improved mood</li>
+                            <li><strong>Short-term (1-2 months):</strong> Increased flexibility, better posture, more energy</li>
+                            <li><strong>Medium-term (3-6 months):</strong> Significant strength gains, weight management, mental clarity</li>
+                            <li><strong>Long-term (6+ months):</strong> Deep transformation, sustainable lifestyle changes</li>
+                        </ul>
+                        <p>Consistency is key! Regular practice (3-4 times per week) yields the best results. Remember that yoga is a journey, not a destination - enjoy the process of growth and self-discovery.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Still Have Questions Section -->
+            <div class="faq-cta">
+                <div class="cta-content">
+                    <h2>Still Have Questions?</h2>
+                    <p>Our support team is here to help you with any additional questions or concerns.</p>
+                    <div class="cta-buttons">
+                        <a href="index.html#contact" class="btn btn-primary">Contact Support</a>
+                        <a href="mailto:support@connektstudio.com" class="btn btn-outline">Email Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="Images/logo.png" alt="Connekt Studio Logo" class="footer-logo-img">
+                        <h3>Connekt Studio</h3>
+                    </div>
+                    <p>Transform your body and mind naturally through yoga, fitness, and meditation.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="index.html#classes">Classes</a></li>
+                        <li><a href="index.html#pricing">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="instructors.html">Our Instructors</a></li>
+                        <li><a href="success-stories.html">Success Stories</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-of-service.html">Terms of Service</a></li>
+                        <li><a href="refund-policy.html">Refund Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Connekt Studio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Toggle Function
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const answer = faqItem.querySelector('.faq-answer');
+            const icon = element.querySelector('i');
+            
+            // Close other FAQs
+            document.querySelectorAll('.faq-item').forEach(item => {
+                if (item !== faqItem) {
+                    item.classList.remove('active');
+                    item.querySelector('.faq-answer').style.maxHeight = null;
+                    item.querySelector('.fa-chevron-down').style.transform = 'rotate(0deg)';
+                }
+            });
+            
+            // Toggle current FAQ
+            faqItem.classList.toggle('active');
+            
+            if (faqItem.classList.contains('active')) {
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                answer.style.maxHeight = null;
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Filter FAQ by category
+        function filterFAQ(category) {
+            const faqItems = document.querySelectorAll('.faq-item');
+            const tabs = document.querySelectorAll('.category-tab');
+            
+            // Update active tab
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.textContent.toLowerCase().includes(category) || 
+                    (category === 'all' && tab.textContent === 'All Questions')) {
+                    tab.classList.add('active');
+                }
+            });
+            
+            // Filter items
+            faqItems.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                    // Add animation
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        item.style.transition = 'all 0.3s ease';
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    }, 50);
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Initialize FAQ answers as hidden
+        document.addEventListener('DOMContentLoaded', function() {
+            const answers = document.querySelectorAll('.faq-answer');
+            answers.forEach(answer => {
+                answer.style.maxHeight = null;
+                answer.style.overflow = 'hidden';
+                answer.style.transition = 'max-height 0.3s ease';
+            });
+        });
+    </script>
+</body>
+</html>

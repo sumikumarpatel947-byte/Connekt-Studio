@@ -1,0 +1,2166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Connekt Studio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .admin-dashboard {
+            display: flex;
+            min-height: 100vh;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Animated Sidebar */
+        .admin-sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, #1a5f3f 0%, #2d7a57 50%, #1a5f3f 100%);
+            color: white;
+            padding: 0;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            animation: slideInLeft 0.6s ease-out;
+        }
+
+        .admin-sidebar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        .admin-header {
+            padding: 30px 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .admin-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .admin-logo img {
+            height: 50px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .admin-logo img:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .admin-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 10px 0 5px 0;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .admin-subtitle {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .admin-nav {
+            list-style: none;
+            padding: 20px 0;
+            margin: 0;
+        }
+
+        .admin-nav li {
+            margin-bottom: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-nav a {
+            display: flex;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            padding: 15px 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.3s ease;
+        }
+
+        .admin-nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .admin-nav a:hover::before {
+            left: 100%;
+        }
+
+        .admin-nav a.active {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border-left: 3px solid #d4a574;
+        }
+
+        .admin-nav i {
+            margin-right: 12px;
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .nav-badge {
+            background: #ff4757;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: auto;
+            animation: pulse 2s infinite;
+        }
+
+        /* Main Content Area */
+        .admin-main {
+            flex: 1;
+            padding: 0;
+            overflow-y: auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+        }
+
+        .admin-header-main {
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            padding: 25px 30px;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            animation: slideInRight 0.6s ease-out;
+        }
+
+        .admin-welcome {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .admin-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            animation: bounceIn 0.8s ease-out;
+        }
+
+        .admin-info h1 {
+            font-size: 1.8rem;
+            color: #1a5f3f;
+            margin: 0 0 5px 0;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .admin-info p {
+            color: #6c757d;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .admin-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .admin-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1a5f3f, #2d7a57);
+            color: white;
+            box-shadow: 0 4px 15px rgba(26, 95, 63, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 95, 63, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-1px);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+        }
+
+        /* Stats Cards */
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 30px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #1a5f3f;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, transparent, rgba(26, 95, 63, 0.05));
+            border-radius: 50%;
+            transform: translate(50%, -50%);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #1a5f3f, #2d7a57);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .stat-card h3 {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a5f3f;
+            margin: 0 0 5px 0;
+            font-family: 'Playfair Display', serif;
+            animation: countUp 1s ease-out;
+        }
+
+        .stat-change {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-left: 10px;
+        }
+
+        .stat-change.positive {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .stat-change.negative {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Content Sections */
+        .admin-content {
+            padding: 0 30px 30px 30px;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .section-header {
+            padding: 25px 30px;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+        }
+
+        .section-header h2 {
+            color: #1a5f3f;
+            margin: 0;
+            font-size: 1.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .section-body {
+            padding: 30px;
+        }
+
+        /* Table Styles */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .data-table th {
+            background: linear-gradient(135deg, #1a5f3f, #2d7a57);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .data-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .data-table tr:hover td {
+            background: #f8f9fa;
+            transform: scale(1.01);
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-active {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+        }
+
+        .status-pending {
+            background: linear-gradient(135deg, #ffc107, #fd7e14);
+            color: white;
+        }
+
+        .status-inactive {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .btn-sm {
+            padding: 8px 15px;
+            font-size: 0.85rem;
+            border-radius: 6px;
+        }
+
+        .btn-edit {
+            background: linear-gradient(135deg, #ffc107, #fd7e14);
+            color: white;
+        }
+
+        .btn-delete {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideInUp 0.3s ease-out;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .modal-header h3 {
+            color: #1a5f3f;
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6c757d;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #dc3545;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #495057;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #1a5f3f;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 25px;
+        }
+
+        /* Page Sections (Hidden by default) */
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Search and Filter */
+        .search-filter {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
+
+        .filter-select {
+            min-width: 150px;
+        }
+
+        /* Animations */
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                transform: translateY(-30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(26, 95, 63, 0.5);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(26, 95, 63, 0.8);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes countUp {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #1a5f3f;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Notification Toast */
+        .notification-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 300px;
+            animation: slideInRight 0.3s ease-out;
+        }
+
+        .notification-toast.success {
+            border-left: 4px solid #28a745;
+        }
+
+        .notification-toast.error {
+            border-left: 4px solid #dc3545;
+        }
+
+        .notification-toast.info {
+            border-left: 4px solid #17a2b8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .admin-stats {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .admin-dashboard {
+                flex-direction: column;
+            }
+            
+            .admin-sidebar {
+                width: 100%;
+                height: auto;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            }
+            
+            .admin-nav {
+                display: flex;
+                flex-wrap: wrap;
+                padding: 15px;
+            }
+            
+            .admin-nav li {
+                margin: 5px;
+                flex: 1;
+                min-width: 150px;
+            }
+            
+            .admin-nav a {
+                padding: 12px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .admin-stats {
+                grid-template-columns: 1fr;
+                padding: 15px;
+            }
+            
+            .admin-header-main {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .admin-header {
+                padding: 20px 15px;
+            }
+            
+            .admin-logo img {
+                height: 40px;
+            }
+            
+            .admin-title {
+                font-size: 1.2rem;
+            }
+            
+            .admin-stats {
+                padding: 10px;
+            }
+            
+            .stat-card {
+                padding: 20px;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .section-header {
+                padding: 20px 15px;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .section-body {
+                padding: 20px 15px;
+            }
+            
+            .data-table {
+                font-size: 0.85rem;
+            }
+            
+            .data-table th,
+            .data-table td {
+                padding: 10px 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-dashboard">
+        <!-- Animated Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="admin-header">
+                <div class="admin-logo">
+                    <img src="Images/logo.png" alt="Connekt Studio">
+                </div>
+                <h1 class="admin-title">Admin Panel</h1>
+                <p class="admin-subtitle">Complete Management System</p>
+            </div>
+            
+            <ul class="admin-nav">
+                <li>
+                    <a href="#dashboard" class="nav-link active" data-page="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Dashboard
+                        <span class="nav-badge">New</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#classes" class="nav-link" data-page="classes">
+                        <i class="fas fa-dumbbell"></i>
+                        Classes
+                    </a>
+                </li>
+                <li>
+                    <a href="#customers" class="nav-link" data-page="customers">
+                        <i class="fas fa-users"></i>
+                        Customers
+                    </a>
+                </li>
+                <li>
+                    <a href="#enrollments" class="nav-link" data-page="enrollments">
+                        <i class="fas fa-clipboard-list"></i>
+                        Enrollments
+                        <span class="nav-badge" id="enrollmentCount">12</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#revenue" class="nav-link" data-page="revenue">
+                        <i class="fas fa-chart-line"></i>
+                        Revenue
+                    </a>
+                </li>
+                <li>
+                    <a href="#settings" class="nav-link" data-page="settings">
+                        <i class="fas fa-cog"></i>
+                        Settings
+                    </a>
+                </li>
+                <li>
+                    <a href="#logs" class="nav-link" data-page="logs">
+                        <i class="fas fa-file-alt"></i>
+                        Logs
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        
+        <!-- Main Content Area -->
+        <main class="admin-main">
+            <header class="admin-header-main">
+                <div class="admin-welcome">
+                    <div class="admin-avatar">A</div>
+                    <div class="admin-info">
+                        <h1 id="pageTitle">Dashboard</h1>
+                        <p id="pageSubtitle">Manage your Connekt Studio empire</p>
+                    </div>
+                </div>
+                <div class="admin-actions">
+                    <a href="index.html" class="admin-btn btn-primary">
+                        <i class="fas fa-home"></i>
+                        Website
+                    </a>
+                    <button class="admin-btn btn-secondary" onclick="exportData()">
+                        <i class="fas fa-download"></i>
+                        Export
+                    </button>
+                    <button class="admin-btn btn-danger" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </button>
+                </div>
+            </header>
+            
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="page-section active">
+                <!-- Animated Stats Cards -->
+                <div class="admin-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Total Customers</h3>
+                        <div class="stat-number" id="totalCustomers">0</div>
+                        <span class="stat-change positive">+12.5%</span>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                        <h3>Active Classes</h3>
+                        <div class="stat-number" id="totalClasses">0</div>
+                        <span class="stat-change positive">+3 this month</span>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <h3>Total Enrollments</h3>
+                        <div class="stat-number" id="totalEnrollments">0</div>
+                        <span class="stat-change positive">+28.3%</span>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-rupee-sign"></i>
+                        </div>
+                        <h3>Monthly Revenue</h3>
+                        <div class="stat-number" id="monthlyRevenue">₹0</div>
+                        <span class="stat-change positive">+15.7%</span>
+                    </div>
+                </div>
+                
+                <!-- Recent Enrollments Section -->
+                <div class="content-section">
+                    <div class="section-header">
+                        <h2>Recent Enrollments</h2>
+                        <button class="admin-btn btn-primary" onclick="showAddClassModal()">
+                            <i class="fas fa-plus"></i>
+                            Add New Class
+                        </button>
+                    </div>
+                    <div class="section-body">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Customer Name</th>
+                                    <th>Class</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentEnrollmentsTable">
+                                <!-- Data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Classes Section -->
+            <section id="classes" class="page-section">
+                <div class="content-section">
+                    <div class="section-header">
+                        <h2>Class Management</h2>
+                        <button class="admin-btn btn-primary" onclick="showAddClassModal()">
+                            <i class="fas fa-plus"></i>
+                            Add New Class
+                        </button>
+                    </div>
+                    <div class="section-body">
+                        <div class="search-filter">
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="classSearch" placeholder="Search classes...">
+                            </div>
+                            <select class="filter-select" id="classCategoryFilter">
+                                <option value="">All Categories</option>
+                                <option value="yoga">Yoga</option>
+                                <option value="fitness">Fitness</option>
+                                <option value="meditation">Meditation</option>
+                                <option value="dance">Dance</option>
+                            </select>
+                            <select class="filter-select" id="classStatusFilter">
+                                <option value="">All Status</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Class Name</th>
+                                    <th>Category</th>
+                                    <th>Instructor</th>
+                                    <th>Price</th>
+                                    <th>Duration</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="classesTable">
+                                <!-- Data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Customers Section -->
+            <section id="customers" class="page-section">
+                <div class="content-section">
+                    <div class="section-header">
+                        <h2>Customer Management</h2>
+                        <button class="admin-btn btn-primary" onclick="exportCustomers()">
+                            <i class="fas fa-download"></i>
+                            Export Customers
+                        </button>
+                    </div>
+                    <div class="section-body">
+                        <div class="search-filter">
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="customerSearch" placeholder="Search customers...">
+                            </div>
+                            <select class="filter-select" id="customerGenderFilter">
+                                <option value="">All Genders</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <select class="filter-select" id="customerStatusFilter">
+                                <option value="">All Status</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Location</th>
+                                    <th>Gender</th>
+                                    <th>Join Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customersTable">
+                                <!-- Data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Enrollments Section -->
+            <section id="enrollments" class="page-section">
+                <div class="content-section">
+                    <div class="section-header">
+                        <h2>Enrollment Management</h2>
+                        <button class="admin-btn btn-primary" onclick="exportEnrollments()">
+                            <i class="fas fa-download"></i>
+                            Export Enrollments
+                        </button>
+                    </div>
+                    <div class="section-body">
+                        <div class="search-filter">
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="enrollmentSearch" placeholder="Search enrollments...">
+                            </div>
+                            <select class="filter-select" id="enrollmentStatusFilter">
+                                <option value="">All Status</option>
+                                <option value="active">Active</option>
+                                <option value="pending">Pending</option>
+                                <option value="completed">Completed</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                            <input type="date" id="enrollmentDateFilter" class="filter-select">
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Customer</th>
+                                    <th>Class</th>
+                                    <th>Enrollment Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Payment</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="enrollmentsTable">
+                                <!-- Data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Revenue Section -->
+            <section id="revenue" class="page-section">
+                <div class="content-section">
+                    <div class="section-header">
+                        <h2>Revenue Analytics</h2>
+                        <button class="admin-btn btn-primary" onclick="generateRevenueReport()">
+                            <i class="fas fa-file-pdf"></i>
+                            Generate Report
+                        </button>
+                    </div>
+                    <div class="section-body">
+                        <div class="admin-stats">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-calendar"></i>
+                                </div>
+                                <h3>Today's Revenue</h3>
+                                <div class="stat-number" id="todayRevenue">₹0</div>
+                                <span class="stat-change positive">+8.2%</span>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-calendar-week"></i>
+                                </div>
+                                <h3>This Week</h3>
+                                <div class="stat-number" id="weekRevenue">₹0</div>
+                                <span class="stat-change positive">+12.1%</span>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <h3>This Month</h3>
+                                <div class="stat-number" id="monthRevenue">₹0</div>
+                                <span class="stat-change positive">+15.7%</span>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <h3>Total Revenue</h3>
+                                <div class="stat-number" id="totalRevenue">₹0</div>
+                                <span class="stat-change positive">+22.4%</span>
+                            </div>
+                        </div>
+                        
+                        <h3 style="margin-top: 30px; margin-bottom: 20px; color: #1a5f3f;">Revenue by Class</h3>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Class Name</th>
+                                    <th>Total Enrollments</th>
+                                    <th>Total Revenue</th>
+                                    <th>Average Revenue</th>
+                                    <th>Growth</th>
+                                </tr>
+                            </thead>
+                            <tbody id="revenueTable">
+                                <!-- Data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Settings Section -->
+            <section id="settings" class="page-section">
+                <div class="content-section">
+                    <div class="section-header">
+                        <h2>Settings</h2>
+                        <button class="admin-btn btn-primary" onclick="saveSettings()">
+                            <i class="fas fa-save"></i>
+                            Save Settings
+                        </button>
+                    </div>
+                    <div class="section-body">
+                        <div class="form-group">
+                            <label for="studioName">Studio Name</label>
+                            <input type="text" id="studioName" value="Connekt Studio">
+                        </div>
+                        <div class="form-group">
+                            <label for="studioEmail">Studio Email</label>
+                            <input type="email" id="studioEmail" value="info@connektstudio.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="studioPhone">Studio Phone</label>
+                            <input type="tel" id="studioPhone" value="+91 90395 70885">
+                        </div>
+                        <div class="form-group">
+                            <label for="studioAddress">Studio Address</label>
+                            <textarea id="studioAddress" rows="3">123 Main Street, Mumbai, Maharashtra 400001</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="whatsappNumber">WhatsApp Number</label>
+                            <input type="tel" id="whatsappNumber" value="919039570885">
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="emailNotifications" checked>
+                                Enable Email Notifications
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="smsNotifications" checked>
+                                Enable SMS Notifications
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Logs Section -->
+            <section id="logs" class="page-section">
+                <div class="content-section">
+                    <div class="section-header">
+                        <h2>Activity Logs</h2>
+                        <button class="admin-btn btn-secondary" onclick="clearLogs()">
+                            <i class="fas fa-trash"></i>
+                            Clear Logs
+                        </button>
+                    </div>
+                    <div class="section-body">
+                        <div class="search-filter">
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="logSearch" placeholder="Search logs...">
+                            </div>
+                            <select class="filter-select" id="logTypeFilter">
+                                <option value="">All Types</option>
+                                <option value="login">Login</option>
+                                <option value="enrollment">Enrollment</option>
+                                <option value="class">Class</option>
+                                <option value="customer">Customer</option>
+                                <option value="system">System</option>
+                            </select>
+                            <input type="date" id="logDateFilter" class="filter-select">
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>Type</th>
+                                    <th>User</th>
+                                    <th>Action</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                            <tbody id="logsTable">
+                                <!-- Data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Add Class Modal -->
+    <div id="addClassModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Class</h3>
+                <button class="close" onclick="closeModal('addClassModal')">&times;</button>
+            </div>
+            <form id="addClassForm">
+                <div class="form-group">
+                    <label for="className">Class Name</label>
+                    <input type="text" id="className" required>
+                </div>
+                <div class="form-group">
+                    <label for="classCategory">Category</label>
+                    <select id="classCategory" required>
+                        <option value="">Select Category</option>
+                        <option value="yoga">Yoga</option>
+                        <option value="fitness">Fitness</option>
+                        <option value="meditation">Meditation</option>
+                        <option value="dance">Dance</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="classPrice">Price (₹)</label>
+                    <input type="number" id="classPrice" required>
+                </div>
+                <div class="form-group">
+                    <label for="classDuration">Duration</label>
+                    <input type="text" id="classDuration" placeholder="e.g., 60 minutes">
+                </div>
+                <div class="form-group">
+                    <label for="classInstructor">Instructor</label>
+                    <input type="text" id="classInstructor" required>
+                </div>
+                <div class="form-group">
+                    <label for="classSchedule">Schedule</label>
+                    <input type="text" id="classSchedule" placeholder="e.g., Mon, Wed, Fri - 6:00 AM">
+                </div>
+                <div class="form-group">
+                    <label for="classDescription">Description</label>
+                    <textarea id="classDescription" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="admin-btn btn-secondary" onclick="closeModal('addClassModal')">Cancel</button>
+                    <button type="submit" class="admin-btn btn-primary">Add Class</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="admin-appwrite.js"></script>
+    <script>
+        // Initialize data from localStorage
+        function initializeData() {
+            if (!localStorage.getItem('classes')) {
+                localStorage.setItem('classes', JSON.stringify([
+                    {
+                        id: 1,
+                        name: "Yoga for Beginners",
+                        category: "yoga",
+                        price: 2999,
+                        duration: "60 minutes",
+                        instructor: "Priya Sharma",
+                        schedule: "Mon, Wed, Fri - 6:00 AM",
+                        description: "Perfect for those new to yoga",
+                        status: "active",
+                        createdAt: new Date().toISOString()
+                    },
+                    {
+                        id: 2,
+                        name: "Power Yoga",
+                        category: "fitness",
+                        price: 3999,
+                        duration: "75 minutes",
+                        instructor: "Rahul Verma",
+                        schedule: "Tue, Thu - 7:00 PM",
+                        description: "Intense workout for advanced practitioners",
+                        status: "active",
+                        createdAt: new Date().toISOString()
+                    },
+                    {
+                        id: 3,
+                        name: "Meditation & Mindfulness",
+                        category: "meditation",
+                        price: 1999,
+                        duration: "45 minutes",
+                        instructor: "Anita Patel",
+                        schedule: "Daily - 5:30 AM",
+                        description: "Learn meditation techniques",
+                        status: "active",
+                        createdAt: new Date().toISOString()
+                    },
+                    {
+                        id: 4,
+                        name: "Dance Fitness",
+                        category: "dance",
+                        price: 3499,
+                        duration: "60 minutes",
+                        instructor: "Deepika Malhotra",
+                        schedule: "Sat, Sun - 9:00 AM",
+                        description: "Fun dance workouts",
+                        status: "active",
+                        createdAt: new Date().toISOString()
+                    }
+                ]));
+            }
+            
+            if (!localStorage.getItem('customers')) {
+                localStorage.setItem('customers', JSON.stringify([
+                    {
+                        id: 1,
+                        fullName: "Priya Sharma",
+                        email: "priya.sharma@email.com",
+                        phone: "9876543210",
+                        location: "Mumbai",
+                        gender: "female",
+                        createdAt: new Date().toISOString()
+                    },
+                    {
+                        id: 2,
+                        fullName: "Rahul Verma",
+                        email: "rahul.verma@email.com",
+                        phone: "9876543211",
+                        location: "Delhi",
+                        gender: "male",
+                        createdAt: new Date().toISOString()
+                    },
+                    {
+                        id: 3,
+                        fullName: "Anita Patel",
+                        email: "anita.patel@email.com",
+                        phone: "9876543212",
+                        location: "Bangalore",
+                        gender: "female",
+                        createdAt: new Date().toISOString()
+                    }
+                ]));
+            }
+            
+            if (!localStorage.getItem('enrollments')) {
+                localStorage.setItem('enrollments', JSON.stringify([
+                    {
+                        id: 1,
+                        customerId: 1,
+                        classId: 1,
+                        date: new Date().toISOString(),
+                        amount: 2999,
+                        status: "active",
+                        paymentStatus: "paid"
+                    },
+                    {
+                        id: 2,
+                        customerId: 2,
+                        classId: 2,
+                        date: new Date().toISOString(),
+                        amount: 3999,
+                        status: "active",
+                        paymentStatus: "paid"
+                    },
+                    {
+                        id: 3,
+                        customerId: 3,
+                        classId: 3,
+                        date: new Date().toISOString(),
+                        amount: 1999,
+                        status: "pending",
+                        paymentStatus: "pending"
+                    }
+                ]));
+            }
+            
+            if (!localStorage.getItem('logs')) {
+                localStorage.setItem('logs', JSON.stringify([]));
+            }
+        }
+
+        // Check authentication
+        function checkAuth() {
+            const sessionData = sessionStorage.getItem('adminLoggedIn');
+            if (!sessionData || sessionData !== 'true') {
+                window.location.href = 'admin-login.html';
+                return null;
+            }
+            return true;
+        }
+
+        // Logout function
+        function logout() {
+            showLoading();
+            addLog('logout', 'Admin', 'Logged out of admin panel');
+            setTimeout(() => {
+                sessionStorage.removeItem('adminLoggedIn');
+                sessionStorage.removeItem('adminUsername');
+                sessionStorage.removeItem('adminId');
+                window.location.href = 'admin-login.html';
+            }, 1000);
+        }
+
+        // Show loading overlay
+        function showLoading() {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+        }
+
+        // Hide loading overlay
+        function hideLoading() {
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
+
+        // Show notification
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification-toast ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideInRight 0.3s ease-out reverse';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Add log entry
+        function addLog(type, user, action, details = '') {
+            const logs = JSON.parse(localStorage.getItem('logs') || '[]');
+            const logEntry = {
+                id: Date.now(),
+                timestamp: new Date().toISOString(),
+                type: type,
+                user: user,
+                action: action,
+                details: details
+            };
+            logs.unshift(logEntry);
+            
+            // Keep only last 100 logs
+            if (logs.length > 100) {
+                logs.splice(100);
+            }
+            
+            localStorage.setItem('logs', JSON.stringify(logs));
+        }
+
+        // Navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Get page name
+                const pageName = this.getAttribute('data-page');
+                
+                // Hide all sections
+                document.querySelectorAll('.page-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Show selected section
+                const targetSection = document.getElementById(pageName);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                    
+                    // Update page title
+                    const pageTitle = this.querySelector('i').parentElement.textContent.trim();
+                    document.getElementById('pageTitle').textContent = pageTitle;
+                    
+                    // Load data for the page
+                    loadPageData(pageName);
+                }
+                
+                addLog('navigation', 'Admin', `Navigated to ${pageName}`);
+            });
+        });
+
+        // Load page data
+        function loadPageData(pageName) {
+            switch(pageName) {
+                case 'dashboard':
+                    loadDashboardData();
+                    break;
+                case 'classes':
+                    loadClassesData();
+                    break;
+                case 'customers':
+                    loadCustomersData();
+                    break;
+                case 'enrollments':
+                    loadEnrollmentsData();
+                    break;
+                case 'revenue':
+                    loadRevenueData();
+                    break;
+                case 'logs':
+                    loadLogsData();
+                    break;
+            }
+        }
+
+        // Load dashboard data
+        function loadDashboardData() {
+            const classes = JSON.parse(localStorage.getItem('classes') || '[]');
+            const customers = JSON.parse(localStorage.getItem('customers') || '[]');
+            const enrollments = JSON.parse(localStorage.getItem('enrollments') || '[]');
+            
+            // Update stats
+            document.getElementById('totalCustomers').textContent = customers.length;
+            document.getElementById('totalClasses').textContent = classes.length;
+            document.getElementById('totalEnrollments').textContent = enrollments.length;
+            
+            // Calculate revenue
+            const totalRevenue = enrollments.reduce((sum, enrollment) => {
+                return sum + (enrollment.amount || 0);
+            }, 0);
+            document.getElementById('monthlyRevenue').textContent = `₹${totalRevenue.toLocaleString()}`;
+            
+            // Load recent enrollments
+            loadRecentEnrollments();
+        }
+
+        // Load recent enrollments
+        function loadRecentEnrollments() {
+            const enrollments = JSON.parse(localStorage.getItem('enrollments') || '[]');
+            const classes = JSON.parse(localStorage.getItem('classes') || '[]');
+            const customers = JSON.parse(localStorage.getItem('customers') || '[]');
+            
+            const tbody = document.getElementById('recentEnrollmentsTable');
+            tbody.innerHTML = '';
+            
+            // Sort by date (most recent first)
+            const sortedEnrollments = enrollments.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            // Show only last 5 enrollments
+            const recentEnrollments = sortedEnrollments.slice(0, 5);
+            
+            recentEnrollments.forEach(enrollment => {
+                const customer = customers.find(c => c.id === enrollment.customerId);
+                const classData = classes.find(c => c.id === enrollment.classId);
+                
+                if (customer && classData) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${customer.fullName}</td>
+                        <td>${classData.name}</td>
+                        <td>${new Date(enrollment.date).toLocaleDateString()}</td>
+                        <td>₹${enrollment.amount.toLocaleString()}</td>
+                        <td><span class="status-badge status-${enrollment.status}">${enrollment.status}</span></td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="admin-btn btn-sm btn-edit" onclick="editEnrollment(${enrollment.id})">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="admin-btn btn-sm btn-delete" onclick="deleteEnrollment(${enrollment.id})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                }
+            });
+        }
+
+        // Load classes data
+        function loadClassesData() {
+            const classes = JSON.parse(localStorage.getItem('classes') || '[]');
+            const tbody = document.getElementById('classesTable');
+            tbody.innerHTML = '';
+            
+            classes.forEach(classData => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${classData.name}</td>
+                    <td>${classData.category}</td>
+                    <td>${classData.instructor}</td>
+                    <td>₹${classData.price.toLocaleString()}</td>
+                    <td>${classData.duration}</td>
+                    <td><span class="status-badge status-${classData.status}">${classData.status}</span></td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="admin-btn btn-sm btn-edit" onclick="editClass(${classData.id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="admin-btn btn-sm btn-delete" onclick="deleteClass(${classData.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Load customers data
+        function loadCustomersData() {
+            const customers = JSON.parse(localStorage.getItem('customers') || '[]');
+            const tbody = document.getElementById('customersTable');
+            tbody.innerHTML = '';
+            
+            customers.forEach(customer => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${customer.fullName}</td>
+                    <td>${customer.email}</td>
+                    <td>${customer.phone}</td>
+                    <td>${customer.location}</td>
+                    <td>${customer.gender}</td>
+                    <td>${new Date(customer.createdAt).toLocaleDateString()}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="admin-btn btn-sm btn-edit" onclick="editCustomer(${customer.id})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="admin-btn btn-sm btn-delete" onclick="deleteCustomer(${customer.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Load enrollments data
+        function loadEnrollmentsData() {
+            const enrollments = JSON.parse(localStorage.getItem('enrollments') || '[]');
+            const classes = JSON.parse(localStorage.getItem('classes') || '[]');
+            const customers = JSON.parse(localStorage.getItem('customers') || '[]');
+            
+            const tbody = document.getElementById('enrollmentsTable');
+            tbody.innerHTML = '';
+            
+            enrollments.forEach(enrollment => {
+                const customer = customers.find(c => c.id === enrollment.customerId);
+                const classData = classes.find(c => c.id === enrollment.classId);
+                
+                if (customer && classData) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${customer.fullName}</td>
+                        <td>${classData.name}</td>
+                        <td>${new Date(enrollment.date).toLocaleDateString()}</td>
+                        <td>₹${enrollment.amount.toLocaleString()}</td>
+                        <td><span class="status-badge status-${enrollment.status}">${enrollment.status}</span></td>
+                        <td><span class="status-badge status-${enrollment.paymentStatus === 'paid' ? 'active' : 'pending'}">${enrollment.paymentStatus}</span></td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="admin-btn btn-sm btn-edit" onclick="editEnrollment(${enrollment.id})">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="admin-btn btn-sm btn-delete" onclick="deleteEnrollment(${enrollment.id})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                }
+            });
+            
+            // Update enrollment count
+            document.getElementById('enrollmentCount').textContent = enrollments.length;
+        }
+
+        // Load revenue data
+        function loadRevenueData() {
+            const enrollments = JSON.parse(localStorage.getItem('enrollments') || '[]');
+            const classes = JSON.parse(localStorage.getItem('classes') || '[]');
+            
+            // Calculate revenue by period
+            const today = new Date();
+            const weekStart = new Date(today.setDate(today.getDate() - today.getDay()));
+            const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
+            
+            const todayRevenue = enrollments.filter(e => {
+                const enrollmentDate = new Date(e.date);
+                return enrollmentDate.toDateString() === new Date().toDateString();
+            }).reduce((sum, e) => sum + e.amount, 0);
+            
+            const weekRevenue = enrollments.filter(e => {
+                const enrollmentDate = new Date(e.date);
+                return enrollmentDate >= weekStart;
+            }).reduce((sum, e) => sum + e.amount, 0);
+            
+            const monthRevenue = enrollments.filter(e => {
+                const enrollmentDate = new Date(e.date);
+                return enrollmentDate >= monthStart;
+            }).reduce((sum, e) => sum + e.amount, 0);
+            
+            const totalRevenue = enrollments.reduce((sum, e) => sum + e.amount, 0);
+            
+            document.getElementById('todayRevenue').textContent = `₹${todayRevenue.toLocaleString()}`;
+            document.getElementById('weekRevenue').textContent = `₹${weekRevenue.toLocaleString()}`;
+            document.getElementById('monthRevenue').textContent = `₹${monthRevenue.toLocaleString()}`;
+            document.getElementById('totalRevenue').textContent = `₹${totalRevenue.toLocaleString()}`;
+            
+            // Revenue by class
+            const revenueByClass = {};
+            enrollments.forEach(enrollment => {
+                const classData = classes.find(c => c.id === enrollment.classId);
+                if (classData) {
+                    if (!revenueByClass[classData.name]) {
+                        revenueByClass[classData.name] = {
+                            enrollments: 0,
+                            revenue: 0,
+                            class: classData
+                        };
+                    }
+                    revenueByClass[classData.name].enrollments++;
+                    revenueByClass[classData.name].revenue += enrollment.amount;
+                }
+            });
+            
+            const tbody = document.getElementById('revenueTable');
+            tbody.innerHTML = '';
+            
+            Object.entries(revenueByClass).forEach(([className, data]) => {
+                const avgRevenue = data.enrollments > 0 ? data.revenue / data.enrollments : 0;
+                const growth = Math.floor(Math.random() * 30) - 10; // Mock growth data
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${className}</td>
+                    <td>${data.enrollments}</td>
+                    <td>₹${data.revenue.toLocaleString()}</td>
+                    <td>₹${Math.floor(avgRevenue).toLocaleString()}</td>
+                    <td><span class="stat-change ${growth >= 0 ? 'positive' : 'negative'}">${growth >= 0 ? '+' : ''}${growth}%</span></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Load logs data
+        function loadLogsData() {
+            const logs = JSON.parse(localStorage.getItem('logs') || '[]');
+            const tbody = document.getElementById('logsTable');
+            tbody.innerHTML = '';
+            
+            logs.forEach(log => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${new Date(log.timestamp).toLocaleString()}</td>
+                    <td><span class="status-badge status-${log.type}">${log.type}</span></td>
+                    <td>${log.user}</td>
+                    <td>${log.action}</td>
+                    <td>${log.details}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Modal functions
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Show add class modal
+        function showAddClassModal() {
+            showModal('addClassModal');
+        }
+
+        // Add class form submission
+        document.getElementById('addClassForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const classes = JSON.parse(localStorage.getItem('classes') || '[]');
+            const newClass = {
+                id: Date.now(),
+                name: document.getElementById('className').value,
+                category: document.getElementById('classCategory').value,
+                price: parseInt(document.getElementById('classPrice').value),
+                duration: document.getElementById('classDuration').value,
+                instructor: document.getElementById('classInstructor').value,
+                schedule: document.getElementById('classSchedule').value,
+                description: document.getElementById('classDescription').value,
+                status: 'active',
+                createdAt: new Date().toISOString()
+            };
+            
+            classes.push(newClass);
+            localStorage.setItem('classes', JSON.stringify(classes));
+            
+            closeModal('addClassModal');
+            showNotification('Class added successfully!');
+            
+            // Reset form
+            this.reset();
+            
+            // Reload classes data
+            loadClassesData();
+            
+            // Add log
+            addLog('class', 'Admin', `Added new class: ${newClass.name}`);
+        });
+
+        // Edit enrollment
+        function editEnrollment(id) {
+            showNotification(`Editing enrollment #${id}`, 'info');
+        }
+
+        // Delete enrollment
+        function deleteEnrollment(id) {
+            if (confirm('Are you sure you want to delete this enrollment?')) {
+                const enrollments = JSON.parse(localStorage.getItem('enrollments') || '[]');
+                const updatedEnrollments = enrollments.filter(e => e.id !== id);
+                localStorage.setItem('enrollments', JSON.stringify(updatedEnrollments));
+                
+                showNotification('Enrollment deleted successfully!');
+                loadEnrollmentsData();
+                loadDashboardData();
+                
+                addLog('enrollment', 'Admin', `Deleted enrollment #${id}`);
+            }
+        }
+
+        // Edit class
+        function editClass(id) {
+            showNotification(`Editing class #${id}`, 'info');
+        }
+
+        // Delete class
+        function deleteClass(id) {
+            if (confirm('Are you sure you want to delete this class?')) {
+                const classes = JSON.parse(localStorage.getItem('classes') || '[]');
+                const updatedClasses = classes.filter(c => c.id !== id);
+                localStorage.setItem('classes', JSON.stringify(updatedClasses));
+                
+                showNotification('Class deleted successfully!');
+                loadClassesData();
+                loadDashboardData();
+                
+                addLog('class', 'Admin', `Deleted class #${id}`);
+            }
+        }
+
+        // Edit customer
+        function editCustomer(id) {
+            showNotification(`Editing customer #${id}`, 'info');
+        }
+
+        // Delete customer
+        function deleteCustomer(id) {
+            if (confirm('Are you sure you want to delete this customer?')) {
+                const customers = JSON.parse(localStorage.getItem('customers') || '[]');
+                const updatedCustomers = customers.filter(c => c.id !== id);
+                localStorage.setItem('customers', JSON.stringify(updatedCustomers));
+                
+                showNotification('Customer deleted successfully!');
+                loadCustomersData();
+                loadDashboardData();
+                
+                addLog('customer', 'Admin', `Deleted customer #${id}`);
+            }
+        }
+
+        // Export functions
+        function exportData() {
+            showLoading();
+            setTimeout(() => {
+                hideLoading();
+                showNotification('Data exported successfully!', 'success');
+                addLog('system', 'Admin', 'Exported all data');
+            }, 1000);
+        }
+
+        function exportCustomers() {
+            const customers = JSON.parse(localStorage.getItem('customers') || '[]');
+            const csvContent = "Name,Email,Phone,Location,Gender,Join Date\n" +
+                customers.map(c => `${c.fullName},${c.email},${c.phone},${c.location},${c.gender},${c.createdAt}`).join('\n');
+            
+            downloadCSV(csvContent, 'customers.csv');
+            showNotification('Customers exported successfully!');
+            addLog('system', 'Admin', 'Exported customers data');
+        }
+
+        function exportEnrollments() {
+            const enrollments = JSON.parse(localStorage.getItem('enrollments') || '[]');
+            const csvContent = "Customer,Class,Date,Amount,Status,Payment\n" +
+                enrollments.map(e => `${e.customerId},${e.classId},${e.date},${e.amount},${e.status},${e.paymentStatus}`).join('\n');
+            
+            downloadCSV(csvContent, 'enrollments.csv');
+            showNotification('Enrollments exported successfully!');
+            addLog('system', 'Admin', 'Exported enrollments data');
+        }
+
+        function downloadCSV(content, filename) {
+            const blob = new Blob([content], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Generate revenue report
+        function generateRevenueReport() {
+            showNotification('Revenue report generated successfully!', 'success');
+            addLog('system', 'Admin', 'Generated revenue report');
+        }
+
+        // Save settings
+        function saveSettings() {
+            const settings = {
+                studioName: document.getElementById('studioName').value,
+                studioEmail: document.getElementById('studioEmail').value,
+                studioPhone: document.getElementById('studioPhone').value,
+                studioAddress: document.getElementById('studioAddress').value,
+                whatsappNumber: document.getElementById('whatsappNumber').value,
+                emailNotifications: document.getElementById('emailNotifications').checked,
+                smsNotifications: document.getElementById('smsNotifications').checked
+            };
+            
+            localStorage.setItem('settings', JSON.stringify(settings));
+            showNotification('Settings saved successfully!');
+            addLog('system', 'Admin', 'Updated settings');
+        }
+
+        // Clear logs
+        function clearLogs() {
+            if (confirm('Are you sure you want to clear all logs?')) {
+                localStorage.setItem('logs', JSON.stringify([]));
+                loadLogsData();
+                showNotification('Logs cleared successfully!');
+                addLog('system', 'Admin', 'Cleared all logs');
+            }
+        }
+
+        // Search and filter functionality
+        document.getElementById('classSearch')?.addEventListener('input', function() {
+            filterTable('classesTable', this.value, 0);
+        });
+
+        document.getElementById('customerSearch')?.addEventListener('input', function() {
+            filterTable('customersTable', this.value, 0);
+        });
+
+        document.getElementById('enrollmentSearch')?.addEventListener('input', function() {
+            filterTable('enrollmentsTable', this.value, 0);
+        });
+
+        document.getElementById('logSearch')?.addEventListener('input', function() {
+            filterTable('logsTable', this.value, 0);
+        });
+
+        function filterTable(tableId, searchText, columnIndex) {
+            const table = document.getElementById(tableId);
+            if (!table) return;
+            
+            const rows = table.getElementsByTagName('tr');
+            
+            for (let i = 0; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                if (cells.length > 0) {
+                    const cellText = cells[columnIndex].textContent.toLowerCase();
+                    if (cellText.includes(searchText.toLowerCase())) {
+                        rows[i].style.display = '';
+                    } else {
+                        rows[i].style.display = 'none';
+                    }
+                }
+            }
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl/Cmd + E: Export data
+            if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
+                e.preventDefault();
+                exportData();
+            }
+            
+            // Ctrl/Cmd + L: Logout
+            if ((e.ctrlKey || e.metaKey) && e.key === 'l') {
+                e.preventDefault();
+                logout();
+            }
+        });
+
+        // Initialize on page load
+        window.addEventListener('load', function() {
+            if (checkAuth()) {
+                initializeData();
+                loadDashboardData();
+                
+                // Add initial log
+                addLog('login', 'Admin', 'Logged in to admin panel');
+                
+                // Animate numbers
+                setTimeout(() => {
+                    document.querySelectorAll('.stat-number').forEach((number, index) => {
+                        setTimeout(() => {
+                            number.style.animation = 'countUp 1s ease-out';
+                        }, index * 200);
+                    });
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html>

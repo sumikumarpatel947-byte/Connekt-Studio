@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connekt Studio - Transform Your Body & Mind Naturally</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="Images/logo.png" alt="Connekt Studio Logo" class="logo-img">
+               
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#classes">Classes</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="login.html" class="login-link"><i class="fas fa-user"></i> Login</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80" alt="Yoga Practice">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Transform Your Body & Mind Naturally</h1>
+                <p class="hero-subtitle">Join Connekt Studio for online yoga, fitness and meditation classes</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="scrollToSection('classes')">View Classes</button>
+                    <button class="btn btn-secondary" onclick="scrollToSection('contact')">Contact Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Discover Your Inner Balance</h2>
+                <p class="section-subtitle">A holistic approach to wellness that transforms your body, mind, and spirit</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>At Connekt Studio, we believe in the transformative power of yoga and fitness. Our holistic approach combines ancient wisdom with modern techniques to help you achieve physical strength, mental clarity, and emotional well-being.</p>
+                    <div class="benefits">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <h3>Physical Health</h3>
+                            <p>Build strength, flexibility, and endurance through guided practices</p>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h3>Mental Clarity</h3>
+                            <p>Reduce stress and improve focus with meditation and mindfulness</p>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-spa"></i>
+                            </div>
+                            <h3>Emotional Balance</h3>
+                            <p>Find inner peace and emotional resilience through holistic practices</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Meditation">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Classes Section -->
+    <section id="classes" class="classes section-alt" style="background: #f8f9fa; padding: 80px 0;">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Classes</h2>
+                <p class="section-subtitle">Choose from our wide range of yoga and fitness programs</p>
+                <div style="margin-bottom: 20px;">
+                    <button class="btn btn-secondary" onclick="refreshClasses()">
+                        <i class="fas fa-sync-alt"></i>
+                        Refresh Classes
+                    </button>
+                    <button class="btn btn-primary" onclick="checkAppwriteConnection()" style="margin-left: 10px;">
+                        <i class="fas fa-database"></i>
+                        Check Appwrite Data
+                    </button>
+                    <button class="btn btn-success" onclick="addTestUser()" style="margin-left: 10px;">
+                        <i class="fas fa-plus"></i>
+                        Add Test User
+                    </button>
+                </div>
+            </div>
+            <div class="classes-grid stagger-animation" id="classesGrid">
+                <!-- Fallback classes content -->
+                <div class="class-card">
+                    <div class="class-image">
+                        <img src="https://images.unsplash.com/photo-1774857491446-dfab0acd73a8?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="21 Days Dincharya Program">
+                        <div class="class-badge">Beginner</div>
+                    </div>
+                    <div class="class-content">
+                        <h3 class="class-title">21 Days Dincharya Program</h3>
+                        <p class="class-description">Perfect for those new to yoga. Learn fundamental poses, improve sleep cycle, and basic meditation.</p>
+                        <div class="class-details">
+                            <div class="class-duration">
+                                <i class="fas fa-clock"></i>
+                                <span>21 Days</span>
+                            </div>
+                            <div class="class-price">
+                                <i class="fas fa-tag"></i>
+                                <span>₹2,499</span>
+                            </div>
+                        </div>
+                        <div class="class-instructor">
+                            <i class="fas fa-user"></i>
+                            <span>Hina Pamnani</span>
+                        </div>
+                        <div class="class-features">
+                            <span class="feature-tag">21 Days Live Sessions</span>
+                            <span class="feature-tag">Basic Yoga Poses</span>
+                            <span class="feature-tag">Pranayama Practices</span>
+                        </div>
+                        <div class="class-actions">
+                            <button class="btn-enroll" onclick="enrollInClass(1)">
+                                <i class="fas fa-plus-circle"></i>
+                                Enroll Now
+                            </button>
+                            <button class="btn-details" onclick="showClassDetails(1)">
+                                <i class="fas fa-info-circle"></i>
+                                Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="class-card">
+                    <div class="class-image">
+                        <img src="https://images.unsplash.com/photo-1599901860903-17e6ed7083a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Power Yoga">
+                        <div class="class-badge">Intermediate</div>
+                    </div>
+                    <div class="class-content">
+                        <h3 class="class-title">Power Yoga</h3>
+                        <p class="class-description">Dynamic and challenging yoga practice for building strength, flexibility, and endurance.</p>
+                        <div class="class-details">
+                            <div class="class-duration">
+                                <i class="fas fa-clock"></i>
+                                <span>1 Month</span>
+                            </div>
+                            <div class="class-price">
+                                <i class="fas fa-tag"></i>
+                                <span>₹1,999</span>
+                            </div>
+                        </div>
+                        <div class="class-instructor">
+                            <i class="fas fa-user"></i>
+                            <span>Rahul Verma</span>
+                        </div>
+                        <div class="class-features">
+                            <span class="feature-tag">12 Live Sessions</span>
+                            <span class="feature-tag">Advanced Poses</span>
+                            <span class="feature-tag">Strength Building</span>
+                        </div>
+                        <div class="class-actions">
+                            <button class="btn-enroll" onclick="enrollInClass(2)">
+                                <i class="fas fa-plus-circle"></i>
+                                Enroll Now
+                            </button>
+                            <button class="btn-details" onclick="showClassDetails(2)">
+                                <i class="fas fa-info-circle"></i>
+                                Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="class-card">
+                    <div class="class-image">
+                        <img src="https://images.unsplash.com/photo-1588286840104-8957b019727f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Meditation & Mindfulness">
+                        <div class="class-badge">All Levels</div>
+                    </div>
+                    <div class="class-content">
+                        <h3 class="class-title">Meditation & Mindfulness</h3>
+                        <p class="class-description">Learn various meditation techniques to reduce stress, improve focus, and find inner peace.</p>
+                        <div class="class-details">
+                            <div class="class-duration">
+                                <i class="fas fa-clock"></i>
+                                <span>1 Month</span>
+                            </div>
+                            <div class="class-price">
+                                <i class="fas fa-tag"></i>
+                                <span>₹1,499</span>
+                            </div>
+                        </div>
+                        <div class="class-instructor">
+                            <i class="fas fa-user"></i>
+                            <span>Anita Patel</span>
+                        </div>
+                        <div class="class-features">
+                            <span class="feature-tag">30 Live Sessions</span>
+                            <span class="feature-tag">Guided Meditation</span>
+                            <span class="feature-tag">Breathing Techniques</span>
+                        </div>
+                        <div class="class-actions">
+                            <button class="btn-enroll" onclick="enrollInClass(3)">
+                                <i class="fas fa-plus-circle"></i>
+                                Enroll Now
+                            </button>
+                            <button class="btn-details" onclick="showClassDetails(3)">
+                                <i class="fas fa-info-circle"></i>
+                                Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="class-card">
+                    <div class="class-image">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Yoga for Weight Loss">
+                        <div class="class-badge">Intermediate</div>
+                    </div>
+                    <div class="class-content">
+                        <h3 class="class-title">Yoga for Weight Loss</h3>
+                        <p class="class-description">Specialized yoga program designed for effective weight loss and body toning.</p>
+                        <div class="class-details">
+                            <div class="class-duration">
+                                <i class="fas fa-clock"></i>
+                                <span>45 Days</span>
+                            </div>
+                            <div class="class-price">
+                                <i class="fas fa-tag"></i>
+                                <span>₹3,499</span>
+                            </div>
+                        </div>
+                        <div class="class-instructor">
+                            <i class="fas fa-user"></i>
+                            <span>Priya Sharma</span>
+                        </div>
+                        <div class="class-features">
+                            <span class="feature-tag">45 Live Sessions</span>
+                            <span class="feature-tag">Weight Loss Focus</span>
+                            <span class="feature-tag">Diet Guidance</span>
+                        </div>
+                        <div class="class-actions">
+                            <button class="btn-enroll" onclick="enrollInClass(4)">
+                                <i class="fas fa-plus-circle"></i>
+                                Enroll Now
+                            </button>
+                            <button class="btn-details" onclick="showClassDetails(4)">
+                                <i class="fas fa-info-circle"></i>
+                                Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials" style="background: white; padding: 80px 0;">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Student Success Stories</h2>
+                <p class="section-subtitle">Real transformations from our amazing community</p>
+            </div>
+            <div class="testimonials-grid stagger-animation">
+                <div class="testimonial-card">
+                    <div class="testimonial-image">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b332c1ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&q=80" alt="Priya Sharma">
+                    </div>
+                    <div class="testimonial-content">
+                        <div class="stars">★★★★☆</div>
+                        <p>"I was skeptical about online yoga classes, but Connekt Studio completely changed my perspective. The instructors are incredibly knowledgeable and patient. I've improved my flexibility significantly and the meditation sessions have helped me manage my work stress better than any therapy I tried before."</p>
+                        <div class="author">
+                            <div class="author-info">
+                                <h4>Priya Sharma</h4>
+                                <p>Flexibility & Stress Relief • 6 months</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-image">
+                        <img src="https://images.unsplash.com/photo-1564490215983-296e5f56b623?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&q=80" alt="Rahul Verma">
+                    </div>
+                    <div class="testimonial-content">
+                        <div class="stars">★★★★★</div>
+                        <p>"The quality of instruction at Connekt Studio is exceptional. I appreciate how they modify poses for different body types and fitness levels. The online format works perfectly with my busy schedule, and I've seen better results than in-studio classes."</p>
+                        <div class="author">
+                            <div class="author-info">
+                                <h4>Rahul Verma</h4>
+                                <p>Strength & Balance • 4 months</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-image">
+                        <img src="https://images.unsplash.com/photo-1616002851413-ebcc9611139d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&q=80" alt="Anita Patel">
+                    </div>
+                    <div class="testimonial-content">
+                        <div class="stars">★★★☆☆</div>
+                        <p>"What sets Connekt Studio apart is the personal attention they give to each student. The instructors remember your name, your goals, and provide specific feedback. This level of care has helped me progress much faster than I expected."</p>
+                        <div class="author">
+                            <div class="author-info">
+                                <h4>Anita Patel</h4>
+                                <p>Personalized Guidance • 5 months</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-image">
+                        <img src="https://images.unsplash.com/photo-1652520474328-0c671952b4cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=150&q=80" alt="Deepika Malhotra">
+                    </div>
+                    <div class="testimonial-content">
+                        <div class="stars">★★★★★</div>
+                        <p>"As someone with chronic back issues, I was cautious about starting yoga. The instructors at Connekt Studio were incredibly understanding and provided modifications for every pose. I'm now pain-free and more flexible than I've been in years. Their therapeutic approach is outstanding."</p>
+                        <div class="author">
+                            <div class="author-info">
+                                <h4>Deepika Malhotra</h4>
+                                <p>Therapeutic Recovery • 7 months</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle">Everything you need to know about Connekt Studio</p>
+            </div>
+            <div class="faq-categories">
+                <div class="category-tabs">
+                    <button class="category-tab active" onclick="filterFAQ('all')">All Questions</button>
+                    <button class="category-tab" onclick="filterFAQ('getting-started')">Getting Started</button>
+                    <button class="category-tab" onclick="filterFAQ('classes')">Classes & Schedule</button>
+                    <button class="category-tab" onclick="filterFAQ('pricing')">Pricing & Payment</button>
+                    <button class="category-tab" onclick="filterFAQ('technical')">Technical Support</button>
+                    <button class="category-tab" onclick="filterFAQ('health')">Health & Safety</button>
+                </div>
+            </div>
+            <div class="faq-content">
+                <!-- Getting Started Questions -->
+                <div class="faq-item" data-category="getting-started">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>How do I get started with Connekt Studio?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Starting is very easy! Just follow these simple steps:</p>
+                        <ol>
+                            <li>Look at our classes and pick a plan you like</li>
+                            <li>Create an account with your email</li>
+                            <li>Pay safely using our payment system</li>
+                            <li>Check your email for login details and class times</li>
+                            <li>Join your first class with the link we send you</li>
+                        </ol>
+                        <p>New members get a free session to help you learn how everything works!</p>
+                    </div>
+                </div>
+                <div class="faq-item" data-category="getting-started">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>What equipment do I need for online classes?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>For most classes, you need:</p>
+                        <ul>
+                            <li>A yoga mat (very important)</li>
+                            <li>Comfortable clothes for exercise</li>
+                            <li>Good internet connection</li>
+                            <li>A phone, tablet, or computer with camera</li>
+                            <li>Water and a towel</li>
+                        </ul>
+                        <p>For harder classes, you might want yoga blocks or light weights. But our teachers always show easier ways if you don't have equipment.</p>
+                    </div>
+                </div>
+                <div class="faq-item" data-category="classes">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>What types of classes do you offer?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We have many different classes for everyone:</p>
+                        <ul>
+                            <li><strong>Yoga for Beginners:</strong> Perfect if you're new to yoga</li>
+                            <li><strong>Power Yoga:</strong> Fast and challenging classes</li>
+                            <li><strong>Meditation:</strong> Help you relax and feel calm</li>
+                            <li><strong>Strength Training:</strong> Make your whole body stronger</li>
+                            <li><strong>Stretching:</strong> Help you become more flexible</li>
+                            <li><strong>Therapeutic Yoga:</strong> Help with injuries or health problems</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="faq-item" data-category="pricing">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>What are your pricing options?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We have different prices to fit your budget:</p>
+                        <ul>
+                            <li><strong>Monthly:</strong> ₹1,499 per month - All classes included</li>
+                            <li><strong>3 Months:</strong> ₹3,999 - You save 11%</li>
+                            <li><strong>1 Year:</strong> ₹12,999 - You save 28%</li>
+                            <li><strong>One Class:</strong> ₹299 - Pay only when you come</li>
+                        </ul>
+                        <p>All plans let you watch class recordings again and get personal help from teachers.</p>
+                    </div>
+                </div>
+                <div class="faq-item" data-category="technical">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>What if I miss a live class?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No problem! We record all live classes and you can watch them for 7 days. You can:</p>
+                        <ul>
+                            <li>Watch the recording anytime for 7 days</li>
+                            <li>Practice when you have time</li>
+                            <li>Watch difficult parts again</li>
+                            <li>Still ask questions to teachers online</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="faq-item" data-category="health">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h3>Is online yoga safe for beginners?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, online yoga is very safe when done right. Here's how we keep you safe:</p>
+                        <ul>
+                            <li>Classes for beginners with clear instructions</li>
+                            <li>Teachers show easier ways for all fitness levels</li>
+                            <li>We focus on doing poses correctly to avoid injury</li>
+                            <li>We ask about your health before you start</li>
+                            <li>You can turn off camera if you feel shy</li>
+                        </ul>
+                        <p>We always suggest talking to your doctor before starting any new exercise, especially if you have health problems.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Start Your Fitness Journey Today</h2>
+                <p>Join thousands of students who have transformed their lives with Connekt Studio</p>
+                <button class="btn btn-primary btn-large" onclick="scrollToSection('contact')">Get Started Now</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">We're here to support your wellness journey</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-user"></i>
+                        <div>
+                            <h3>Owner</h3>
+                            <p>Hina Pamnani</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Address</h3>
+                            <p>Ghanshyam niwas, Nai Basti, Gandhi Ganj, Katni, Madhya Pradesh 483501</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map"></i>
+                        <div>
+                            <h3>Live Location</h3>
+                            <div class="map-container">
+                                <iframe 
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3649.3898834946904!2d80.39092837589898!3d23.840285285318664!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398161090fd4df89%3A0xf13e1f7a08e1e8ff!2sConnekt%20Studio!5e0!3m2!1sen!2sin!4v1774860608764!5m2!1sen!2sin" 
+                                    width="100%" 
+                                    height="150" 
+                                    style="border:0; border-radius: 10px;" 
+                                    allowfullscreen="" 
+                                    loading="lazy" 
+                                    referrerpolicy="no-referrer-when-downgrade">
+                                </iframe>
+                            </div>
+                            <p style="margin-top: 0.5rem; font-size: 0.9rem;">
+                                <a href="https://maps.app.goo.gl/ZWFVnbbE6DQwWwdu6" target="_blank" style="color: #1a5f3f; text-decoration: none; font-weight: 500;">
+                                    <i class="fas fa-external-link-alt"></i> Get Directions on Google Maps
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3>Phone</h3>
+                            <p>+91 9039570885</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <div>
+                            <h3>WhatsApp</h3>
+                            <p>+91 9039570885</p>
+                            <a href="https://wa.me/919039570885?text=Hi!%20I'm%20interested%20in%20joining%20Connekt%20Studio%20yoga%20classes" target="_blank" class="whatsapp-btn">Message on WhatsApp</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email</h3>
+                            <p>connektbmsstudio@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <input type="text" id="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="phone" placeholder="Your Phone" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" placeholder="Your Message" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="Images/logo.png" alt="Connekt Studio Logo" class="footer-logo-img">
+                        <h3>Connekt Studio</h3>
+                    </div>
+                    <p>Transform your body and mind naturally through yoga, fitness, and meditation.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/profile.php?id=61575226529469&mibextid=rS40aB7S9Ucbxw6v" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/connekt_studio/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://jsdl.in/DT-99SERLP6TFV" target="_blank"><i class="fas fa-store"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#classes">Classes</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Classes</h4>
+                    <ul>
+                        <li><a href="#">Yoga for Beginners</a></li>
+                        <li><a href="#">Power Yoga</a></li>
+                        <li><a href="#">Meditation</a></li>
+                        <li><a href="#">Fitness Training</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-of-service.html">Terms of Service</a></li>
+                        <li><a href="refund-policy.html">Refund Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Connekt Studio. All rights reserved.</p>
+                <p style="font-size: 0.7rem; opacity: 0.5; margin-top: 5px;">
+                    <a href="admin-login.html" style="color: inherit; text-decoration: none;">Admin Access</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/919039570885?text=Hi!%20I'm%20interested%20in%20joining%20Connekt%20Studio%20yoga%20classes" 
+       target="_blank" 
+       class="floating-whatsapp-btn" 
+       title="Message us on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Modal -->
+    <div id="classModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalBody">
+                <!-- Modal content will be dynamically loaded -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Enrollment Modal -->
+    <div id="enrollmentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalBody">
+                <!-- Enrollment form will be dynamically loaded -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePaymentModal()">&times;</span>
+            <div id="paymentBody">
+                <!-- Payment content will be dynamically loaded -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
+    <script src="script.js"></script>
+</body>
+</html>

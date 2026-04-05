@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Setup - Connekt Studio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .setup-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a5f3f 0%, #2d7a57 100%);
+            padding: 20px;
+        }
+        
+        .setup-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .setup-card h2 {
+            color: #1a5f3f;
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+        }
+        
+        .setup-card p {
+            color: #6c757d;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+        
+        .credentials-box {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .credential-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #1a5f3f;
+        }
+        
+        .credential-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .credential-label {
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .credential-value {
+            font-family: 'Courier New', monospace;
+            background: #1a5f3f;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        
+        .setup-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #1a5f3f, #2d7a57);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+        
+        .setup-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26, 95, 63, 0.3);
+        }
+        
+        .back-btn {
+            background: #6c757d;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: #5a6268;
+            transform: translateY(-1px);
+        }
+        
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #28a745;
+            display: none;
+        }
+        
+        .instructions {
+            text-align: left;
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .instructions h4 {
+            color: #856404;
+            margin: 0 0 10px 0;
+        }
+        
+        .instructions ul {
+            margin: 0;
+            padding-left: 20px;
+            color: #856404;
+        }
+        
+        .instructions li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="setup-container">
+        <div class="setup-card">
+            <div class="logo-section">
+                <img src="Images/logo.png" alt="Connekt Studio" style="height: 50px; margin-bottom: 20px; border-radius: 10px;">
+                <h2>Admin Account Setup</h2>
+                <p>Your admin credentials have been created</p>
+            </div>
+            
+            <div class="success-message" id="successMessage">
+                Admin account created successfully! You can now login to the admin panel.
+            </div>
+            
+            <div class="instructions">
+                <h4><i class="fas fa-info-circle"></i> Important Instructions:</h4>
+                <ul>
+                    <li>Save these credentials in a secure location</li>
+                    <li>Change the password after first login</li>
+                    <li>Never share these credentials with anyone</li>
+                    <li>Keep this page bookmarked for future reference</li>
+                </ul>
+            </div>
+            
+            <div class="credentials-box">
+                <h3 style="margin: 0 0 20px 0; color: #1a5f3f;">Admin Login Credentials</h3>
+                
+                <div class="credential-item">
+                    <span class="credential-label"><i class="fas fa-user"></i> Email/Username:</span>
+                    <span class="credential-value">admin@connektstudio.com</span>
+                </div>
+                
+                <div class="credential-item">
+                    <span class="credential-label"><i class="fas fa-lock"></i> Password:</span>
+                    <span class="credential-value">Connekt@2024#Admin</span>
+                </div>
+                
+                <div class="credential-item">
+                    <span class="credential-label"><i class="fas fa-link"></i> Admin Panel:</span>
+                    <span class="credential-value">/admin-dashboard.html</span>
+                </div>
+            </div>
+            
+            <button class="setup-btn" onclick="setupAdmin()">
+                <i class="fas fa-check"></i> Setup Admin Account
+            </button>
+            
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Website
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script>
+        // Encryption function
+        function encryptData(data) {
+            return CryptoJS.AES.encrypt(JSON.stringify(data), 'connekt-studio-admin-secret-key').toString();
+        }
+        
+        function setupAdmin() {
+            // Admin credentials
+            const adminData = {
+                email: 'admin@connektstudio.com',
+                username: 'admin@connektstudio.com',
+                password: 'Connekt@2024#Admin',
+                fullName: 'Administrator',
+                role: 'admin',
+                permissions: ['all'],
+                createdAt: new Date().toISOString(),
+                lastLogin: null
+            };
+            
+            // Encrypt password
+            const encryptedPassword = CryptoJS.AES.encrypt(
+                JSON.stringify({ password: adminData.password }), 
+                'connekt-studio-admin-secret-key'
+            ).toString();
+            
+            // Create admin object
+            const admin = {
+                ...adminData,
+                password: encryptedPassword,
+                id: 'admin-' + Date.now()
+            };
+            
+            // Save admin to localStorage
+            localStorage.setItem('adminAccount', JSON.stringify(admin));
+            
+            // Also save in users array for compatibility
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            users.push(admin);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            // Show success message
+            document.getElementById('successMessage').style.display = 'block';
+            
+            // Disable button after setup
+            document.querySelector('.setup-btn').disabled = true;
+            document.querySelector('.setup-btn').textContent = 'Admin Account Created ✓';
+            
+            // Log the setup (for debugging)
+            console.log('Admin account created with credentials:', {
+                email: adminData.email,
+                password: adminData.password
+            });
+        }
+        
+        // Check if admin already exists
+        window.addEventListener('load', function() {
+            const adminAccount = localStorage.getItem('adminAccount');
+            if (adminAccount) {
+                const admin = JSON.parse(adminAccount);
+                document.querySelector('.setup-btn').disabled = true;
+                document.querySelector('.setup-btn').textContent = 'Admin Account Already Exists ✓';
+                document.getElementById('successMessage').style.display = 'block';
+                document.getElementById('successMessage').textContent = 'Admin account already exists in the system.';
+            }
+        });
+    </script>
+</body>
+</html>

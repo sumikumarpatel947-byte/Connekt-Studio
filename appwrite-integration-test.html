@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appwrite Integration Test - Connekt Studio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1a5f3f, #2c7a5f);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .test-section {
+            margin-bottom: 40px;
+            padding: 30px;
+            border: 2px solid #f0f0f0;
+            border-radius: 15px;
+            background: #fafafa;
+        }
+        
+        .test-section h3 {
+            color: #1a5f3f;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #1a5f3f;
+        }
+        
+        .required {
+            color: #e74c3c;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin: 5px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #1a5f3f, #2c7a5f);
+            color: white;
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #27ae60, #229954);
+            color: white;
+        }
+        
+        .btn-info {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .test-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .status-message {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-weight: 500;
+            text-align: center;
+        }
+        
+        .status-message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status-message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .status-message.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .log-output {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 15px;
+        }
+        
+        .user-list {
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .user-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .user-card h4 {
+            color: #1a5f3f;
+            margin-bottom: 10px;
+        }
+        
+        .user-card p {
+            margin: 5px 0;
+            color: #666;
+        }
+        
+        .config-info {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .config-info h4 {
+            color: #495057;
+            margin-bottom: 10px;
+        }
+        
+        .config-info code {
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Appwrite Integration Test</h1>
+            <p>Complete testing suite for Connekt Studio Appwrite database integration</p>
+        </div>
+        
+        <div class="content">
+            <!-- Configuration Info -->
+            <div class="config-info">
+                <h4>📋 Appwrite Configuration</h4>
+                <p><strong>Endpoint:</strong> <code>https://cloud.appwrite.io/v1</code></p>
+                <p><strong>Project ID:</strong> <code>69d1e218000c0c6bf59f</code></p>
+                <p><strong>Database ID:</strong> <code>69d1ea0f0000b37f7fa2</code></p>
+                <p><strong>Collection ID:</strong> <code>69d1ea0f0000b37f7fa2</code></p>
+            </div>
+
+            <!-- Connection Test -->
+            <div class="test-section">
+                <h3>🔗 Connection Test</h3>
+                <div class="test-buttons">
+                    <button class="btn btn-info" onclick="testConnection()">
+                        <i class="fas fa-plug"></i> Test Connection
+                    </button>
+                    <button class="btn btn-success" onclick="testDatabase()">
+                        <i class="fas fa-database"></i> Test Database Access
+                    </button>
+                </div>
+                <div id="connectionStatus"></div>
+            </div>
+
+            <!-- User Form Test -->
+            <div class="test-section">
+                <h3>👤 User Registration Test</h3>
+                <form id="userTestForm">
+                    <div class="form-group">
+                        <label for="testFullName">Full Name <span class="required">*</span></label>
+                        <input type="text" id="testFullName" name="fullName" required placeholder="Enter full name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="testGender">Gender</label>
+                        <select id="testGender" name="gender">
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="testEmail">Email <span class="required">*</span></label>
+                        <input type="email" id="testEmail" name="email" required placeholder="Enter email address">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="testPhone">Phone <span class="required">*</span></label>
+                        <input type="tel" id="testPhone" name="phone" required placeholder="Enter phone number">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="testLocation">Location</label>
+                        <input type="text" id="testLocation" name="location" placeholder="Enter location">
+                    </div>
+                    
+                    <button type="button" class="btn btn-primary" onclick="saveTestUser()">
+                        <i class="fas fa-save"></i> Save User to Appwrite
+                    </button>
+                    <button type="button" class="btn btn-info" onclick="clearTestForm()">
+                        <i class="fas fa-eraser"></i> Clear Form
+                    </button>
+                </form>
+                <div id="userStatus"></div>
+            </div>
+
+            <!-- CRUD Operations Test -->
+            <div class="test-section">
+                <h3>📊 CRUD Operations Test</h3>
+                <div class="test-buttons">
+                    <button class="btn btn-success" onclick="loadTestUsers()">
+                        <i class="fas fa-users"></i> Load All Users
+                    </button>
+                    <button class="btn btn-primary" onclick="addMultipleTestUsers()">
+                        <i class="fas fa-plus"></i> Add 5 Test Users
+                    </button>
+                    <button class="btn btn-danger" onclick="clearAllTestUsers()">
+                        <i class="fas fa-trash"></i> Clear All Test Users
+                    </button>
+                </div>
+                <div id="crudStatus"></div>
+                <div id="userList" class="user-list"></div>
+            </div>
+
+            <!-- Console Log -->
+            <div class="test-section">
+                <h3>📋 Console Log</h3>
+                <button class="btn btn-info" onclick="clearLog()">
+                    <i class="fas fa-eraser"></i> Clear Log
+                </button>
+                <div class="log-output" id="logOutput">
+                    <div>Appwrite Integration Test Console Ready...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
+    <script>
+        // Initialize Appwrite
+        const client = new Appwrite.Client()
+            .setEndpoint('https://cloud.appwrite.io/v1')
+            .setProject('69d1e218000c0c6bf59f');
+
+        const databases = new Appwrite.Databases(client);
+        
+        // Configuration
+        const CONFIG = {
+            DATABASE_ID: '69d1ea0f0000b37f7fa2',
+            COLLECTION_ID: '69d1ea0f0000b37f7fa2'
+        };
+
+        // Logging function
+        function log(message, type = 'info') {
+            const logOutput = document.getElementById('logOutput');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.innerHTML = `<span style="color: #3498db">[${timestamp}]</span> ${message}`;
+            logOutput.appendChild(logEntry);
+            logOutput.scrollTop = logOutput.scrollHeight;
+            console.log(message);
+        }
+
+        // Status function
+        function showStatus(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="status-message ${type}">${message}</div>`;
+            
+            // Auto hide after 5 seconds
+            setTimeout(() => {
+                element.innerHTML = '';
+            }, 5000);
+        }
+
+        // Test connection
+        async function testConnection() {
+            log('Testing Appwrite connection...');
+            try {
+                const account = new Appwrite.Account(client);
+                log('✅ Appwrite client initialized successfully');
+                log('📋 Project ID: 69d1e218000c0c6bf59f');
+                log('🌐 Endpoint: https://cloud.appwrite.io/v1');
+                showStatus('connectionStatus', '✅ Appwrite connection successful!', 'success');
+            } catch (error) {
+                log('❌ Connection failed: ' + error.message);
+                showStatus('connectionStatus', '❌ Connection failed: ' + error.message, 'error');
+            }
+        }
+
+        // Test database access
+        async function testDatabase() {
+            log('Testing database access...');
+            try {
+                const response = await databases.list(CONFIG.DATABASE_ID, CONFIG.COLLECTION_ID, [
+                    Appwrite.Query.limit(1)
+                ]);
+                log('✅ Database access successful');
+                log(`📊 Found ${response.total} users in database`);
+                showStatus('connectionStatus', '✅ Database access successful!', 'success');
+            } catch (error) {
+                log('❌ Database access failed: ' + error.message);
+                if (error.message.includes('database not found')) {
+                    log('💡 Solution: Create database "69d1ea0f0000b37f7fa2" in Appwrite dashboard');
+                } else if (error.message.includes('collection not found')) {
+                    log('💡 Solution: Create collection "69d1ea0f0000b37f7fa2" in Appwrite dashboard');
+                }
+                showStatus('connectionStatus', '❌ Database access failed: ' + error.message, 'error');
+            }
+        }
+
+        // Save test user
+        async function saveTestUser() {
+            try {
+                const fullName = document.getElementById('testFullName').value;
+                const gender = document.getElementById('testGender').value;
+                const email = document.getElementById('testEmail').value;
+                const phone = document.getElementById('testPhone').value;
+                const location = document.getElementById('testLocation').value;
+
+                log('Saving test user...');
+                log(`📝 Name: ${fullName}`);
+                log(`📧 Email: ${email}`);
+                log(`📱 Phone: ${phone}`);
+
+                // Validate inputs
+                if (!fullName || !email || !phone) {
+                    showStatus('userStatus', 'Please fill in all required fields', 'error');
+                    return;
+                }
+
+                // Validate email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    showStatus('userStatus', 'Please enter a valid email address', 'error');
+                    return;
+                }
+
+                showStatus('userStatus', 'Saving user to Appwrite...', 'info');
+
+                // Create document
+                const response = await databases.createDocument(
+                    CONFIG.DATABASE_ID,
+                    CONFIG.COLLECTION_ID,
+                    Appwrite.ID.unique(),
+                    {
+                        fullName,
+                        gender,
+                        email,
+                        phone,
+                        location
+                    }
+                );
+
+                log('✅ User saved successfully');
+                log(`🆔 User ID: ${response.$id}`);
+                showStatus('userStatus', `✅ User saved successfully! ID: ${response.$id}`, 'success');
+
+                // Clear form
+                clearTestForm();
+
+                // Refresh user list
+                await loadTestUsers();
+
+            } catch (error) {
+                log('❌ Error saving user: ' + error.message);
+                if (error.message.includes('duplicate')) {
+                    showStatus('userStatus', 'A user with this email already exists', 'error');
+                } else {
+                    showStatus('userStatus', 'Error saving user: ' + error.message, 'error');
+                }
+            }
+        }
+
+        // Load test users
+        async function loadTestUsers() {
+            try {
+                log('Loading users from Appwrite...');
+                showStatus('crudStatus', 'Loading users...', 'info');
+
+                const response = await databases.listDocuments(
+                    CONFIG.DATABASE_ID,
+                    CONFIG.COLLECTION_ID,
+                    [
+                        Appwrite.Query.orderDesc('$createdAt'),
+                        Appwrite.Query.limit(50)
+                    ]
+                );
+
+                log(`✅ Loaded ${response.documents.length} users`);
+                displayUsers(response.documents);
+                showStatus('crudStatus', `✅ Loaded ${response.total} users successfully!`, 'success');
+
+            } catch (error) {
+                log('❌ Error loading users: ' + error.message);
+                showStatus('crudStatus', '❌ Error loading users: ' + error.message, 'error');
+            }
+        }
+
+        // Display users
+        function displayUsers(users) {
+            const userList = document.getElementById('userList');
+            
+            if (users.length === 0) {
+                userList.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">No users found in database</div>';
+                return;
+            }
+
+            userList.innerHTML = users.map((user, index) => `
+                <div class="user-card">
+                    <h4>${index + 1}. ${user.fullName}</h4>
+                    <p><strong>Email:</strong> ${user.email}</p>
+                    <p><strong>Phone:</strong> ${user.phone}</p>
+                    <p><strong>Gender:</strong> ${user.gender || 'Not specified'}</p>
+                    <p><strong>Location:</strong> ${user.location || 'Not specified'}</p>
+                    <p><strong>ID:</strong> <code>${user.$id}</code></p>
+                    <p><strong>Created:</strong> ${new Date(user.$createdAt).toLocaleString()}</p>
+                </div>
+            `).join('');
+        }
+
+        // Add multiple test users
+        async function addMultipleTestUsers() {
+            try {
+                log('Adding 5 test users...');
+                showStatus('crudStatus', 'Adding test users...', 'info');
+
+                const testUsers = [
+                    { fullName: 'John Doe', gender: 'male', email: 'john.doe@example.com', phone: '1234567890', location: 'New York' },
+                    { fullName: 'Jane Smith', gender: 'female', email: 'jane.smith@example.com', phone: '0987654321', location: 'Los Angeles' },
+                    { fullName: 'Bob Johnson', gender: 'male', email: 'bob.johnson@example.com', phone: '5551234567', location: 'Chicago' },
+                    { fullName: 'Alice Brown', gender: 'female', email: 'alice.brown@example.com', phone: '5559876543', location: 'Houston' },
+                    { fullName: 'Charlie Wilson', gender: 'other', email: 'charlie.wilson@example.com', phone: '5555555555', location: 'Phoenix' }
+                ];
+
+                for (const userData of testUsers) {
+                    await databases.createDocument(
+                        CONFIG.DATABASE_ID,
+                        CONFIG.COLLECTION_ID,
+                        Appwrite.ID.unique(),
+                        userData
+                    );
+                    log(`✅ Added user: ${userData.fullName}`);
+                }
+
+                log('✅ All 5 test users added successfully');
+                showStatus('crudStatus', '✅ Added 5 test users successfully!', 'success');
+
+                // Refresh user list
+                await loadTestUsers();
+
+            } catch (error) {
+                log('❌ Error adding test users: ' + error.message);
+                showStatus('crudStatus', '❌ Error adding test users: ' + error.message, 'error');
+            }
+        }
+
+        // Clear all test users
+        async function clearAllTestUsers() {
+            if (!confirm('Are you sure you want to delete all test users? This action cannot be undone.')) {
+                return;
+            }
+
+            try {
+                log('Clearing all test users...');
+                showStatus('crudStatus', 'Deleting all users...', 'info');
+
+                const response = await databases.listDocuments(
+                    CONFIG.DATABASE_ID,
+                    CONFIG.COLLECTION_ID,
+                    [Appwrite.Query.limit(100)]
+                );
+
+                for (const user of response.documents) {
+                    await databases.deleteDocument(CONFIG.DATABASE_ID, CONFIG.COLLECTION_ID, user.$id);
+                    log(`🗑️ Deleted user: ${user.fullName}`);
+                }
+
+                log(`✅ Deleted ${response.documents.length} users`);
+                showStatus('crudStatus', '✅ All users deleted successfully!', 'success');
+
+                // Clear user list
+                document.getElementById('userList').innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">No users found in database</div>';
+
+            } catch (error) {
+                log('❌ Error clearing users: ' + error.message);
+                showStatus('crudStatus', '❌ Error clearing users: ' + error.message, 'error');
+            }
+        }
+
+        // Clear test form
+        function clearTestForm() {
+            document.getElementById('userTestForm').reset();
+            log('🧹 Test form cleared');
+        }
+
+        // Clear log
+        function clearLog() {
+            document.getElementById('logOutput').innerHTML = '<div>Log cleared...</div>';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            log('🚀 Appwrite Integration Test Page Loaded');
+            log('📋 Configuration loaded');
+            log('✅ Ready for testing');
+        });
+    </script>
+</body>
+</html>

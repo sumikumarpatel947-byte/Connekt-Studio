@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Connekt Studio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="Images/logo.png" alt="Connekt Studio Logo" class="logo-img">
+                <h2><a href="index.html" style="text-decoration: none; color: inherit;">Connekt Studio</a></h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#classes">Classes</a></li>
+                <li><a href="index.html#pricing">Pricing</a></li>
+                <li><a href="index.html#testimonials">Testimonials</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Hero Section -->
+    <section class="blog-hero">
+        <div class="hero-background">
+            <img src="https://images.unsplash.com/photo-1516369499473-76ba1eae593b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80" alt="Blog">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Wellness Blog</h1>
+                <p class="hero-subtitle">Insights, tips, and inspiration for your yoga and wellness journey</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Post -->
+    <section class="featured-post section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Featured Article</h2>
+                <p class="section-subtitle">This week's highlighted wellness wisdom</p>
+            </div>
+            <div class="featured-content">
+                <div class="featured-image">
+                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Featured Article">
+                </div>
+                <div class="featured-text">
+                    <div class="article-meta">
+                        <span class="category">Featured</span>
+                        <span class="date">March 25, 2024</span>
+                        <span class="read-time">8 min read</span>
+                    </div>
+                    <h2>The Transformative Power of Morning Yoga: How 15 Minutes Can Change Your Day</h2>
+                    <p>Discover how a simple morning yoga practice can revolutionize your entire day, boost your energy, improve focus, and set a positive tone for everything that follows.</p>
+                    <div class="featured-excerpt">
+                        <p>Imagine starting every day with clarity, energy, and a sense of inner peace. This isn't just a dream—it's the reality for thousands of people who have embraced a simple morning yoga practice. In this comprehensive guide, we explore how just 15 minutes of yoga each morning can transform not just your day, but your entire life.</p>
+                    </div>
+                    <div class="featured-author">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Priya Sharma">
+                        <div>
+                            <h4>Priya Sharma</h4>
+                            <p>Founder & Lead Instructor</p>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-primary">Read Full Article</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Categories -->
+    <section class="blog-categories">
+        <div class="container">
+            <div class="category-filters">
+                <button class="filter-btn active" onclick="filterBlog('all')">All Posts</button>
+                <button class="filter-btn" onclick="filterBlog('yoga')">Yoga Practice</button>
+                <button class="filter-btn" onclick="filterBlog('wellness')">Wellness Tips</button>
+                <button class="filter-btn" onclick="filterBlog('meditation')">Meditation</button>
+                <button class="filter-btn" onclick="filterBlog('nutrition')">Nutrition</button>
+                <button class="filter-btn" onclick="filterBlog('lifestyle')">Lifestyle</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Posts Grid -->
+    <section class="blog-posts section-alt">
+        <div class="container">
+            <div class="posts-grid">
+                <!-- Article 1 -->
+                <article class="blog-post" data-category="yoga">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1599901860903-17e6ed7083a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Yoga Poses">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span class="category">Yoga Practice</span>
+                            <span class="date">March 22, 2024</span>
+                        </div>
+                        <h3>5 Essential Yoga Poses for Beginners</h3>
+                        <p>Start your yoga journey with these foundational poses that build strength, flexibility, and confidence. Perfect for those just beginning their practice.</p>
+                        <div class="post-footer">
+                            <div class="post-author">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=50&q=80" alt="Rahul Verma">
+                                <span>Rahul Verma</span>
+                            </div>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 2 -->
+                <article class="blog-post" data-category="meditation">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1588286840104-8957b019727f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Meditation">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span class="category">Meditation</span>
+                            <span class="date">March 20, 2024</span>
+                        </div>
+                        <h3>Mindfulness in 5 Minutes: Quick Meditation for Busy Lives</h3>
+                        <p>Learn simple yet powerful meditation techniques you can practice anywhere, anytime. Perfect for busy professionals and parents.</p>
+                        <div class="post-footer">
+                            <div class="post-author">
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=50&q=80" alt="Anita Patel">
+                                <span>Anita Patel</span>
+                            </div>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="blog-post" data-category="wellness">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1540555700478-4be2892cef28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Wellness">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span class="category">Wellness Tips</span>
+                            <span class="date">March 18, 2024</span>
+                        </div>
+                        <h3>Stress Relief: Natural Ways to Find Calm in Chaos</h3>
+                        <p>Discover proven techniques to manage stress naturally through yoga, breathing exercises, and lifestyle changes.</p>
+                        <div class="post-footer">
+                            <div class="post-author">
+                                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=50&q=80" alt="Priya Sharma">
+                                <span>Priya Sharma</span>
+                            </div>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 4 -->
+                <article class="blog-post" data-category="nutrition">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Nutrition">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span class="category">Nutrition</span>
+                            <span class="date">March 15, 2024</span>
+                        </div>
+                        <h3>Eat for Energy: Foods That Fuel Your Yoga Practice</h3>
+                        <p>Optimize your yoga practice with the right nutrition. Learn what to eat before and after class for maximum energy and recovery.</p>
+                        <div class="post-footer">
+                            <div class="post-author">
+                                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=50&q=80" alt="Dr. Sarah Lee">
+                                <span>Dr. Sarah Lee</span>
+                            </div>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 5 -->
+                <article class="blog-post" data-category="lifestyle">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Lifestyle">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span class="category">Lifestyle</span>
+                            <span class="date">March 12, 2024</span>
+                        </div>
+                        <h3>Creating Your Sacred Space: Home Yoga Room Ideas</h3>
+                        <p>Transform any corner of your home into a peaceful yoga sanctuary with these simple, budget-friendly design tips and ideas.</p>
+                        <div class="post-footer">
+                            <div class="post-author">
+                                <img src="https://images.unsplash.com/photo-1594736797933-d0acc2401916?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=50&q=80" alt="Lisa Thompson">
+                                <span>Lisa Thompson</span>
+                            </div>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 6 -->
+                <article class="blog-post" data-category="yoga">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1545389336-cf0a692e24c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Advanced Yoga">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span class="category">Yoga Practice</span>
+                            <span class="date">March 10, 2024</span>
+                        </div>
+                        <h3>From Beginner to Advanced: Your Yoga Progression Path</h3>
+                        <p>Understand the natural progression of yoga practice and how to safely advance from basic poses to challenging inversions.</p>
+                        <div class="post-footer">
+                            <div class="post-author">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=50&q=80" alt="Rahul Verma">
+                                <span>Rahul Verma</span>
+                            </div>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="load-more">
+                <button class="btn btn-outline" onclick="loadMorePosts()">Load More Articles</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Stay Connected with Our Wellness Community</h2>
+                <p>Get weekly wellness tips, exclusive content, and early access to workshops and events delivered to your inbox.</p>
+                <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                    <div class="form-group">
+                        <input type="email" placeholder="Enter your email address" required>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </div>
+                    <p class="privacy-note">We respect your privacy. Unsubscribe at any time.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="Images/logo.png" alt="Connekt Studio Logo" class="footer-logo-img">
+                        <h3>Connekt Studio</h3>
+                    </div>
+                    <p>Transform your body and mind naturally through yoga, fitness, and meditation.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="index.html#classes">Classes</a></li>
+                        <li><a href="index.html#pricing">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="instructors.html">Our Instructors</a></li>
+                        <li><a href="success-stories.html">Success Stories</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-of-service.html">Terms of Service</a></li>
+                        <li><a href="refund-policy.html">Refund Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Connekt Studio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Filter blog posts by category
+        function filterBlog(category) {
+            const posts = document.querySelectorAll('.blog-post');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Update active button
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.toLowerCase().includes(category) || 
+                    (category === 'all' && btn.textContent === 'All Posts')) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Filter posts
+            posts.forEach(post => {
+                if (category === 'all' || post.dataset.category === category) {
+                    post.style.display = 'block';
+                    // Add animation
+                    post.style.opacity = '0';
+                    post.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        post.style.transition = 'all 0.3s ease';
+                        post.style.opacity = '1';
+                        post.style.transform = 'translateY(0)';
+                    }, 50);
+                } else {
+                    post.style.display = 'none';
+                }
+            });
+        }
+
+        // Load more posts (simulation)
+        function loadMorePosts() {
+            const button = event.target;
+            button.textContent = 'Loading...';
+            button.disabled = true;
+            
+            // Simulate loading
+            setTimeout(() => {
+                button.textContent = 'All Articles Loaded';
+                button.classList.add('disabled');
+            }, 1500);
+        }
+
+        // Newsletter subscription
+        function subscribeNewsletter(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('input[type="email"]').value;
+            const button = event.target.querySelector('button[type="submit"]');
+            
+            button.textContent = 'Subscribing...';
+            button.disabled = true;
+            
+            // Simulate subscription
+            setTimeout(() => {
+                button.textContent = 'Subscribed!';
+                button.classList.add('success');
+                event.target.reset();
+                
+                setTimeout(() => {
+                    button.textContent = 'Subscribe';
+                    button.disabled = false;
+                    button.classList.remove('success');
+                }, 3000);
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
