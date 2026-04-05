@@ -197,8 +197,8 @@
                 <h4>📋 System Configuration</h4>
                 <p><strong>Endpoint:</strong> <code>https://cloud.appwrite.io/v1</code></p>
                 <p><strong>Project ID:</strong> <code>69d1e218000c0c6bf59f</code></p>
-                <p><strong>Database ID:</strong> <code>69d1ea0f0000b37f7fa2</code></p>
-                <p><strong>Collection ID:</strong> <code>69d1ea0f0000b37f7fa2</code></p>
+                <p><strong>Database ID:</strong> <code>database-69d2929600321ba774c7</code></p>
+                <p><strong>Collection ID:</strong> <code>collection-users</code></p>
             </div>
 
             <!-- Connection Test -->
@@ -298,8 +298,8 @@
         
         // Configuration
         const CONFIG = {
-            DATABASE_ID: '69d1ea0f0000b37f7fa2',
-            COLLECTION_ID: '69d1ea0f0000b37f7fa2'
+            DATABASE_ID: 'database-69d2929600321ba774c7',
+            COLLECTION_ID: 'collection-users'
         };
 
         // Logging function
@@ -356,9 +356,9 @@
             } catch (error) {
                 log('❌ Database access failed: ' + error.message);
                 if (error.message.includes('database not found')) {
-                    log('💡 Solution: Create database "69d1ea0f0000b37f7fa2" in Appwrite dashboard');
+                    log('💡 Solution: Create database "database-69d2929600321ba774c7" in Appwrite dashboard');
                 } else if (error.message.includes('collection not found')) {
-                    log('💡 Solution: Create collection "69d1ea0f0000b37f7fa2" in Appwrite dashboard');
+                    log('💡 Solution: Create collection "collection-users" in Appwrite dashboard');
                 }
                 showStatus('connectionStatus', '❌ Database access failed: ' + error.message, 'error');
             }
@@ -547,7 +547,7 @@
             log('Testing admin configuration...');
             try {
                 // Check if admin configuration matches main configuration
-                if (CONFIG.DATABASE_ID === '69d1ea0f0000b37f7fa2') {
+                if (CONFIG.DATABASE_ID === 'database-69d2929600321ba774c7') {
                     log('✅ Admin configuration matches main system');
                     log('📊 Database ID: ' + CONFIG.DATABASE_ID);
                     log('📋 Collection ID: ' + CONFIG.COLLECTION_ID);

@@ -14,8 +14,8 @@ const databases = new Appwrite.Databases(client);
 
 // Appwrite Configuration
 const APPWRITE_CONFIG = {
-    DATABASE_ID: '69d1ea0f0000b37f7fa2',
-    COLLECTION_ID: '69d1ea0f0000b37f7fa2'
+    DATABASE_ID: 'database-69d2929600321ba774c7',
+    COLLECTION_ID: 'collection-users'
 };
 
 // Appwrite Data Manager Class

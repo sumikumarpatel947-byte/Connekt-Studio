@@ -10,10 +10,10 @@ const adminDatabases = new Appwrite.Databases(adminClient);
 
 // Admin Appwrite Configuration
 const ADMIN_APPWRITE_CONFIG = {
-    DATABASE_ID: '69d1ea0f0000b37f7fa2',
+    DATABASE_ID: 'database-69d2929600321ba774c7',
     COLLECTIONS: {
-        CLASSES: '69d1ea0f0000b37f7fa2',
-        USERS: '69d1ea0f0000b37f7fa2'
+        CLASSES: 'collection-users',
+        USERS: 'collection-users'
     }
 };
 
