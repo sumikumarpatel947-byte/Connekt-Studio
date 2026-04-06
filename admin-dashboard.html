@@ -1392,11 +1392,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    <script src="admin-appwrite.js"></script>
-    <script>
+    <script type="module">
+        import { adminAppwriteManager } from './admin-appwrite.js';
+        
         // Initialize data from Appwrite
         function initializeData() {
-            console.log('Admin dashboard initialized with Appwrite backend');
+            console.log('Admin dashboard initialized with centralized Appwrite backend');
         }
 
         // Navigation
@@ -1571,19 +1572,7 @@
         // Load users from Appwrite for admin
         async function loadUsersFromAppwrite() {
             try {
-                const client = new Appwrite.Client()
-                    .setEndpoint('https://cloud.appwrite.io/v1')
-                    .setProject('69d1e218000c0c6bf59f');
-                
-                const databases = new Appwrite.Databases(client);
-                
-                const response = await databases.listDocuments(
-                    'database-69d2929600321ba774c7',
-                    'collection-users',
-                    [Appwrite.Query.limit(100)]
-                );
-                
-                return response.documents;
+                const users = await adminAppwriteManager.loadUsers();
             } catch (error) {
                 console.error('Error loading users from Appwrite:', error);
                 return [];

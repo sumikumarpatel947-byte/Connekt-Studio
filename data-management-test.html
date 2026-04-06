@@ -288,19 +288,38 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
+    <script src="appwrite-config.js"></script>
+    <script src="appwrite-user-manager.js"></script>
+    <script src="appwrite-class-manager.js"></script>
     <script>
-        // Initialize Appwrite
-        const client = new Appwrite.Client()
-            .setEndpoint('https://cloud.appwrite.io/v1')
-            .setProject('69d1e218000c0c6bf59f');
-
-        const databases = new Appwrite.Databases(client);
+        // Use the global managers from the included scripts
+        const { appwriteClient, appwriteDatabases, APPWRITE_DATABASE_CONFIG } = window;
+        const { userManager } = window;
+        const { classManager } = window;
         
-        // Configuration
-        const CONFIG = {
-            DATABASE_ID: 'database-69d2929600321ba774c7',
-            COLLECTION_ID: 'collection-users'
-        };
+        // Wait for managers to be available
+        function waitForManagers() {
+            if (window.userManager && window.classManager && window.APPWRITE_DATABASE_CONFIG) {
+                console.log('✅ All managers loaded successfully');
+                return true;
+            }
+            console.log('⏳ Waiting for managers to load...');
+            return false;
+        }
+        
+        // Initialize when ready
+        function initializeWhenReady() {
+            if (waitForManagers()) {
+                console.log('🚀 Data Management System Ready!');
+                // Hide loading message
+                const loadingMsg = document.getElementById('loadingMessage');
+                if (loadingMsg) {
+                    loadingMsg.style.display = 'none';
+                }
+            } else {
+                setTimeout(initializeWhenReady, 100);
+            }
+        }
 
         // Logging function
         function log(message, type = 'info') {
@@ -325,13 +344,14 @@
         }
 
         // Test Appwrite Connection
-        async function testAppwriteConnection() {
+        function testAppwriteConnection() {
             log('Testing Appwrite connection...');
+            initializeWhenReady();
             try {
-                const account = new Appwrite.Account(client);
+                const account = new appwriteClient.Account();
                 log('✅ Appwrite client initialized successfully');
-                log('📋 Project ID: 69d1e218000c0c6bf59f');
-                log('🌐 Endpoint: https://cloud.appwrite.io/v1');
+                log('📋 Project ID: ' + APPWRITE_DATABASE_CONFIG.PROJECT_ID);
+                log('🌐 Endpoint: ' + APPWRITE_CLIENT_CONFIG.ENDPOINT);
                 showStatus('connectionStatus', '✅ Appwrite connection successful!', 'success');
             } catch (error) {
                 log('❌ Connection failed: ' + error.message);
@@ -342,10 +362,11 @@
         // Test Database Access
         async function testDatabaseAccess() {
             log('Testing database access...');
+            initializeWhenReady();
             try {
-                const response = await databases.listDocuments(
-                    CONFIG.DATABASE_ID,
-                    CONFIG.COLLECTION_ID,
+                const response = await appwriteDatabases.listDocuments(
+                    APPWRITE_DATABASE_CONFIG.DATABASE_ID,
+                    APPWRITE_DATABASE_CONFIG.COLLECTIONS.USERS,
                     [
                         Appwrite.Query.limit(1)
                     ]
@@ -386,6 +407,7 @@
         // Test User Creation
         async function testUserCreation() {
             log('Testing user creation...');
+            initializeWhenReady();
             try {
                 const testUser = {
                     fullName: 'Test User ' + Date.now(),
@@ -395,13 +417,7 @@
                     location: 'Test City'
                 };
 
-                const response = await databases.createDocument(
-                    CONFIG.DATABASE_ID,
-                    CONFIG.COLLECTION_ID,
-                    Appwrite.ID.unique(),
-                    testUser
-                );
-
+                const response = await userManager.saveUser(testUser);
                 log('✅ User created successfully');
                 log(`🆔 User ID: ${response.$id}`);
                 log(`👤 Name: ${testUser.fullName}`);
@@ -419,16 +435,9 @@
         // Test User Retrieval
         async function testUserRetrieval() {
             log('Testing user retrieval...');
+            initializeWhenReady();
             try {
-                const response = await databases.listDocuments(
-                    CONFIG.DATABASE_ID,
-                    CONFIG.COLLECTION_ID,
-                    [
-                        Appwrite.Query.limit(10),
-                        Appwrite.Query.orderDesc('$createdAt')
-                    ]
-                );
-
+                const response = await userManager.loadUsers();
                 log('✅ User retrieval successful');
                 log(`📊 Retrieved ${response.documents.length} users`);
                 
@@ -465,12 +474,7 @@
                     location: 'Updated City ' + Date.now()
                 };
 
-                const response = await databases.updateDocument(
-                    CONFIG.DATABASE_ID,
-                    CONFIG.COLLECTION_ID,
-                    window.testUserId,
-                    updateData
-                );
+                await userManager.updateUser(window.testUserId, updateData);
 
                 log('✅ User updated successfully');
                 log(`📍 Updated location: ${updateData.location}`);
@@ -484,6 +488,7 @@
 
         // Test User Deletion
         async function testUserDeletion() {
+            initializeWhenReady();
             if (!window.testUserId) {
                 showStatus('userStatus', '⚠️ Please create a test user first', 'info');
                 return;
@@ -491,7 +496,7 @@
 
             log('Testing user deletion...');
             try {
-                await databases.deleteDocument(CONFIG.DATABASE_ID, CONFIG.COLLECTION_ID, window.testUserId);
+                await userManager.deleteUser(window.testUserId);
                 
                 log('✅ User deleted successfully');
                 log(`🗑️ Deleted user ID: ${window.testUserId}`);
@@ -506,15 +511,15 @@
             }
         }
 
-        // Test Admin Classes
-        async function testAdminClasses() {
+        // Test Admin Classes Management
+        async function testAdminClassesManagement() {
+            initializeWhenReady();
             log('Testing admin classes management...');
             try {
-                // This would test the admin-appwrite.js functionality
+                const classes = await classManager.loadClasses();
                 log('✅ Admin classes test - Using same database as users');
                 log('📊 Classes and users share the same collection');
                 showStatus('adminStatus', '✅ Admin classes test passed!', 'success');
-                
             } catch (error) {
                 log('❌ Admin classes test failed: ' + error.message);
                 showStatus('adminStatus', '❌ Admin classes test failed: ' + error.message, 'error');
@@ -523,19 +528,19 @@
 
         // Test Admin Dashboard
         async function testAdminDashboard() {
+            initializeWhenReady();
             log('Testing admin dashboard functionality...');
             try {
                 // Test dashboard data loading
-                const response = await databases.listDocuments(CONFIG.DATABASE_ID, CONFIG.COLLECTION_ID, [
-                    Appwrite.Query.limit(100)
-                ]);
+                const users = await userManager.loadUsers();
+                const classes = await classManager.loadClasses();
 
                 log('✅ Admin dashboard data loading successful');
-                log(`📊 Total records: ${response.total}`);
-                log(`👥 Users: ${response.documents.filter(d => d.email).length}`);
+                log(`📊 Total records: ${users.length + classes.length}`);
+                log(`👥 Users: ${users.length}`);
+                log(`🏋 Classes: ${classes.length}`);
                 
                 showStatus('adminStatus', '✅ Admin dashboard test passed!', 'success');
-                
             } catch (error) {
                 log('❌ Admin dashboard test failed: ' + error.message);
                 showStatus('adminStatus', '❌ Admin dashboard test failed: ' + error.message, 'error');
@@ -544,13 +549,14 @@
 
         // Test Admin Configuration
         function testAdminConfig() {
+            initializeWhenReady();
             log('Testing admin configuration...');
             try {
                 // Check if admin configuration matches main configuration
-                if (CONFIG.DATABASE_ID === 'database-69d2929600321ba774c7') {
+                if (APPWRITE_DATABASE_CONFIG.DATABASE_ID === 'database-69d2929600321ba774c7') {
                     log('✅ Admin configuration matches main system');
-                    log('📊 Database ID: ' + CONFIG.DATABASE_ID);
-                    log('📋 Collection ID: ' + CONFIG.COLLECTION_ID);
+                    log('📊 Database ID: ' + APPWRITE_DATABASE_CONFIG.DATABASE_ID);
+                    log('📋 Collection ID: ' + APPWRITE_DATABASE_CONFIG.COLLECTIONS.USERS);
                     showStatus('adminStatus', '✅ Admin configuration test passed!', 'success');
                 } else {
                     throw new Error('Configuration mismatch');
@@ -563,6 +569,7 @@
 
         // Run Full Integration Test
         async function runFullIntegrationTest() {
+            initializeWhenReady();
             log('🚀 Running full integration test...');
             showStatus('integrationStatus', '🔄 Running full integration test...', 'info');
             
@@ -585,12 +592,23 @@
                 // Test 6: User Deletion
                 await testUserDeletion();
                 
-                // Test 7: Admin Functions
+                // Test 7: Admin Classes
+                await testAdminClassesManagement();
+                
+                // Test 8: Admin Dashboard
                 await testAdminDashboard();
                 
-                log('✅ Full integration test completed successfully!');
-                showStatus('integrationStatus', '✅ Full integration test passed! All systems working correctly.', 'success');
+                // Test 9: Admin Configuration
+                await testAdminConfig();
                 
+                // Test 10: Data Consistency
+                await testDataConsistency();
+                
+                // Test 11: Performance
+                await testPerformance();
+                
+                log('✅ Full integration test completed successfully!');
+                showStatus('integrationStatus', '✅ Full integration test completed successfully!', 'success');
             } catch (error) {
                 log('❌ Integration test failed: ' + error.message);
                 showStatus('integrationStatus', '❌ Integration test failed: ' + error.message, 'error');
@@ -599,11 +617,10 @@
 
         // Test Data Consistency
         async function testDataConsistency() {
+            initializeWhenReady();
             log('Testing data consistency...');
             try {
-                const response = await databases.listDocuments(CONFIG.DATABASE_ID, CONFIG.COLLECTION_ID, [
-                    Appwrite.Query.limit(10)
-                ]);
+                const response = await userManager.loadUsers();
 
                 // Check if all documents have required fields
                 const requiredFields = ['fullName', 'email'];
@@ -632,14 +649,13 @@
 
         // Test Performance
         async function testPerformance() {
+            initializeWhenReady();
             log('Testing system performance...');
             try {
                 const startTime = performance.now();
                 
                 // Test database query performance
-                await databases.listDocuments(CONFIG.DATABASE_ID, CONFIG.COLLECTION_ID, [
-                    Appwrite.Query.limit(50)
-                ]);
+                await userManager.loadUsers();
                 
                 const endTime = performance.now();
                 const responseTime = (endTime - startTime).toFixed(2);
@@ -668,11 +684,21 @@
             document.getElementById('logOutput').innerHTML = '<div>Log cleared...</div>';
         }
 
-        // Initialize
+        // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
-            log('🚀 Data Management System Test Page Loaded');
+            console.log('🚀 Data Management System Test Page Loaded');
             log('📋 Configuration loaded');
             log('✅ Ready for testing');
+            
+            // Show loading message
+            const loadingDiv = document.createElement('div');
+            loadingDiv.id = 'loadingMessage';
+            loadingDiv.className = 'loading-overlay';
+            loadingDiv.innerHTML = '<div class="loading-spinner"></div><p>⏳ Loading Data Management System...</p>';
+            document.body.appendChild(loadingDiv);
+            
+            // Initialize when ready
+            initializeWhenReady();
         });
     </script>
 </body>
