@@ -1382,22 +1382,16 @@
                     <button type="submit" class="admin-btn btn-primary">Add Class</button>
                 </div>
             </form>
-        </div>
-    </div>
-    
     <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay" style="display: none;">
         <div class="loading-spinner"></div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.0"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    <script type="module">
-        import { adminAppwriteManager } from './admin-appwrite.js';
-        
-        // Initialize data from Appwrite
+    
+    <script src="script.js"></script>
+    <script>
+        // Initialize data from frontend
         function initializeData() {
-            console.log('Admin dashboard initialized with centralized Appwrite backend');
+            console.log('Admin dashboard initialized with frontend-only data');
         }
 
         // Navigation
@@ -1547,21 +1541,19 @@
         // Load dashboard data
         async function loadDashboardData() {
             try {
-                // Load data from Appwrite
-                const classes = await adminAppwriteManager.loadClasses();
-                const users = await loadUsersFromAppwrite();
+                // Load data from frontend
+                const classes = loadClasses();
+                const users = loadUsers();
                 
                 // Update stats
                 document.getElementById('totalClasses').textContent = classes.length;
                 document.getElementById('totalCustomers').textContent = users.length;
-                document.getElementById('totalEnrollments').textContent = '0'; // Placeholder
-                
-                // Calculate revenue (placeholder)
+                document.getElementById('totalEnrollments').textContent = '0';
                 document.getElementById('totalRevenue').textContent = '₹0';
-                
             } catch (error) {
                 console.error('Error loading dashboard data:', error);
-                // Set placeholder values
+                
+                // Set default values
                 document.getElementById('totalClasses').textContent = '0';
                 document.getElementById('totalCustomers').textContent = '0';
                 document.getElementById('totalEnrollments').textContent = '0';
@@ -1569,90 +1561,54 @@
             }
         }
 
-        // Load users from Appwrite for admin
-        async function loadUsersFromAppwrite() {
-            try {
-                const users = await adminAppwriteManager.loadUsers();
-            } catch (error) {
-                console.error('Error loading users from Appwrite:', error);
-                return [];
-            }
-        }
-
-        // Load recent enrollments (placeholder)
-        function loadRecentEnrollments() {
-            const tbody = document.getElementById('recentEnrollmentsTable');
-            if (tbody) {
-                tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 40px;">No enrollments found. Enrollment management coming soon!</td></tr>';
-            }
-
         // Load classes data
         async function loadClassesData() {
             try {
-                const classes = await adminAppwriteManager.loadClasses();
+                // Load classes from frontend
+                const classes = loadClasses();
                 const tbody = document.getElementById('classesTable');
                 if (tbody) {
                     tbody.innerHTML = classes.map(cls => `
                         <tr>
-                            <td>${cls.name || 'Untitled'}</td>
-                            <td>${cls.category || 'General'}</td>
-                            <td>${cls.instructor || 'Not specified'}</td>
-                            <td>₹${cls.price || 0}</td>
-                            <td>${cls.duration || '60 minutes'}</td>
-                            <td><span class="status-badge status-active">${cls.status || 'active'}</span></td>
+                            <td>${cls.name || 'Untitled Class'}</td>
+                            <td>${cls.description || 'No description'}</td>
+                            <td>${cls.duration || 'Not specified'}</td>
+                            <td>${cls.price || 'Not specified'}</td>
+                            <td>${cls.level || 'Not specified'}</td>
                             <td>
-                                <div class="action-buttons">
-                                    <button class="admin-btn btn-sm btn-edit" onclick="editClass('${cls.$id}')">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="admin-btn btn-sm btn-delete" onclick="deleteClass('${cls.$id}')">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
+                                <button class="admin-btn btn-sm btn-primary" onclick="editClass('${cls.id}')">Edit</button>
+                                <button class="admin-btn btn-sm btn-danger" onclick="deleteClass('${cls.id}')">Delete</button>
                             </td>
                         </tr>
                     `).join('');
                 }
             } catch (error) {
                 console.error('Error loading classes:', error);
-                const tbody = document.getElementById('classesTable');
-                if (tbody) {
-                    tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 40px;">Error loading classes</td></tr>';
-                }
             }
         }
 
         // Load customers data
         async function loadCustomersData() {
             try {
-                const users = await loadUsersFromAppwrite();
+                // Load users from frontend
+                const users = loadUsers();
                 const tbody = document.getElementById('customersTable');
                 if (tbody) {
                     tbody.innerHTML = users.map(user => `
                         <tr>
-                            <td>${user.fullName || 'Not specified'}</td>
-                            <td>${user.email || 'Not specified'}</td>
-                            <td>${user.phone || 'Not specified'}</td>
+                            <td>${user.fullName}</td>
+                            <td>${user.email}</td>
+                            <td>${user.phone}</td>
                             <td>${user.location || 'Not specified'}</td>
                             <td>
-                                <div class="action-buttons">
-                                    <button class="admin-btn btn-sm btn-edit" onclick="editCustomer('${user.$id}')">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="admin-btn btn-sm btn-delete" onclick="deleteCustomer('${user.$id}')">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
+                                <button class="admin-btn btn-sm btn-primary" onclick="editCustomer('${user.id}')">Edit</button>
+                                <button class="admin-btn btn-sm btn-danger" onclick="deleteCustomer('${user.id}')">Delete</button>
                             </td>
                         </tr>
                     `).join('');
                 }
             } catch (error) {
                 console.error('Error loading customers:', error);
-                const tbody = document.getElementById('customersTable');
-                if (tbody) {
-                    tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 40px;">Error loading customers</td></tr>';
-                }
             }
         }
 
@@ -1664,25 +1620,51 @@
             }
         }
 
-        // Delete functions (placeholders)
+        // Delete class
         function deleteClass(id) {
-            if (confirm('Are you sure you want to delete this class?')) {
-                console.log('Delete class:', id);
-                showNotification('Class deleted successfully!');
+            if (!confirm('Are you sure you want to delete this class?')) {
+                return;
+            }
+            
+            try {
+                // Get classes from localStorage
+                let classes = JSON.parse(localStorage.getItem('classes') || '[]');
+                
+                // Remove class
+                classes = classes.filter(cls => cls.id != id);
+                localStorage.setItem('classes', JSON.stringify(classes));
+                
+                // Reload classes
                 loadClassesData();
-                loadDashboardData();
+                
+                showNotification('Class deleted successfully!', 'success');
+            } catch (error) {
+                console.error('Error deleting class:', error);
+                showNotification('Error deleting class: ' + error.message, 'error');
             }
         }
 
+        // Delete customer
         function deleteCustomer(id) {
-            if (confirm('Are you sure you want to delete this customer?')) {
-                console.log('Delete customer:', id);
-                showNotification('Customer deleted successfully!');
-                loadCustomersData();
-                loadDashboardData();
+            if (!confirm('Are you sure you want to delete this customer?')) {
+                return;
             }
-        }
-
+            
+            try {
+                // Get users from localStorage
+                let users = JSON.parse(localStorage.getItem('users') || '[]');
+                
+                // Remove user
+                users = users.filter(user => user.id != id);
+                localStorage.setItem('users', JSON.stringify(users));
+                
+                // Reload users
+                loadCustomersData();
+                
+                showNotification('Customer deleted successfully!', 'success');
+            } catch (error) {
+                console.error('Error deleting customer:', error);
+                showNotification('Error deleting customer: ' + error.message, 'error');
         function deleteEnrollment(id) {
             if (confirm('Are you sure you want to delete this enrollment?')) {
                 console.log('Delete enrollment:', id);

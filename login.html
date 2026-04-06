@@ -701,24 +701,13 @@
             return strength;
         }
         
-        // Load users from Appwrite
+        // Load users from frontend
         async function loadUsersFromAppwrite() {
             try {
-                const client = new Appwrite.Client()
-                    .setEndpoint('https://cloud.appwrite.io/v1')
-                    .setProject('69d1e218000c0c6bf59f');
-                
-                const databases = new Appwrite.Databases(client);
-                
-                const response = await databases.listDocuments(
-                    'database-69d2929600321ba774c7',
-                    'collection-users',
-                    [Appwrite.Query.limit(100)]
-                );
-                
-                return response.documents;
+                const users = loadUsers();
+                return users;
             } catch (error) {
-                console.error('Error loading users from Appwrite:', error);
+                console.error('Error loading users:', error);
                 return [];
             }
         }
@@ -920,7 +909,7 @@
             setTimeout(async () => {
                 // Get users from Appwrite database
                 try {
-                    const users = await loadUsersFromAppwrite();
+                    const users = loadUsers();
                     
                     // Check if email already exists
                     if (users.find(u => u.email === formData.email)) {
@@ -959,32 +948,15 @@
                     }
                 };
                 
-                // Save user to Appwrite
+                // Save user to frontend
                 try {
-                    const client = new Appwrite.Client()
-                        .setEndpoint('https://cloud.appwrite.io/v1')
-                        .setProject('69d1e218000c0c6bf59f');
+                    const updatedUsers = [...users, newUser];
+                    saveUsers(updatedUsers);
                     
-                    const databases = new Appwrite.Databases(client);
-                    
-                    const response = await databases.createDocument(
-                        'database-69d2929600321ba774c7',
-                        'collection-users',
-                        Appwrite.ID.unique(),
-                        {
-                            fullName: `${formData.firstName} ${formData.lastName}`,
-                            gender: formData.gender,
-                            email: formData.email,
-                            phone: formData.mobileNumber,
-                            location: formData.location,
-                            password: encryptData(formData.password)
-                        }
-                    );
-                    
-                    console.log('User registered successfully:', response.$id);
+                    console.log('User registered successfully:', newUser.email);
                     
                 } catch (error) {
-                    console.error('Error saving user to Appwrite:', error);
+                    console.error('Error saving user:', error);
                     showMessage('error', 'Registration failed. Please try again.');
                     submitBtn.classList.remove('loading');
                     submitBtn.disabled = false;
@@ -1021,15 +993,15 @@
             showMessage('error', `${provider} login coming soon! Please use email signup for now.`);
         }
         
-        // Initialize
+        // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
-            // Check if already logged in
-            const sessionData = sessionStorage.getItem('userSession');
-            if (sessionData) {
-                const decryptedData = decryptData(sessionData);
-                if (decryptedData) {
-                    window.location.href = 'user-dashboard.html';
-                }
+            console.log('Login page initialized (frontend only)');
+            
+            // Check if user is already logged in
+            const userSession = sessionStorage.getItem('userSession');
+            if (userSession) {
+                console.log('User already logged in, redirecting to dashboard...');
+                window.location.href = 'user-dashboard.html';
             }
         });
     </script>
