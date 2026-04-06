@@ -1473,7 +1473,7 @@
         // Add log entry
         function addLog(type, user, action, details = '') {
             console.log(`Admin Log: ${type} - ${user} - ${action} - ${details}`);
-            // In future, this could save to Appwrite
+            // In future, this could save to backend
         }
 
         // Navigation
@@ -1665,6 +1665,9 @@
             } catch (error) {
                 console.error('Error deleting customer:', error);
                 showNotification('Error deleting customer: ' + error.message, 'error');
+            }
+        }
+
         function deleteEnrollment(id) {
             if (confirm('Are you sure you want to delete this enrollment?')) {
                 console.log('Delete enrollment:', id);
