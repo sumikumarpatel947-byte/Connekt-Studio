@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login - Connekt Studio</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
         .admin-login-container {
             min-height: 100vh;
@@ -20,25 +17,36 @@
         }
         
         .admin-login-card {
-            background: white;
-            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 50px 40px;
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
             width: 100%;
+            max-width: 400px;
             text-align: center;
         }
         
-        .admin-login-card h2 {
-            color: #1a5f3f;
-            margin-bottom: 10px;
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+        .admin-login-logo {
+            margin-bottom: 30px;
         }
         
-        .admin-login-card p {
+        .admin-login-logo img {
+            height: 60px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .admin-login-logo h2 {
+            color: #1a5f3f;
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .admin-login-logo p {
             color: #6c757d;
-            margin-bottom: 30px;
+            margin: 10px 0 0 0;
             font-size: 0.9rem;
         }
         
@@ -49,20 +57,18 @@
         
         .form-group label {
             display: block;
-            color: #495057;
-            font-weight: 500;
             margin-bottom: 8px;
-            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            color: #333;
         }
         
         .form-group input {
             width: 100%;
-            padding: 12px 15px;
+            padding: 12px 16px;
             border: 2px solid #e9ecef;
             border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            transition: border-color 0.3s;
         }
         
         .form-group input:focus {
@@ -71,122 +77,98 @@
             box-shadow: 0 0 0 3px rgba(26, 95, 63, 0.1);
         }
         
-        .login-btn {
+        .admin-login-btn {
             width: 100%;
             padding: 14px;
             background: linear-gradient(135deg, #1a5f3f, #2d7a57);
             color: white;
             border: none;
             border-radius: 8px;
-            font-size: 1rem;
+            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-family: 'Poppins', sans-serif;
+            margin-top: 20px;
         }
         
-        .login-btn:hover {
+        .admin-login-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(26, 95, 63, 0.3);
         }
         
+        .admin-login-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
         .back-to-site {
-            display: inline-block;
-            margin-top: 20px;
-            color: white;
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            color: #6c757d;
             text-decoration: none;
             font-size: 0.9rem;
             transition: color 0.3s ease;
-            padding: 10px 20px;
-            border-radius: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
         }
         
         .back-to-site:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
+            color: white;
+        }
+        
+        .error-message,
+        .success-message {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            font-size: 0.9rem;
         }
         
         .error-message {
             background: #f8d7da;
             color: #721c24;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            display: none;
+            border: 1px solid #f5c6cb;
         }
         
         .success-message {
             background: #d4edda;
             color: #155724;
-            padding: 10px;
-            border-radius: 5px;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .admin-shield {
+            font-size: 4rem;
+            color: #1a5f3f;
             margin-bottom: 20px;
-            display: none;
-        }
-        
-        .credentials-info {
-            background: #fff3cd;
-            color: #856404;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 0.85rem;
-            border-left: 4px solid #ffc107;
-        }
-        
-        .credentials-info strong {
-            display: block;
-            margin-bottom: 5px;
-        }
-        
-        @media (max-width: 480px) {
-            .admin-login-card {
-                padding: 30px 20px;
-            }
-            
-            .admin-login-card h2 {
-                font-size: 1.5rem;
-            }
         }
     </style>
 </head>
 <body>
     <div class="admin-login-container">
         <div class="admin-login-card">
-            <div class="logo-section">
-                <img src="Images/logo.png" alt="Connekt Studio" style="height: 50px; margin-bottom: 20px; border-radius: 10px;">
+            <div class="admin-login-logo">
+                <i class="fas fa-shield-alt admin-shield"></i>
+                <img src="Images/logo.png" alt="Connekt Studio">
                 <h2>Admin Login</h2>
-                <p>Access your website control panel</p>
+                <p>Access the admin dashboard</p>
             </div>
             
-            <div class="credentials-info">
-                <strong>🔐 Admin Credentials:</strong>
-                Email: admin@connektstudio.com<br>
-                Password: Connekt@2024#Admin
-            </div>
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
             
-            <div class="error-message" id="errorMessage">
-                Invalid email or password. Please try again.
-            </div>
-            
-            <div class="success-message" id="successMessage">
-                Login successful! Redirecting to dashboard...
-            </div>
-            
-            <form id="loginForm">
+            <form id="adminLoginForm">
                 <div class="form-group">
-                    <label for="username">Admin Email</label>
-                    <input type="email" id="username" name="username" required placeholder="admin@connektstudio.com">
+                    <label for="adminUsername">Username</label>
+                    <input type="text" id="adminUsername" name="username" required placeholder="Enter admin username">
                 </div>
                 
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required placeholder="Connekt@2024#Admin">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" name="password" required placeholder="Enter admin password">
                 </div>
                 
-                <button type="submit" class="login-btn">
+                <button type="submit" class="admin-login-btn">
                     <i class="fas fa-sign-in-alt"></i> Login to Admin Panel
                 </button>
             </form>
@@ -196,67 +178,55 @@
             </a>
         </div>
     </div>
-
+    
     <script>
-        // Simple and direct admin login - no complex logic
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        // Admin login form submission (UI only)
+        document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
             const errorMessage = document.getElementById('errorMessage');
             const successMessage = document.getElementById('successMessage');
             
-            // Hide any existing messages
+            // Hide previous messages
             errorMessage.style.display = 'none';
             successMessage.style.display = 'none';
             
-            console.log('Admin login attempt:', username);
-            
-            // Direct credential check
-            const ADMIN_EMAIL = 'admin@connektstudio.com';
-            const ADMIN_PASSWORD = 'Connekt@2024#Admin';
-            
-            if (username === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
-                console.log('Admin credentials correct!');
-                
-                // Store admin session
-                sessionStorage.setItem('adminLoggedIn', 'true');
-                sessionStorage.setItem('adminUsername', username);
-                sessionStorage.setItem('adminId', 'admin-main');
-                
-                // Show success message
-                successMessage.style.display = 'block';
-                
-                // Store admin session in sessionStorage
-                sessionStorage.setItem('adminLoggedIn', 'true');
-                sessionStorage.setItem('adminUsername', ADMIN_EMAIL);
-                sessionStorage.setItem('adminId', 'admin-main');
-                
-                console.log('Admin session stored, redirecting...');
-                
-                // Redirect to admin dashboard
-                setTimeout(() => {
-                    window.location.href = 'admin-dashboard.html';
-                }, 1500);
-                
-            } else {
-                console.log('Admin credentials incorrect');
+            // Simple validation (UI only)
+            if (!username || !password) {
+                errorMessage.textContent = 'Please enter both username and password';
                 errorMessage.style.display = 'block';
-                
-                // Hide error after 3 seconds
-                setTimeout(() => {
-                    errorMessage.style.display = 'none';
-                }, 3000);
+                return;
             }
-        });
-
-        // Check if already logged in
-        window.addEventListener('load', function() {
-            if (sessionStorage.getItem('adminLoggedIn') === 'true') {
-                console.log('Admin already logged in, redirecting...');
+            
+            // Admin credentials validation
+            const ADMIN_USERNAME = 'admin@connektstudio.com';
+            const ADMIN_PASSWORD = 'admin123';
+            
+            // Validate credentials
+            if (username !== ADMIN_USERNAME || password !== ADMIN_PASSWORD) {
+                errorMessage.textContent = 'Invalid admin credentials. Please try again.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
+            // Credentials correct
+            console.log('Admin credentials correct!');
+            
+            // Show success message
+            successMessage.textContent = 'Login successful! Redirecting to admin dashboard...';
+            successMessage.style.display = 'block';
+            
+            // Redirect to admin dashboard after delay
+            setTimeout(() => {
                 window.location.href = 'admin-dashboard.html';
-            }
+            }, 1500);
+        });
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Admin login page initialized (frontend only)');
         });
     </script>
 </body>

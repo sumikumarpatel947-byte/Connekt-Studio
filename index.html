@@ -14,7 +14,7 @@
         <div class="nav-container">
             <div class="nav-logo">
                 <img src="Images/logo.png" alt="Connekt Studio Logo" class="logo-img">
-               
+                
             </div>
             <ul class="nav-menu">
                 <li><a href="#home">Home</a></li>
@@ -493,35 +493,22 @@
                         <i class="fas fa-user"></i>
                         <div>
                             <h3>Owner</h3>
-                            <p>Hina Pamnani</p>
+                            <p data-owner>Hina Pamnani</p>
                         </div>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-map-marker-alt"></i>
                         <div>
                             <h3>Address</h3>
-                            <p>Ghanshyam niwas, Nai Basti, Gandhi Ganj, Katni, Madhya Pradesh 483501</p>
+                            <p data-address>Ghanshyam niwas, Nai Basti, Gandhi Ganj, Katni, Madhya Pradesh 483501</p>
                         </div>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-map"></i>
                         <div>
                             <h3>Live Location</h3>
-                            <div class="map-container">
-                                <iframe 
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3649.3898834946904!2d80.39092837589898!3d23.840285285318664!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398161090fd4df89%3A0xf13e1f7a08e1e8ff!2sConnekt%20Studio!5e0!3m2!1sen!2sin!4v1774860608764!5m2!1sen!2sin" 
-                                    width="100%" 
-                                    height="150" 
-                                    style="border:0; border-radius: 10px;" 
-                                    allowfullscreen="" 
-                                    loading="lazy" 
-                                    referrerpolicy="no-referrer-when-downgrade">
-                                </iframe>
-                            </div>
-                            <p style="margin-top: 0.5rem; font-size: 0.9rem;">
-                                <a href="https://maps.app.goo.gl/ZWFVnbbE6DQwWwdu6" target="_blank" style="color: #1a5f3f; text-decoration: none; font-weight: 500;">
-                                    <i class="fas fa-external-link-alt"></i> Get Directions on Google Maps
-                                </a>
+                            <p>
+                                <a href="https://maps.google.com/?q=Ghanshyam+niwas,+Nai+Basti,+Gandhi+Ganj,+Katni,+Madhya+Pradesh+483501" target="_blank" class="location-btn">View on Map</a>
                             </p>
                         </div>
                     </div>
@@ -529,22 +516,23 @@
                         <i class="fas fa-phone"></i>
                         <div>
                             <h3>Phone</h3>
-                            <p>+91 9039570885</p>
+                            <p data-phone>+91 9039570885</p>
                         </div>
                     </div>
                     <div class="contact-item">
                         <i class="fab fa-whatsapp"></i>
                         <div>
                             <h3>WhatsApp</h3>
-                            <p>+91 9039570885</p>
-                            <a href="https://wa.me/919039570885?text=Hi!%20I'm%20interested%20in%20joining%20Connekt%20Studio%20yoga%20classes" target="_blank" class="whatsapp-btn">Message on WhatsApp</a>
+                            <p>
+                                <a href="https://wa.me/919039570885?text=Hi!%20I'm%20interested%20in%20joining%20Connekt%20Studio%20yoga%20classes" target="_blank" class="whatsapp-btn">Message on WhatsApp</a>
+                            </p>
                         </div>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
                         <div>
                             <h3>Email</h3>
-                            <p>connektbmsstudio@gmail.com</p>
+                            <p data-email>connektbmsstudio@gmail.com</p>
                         </div>
                     </div>
                 </div>
@@ -610,7 +598,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Connekt Studio. All rights reserved.</p>
+                <p>&copy; 2026 <span data-website-name>Connekt Studio</span>. All rights reserved.</p>
                 <p style="font-size: 0.7rem; opacity: 0.5; margin-top: 5px;">
                     <a href="admin-login.html" style="color: inherit; text-decoration: none;">Admin Access</a>
                 </p>
@@ -657,6 +645,7 @@
     </div>
 
     <!-- Scripts -->
+    <script src="config.js"></script>
     <script src="script.js"></script>
 
 

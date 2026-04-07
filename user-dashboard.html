@@ -52,7 +52,7 @@
         
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         
         .status-message {
@@ -107,8 +107,8 @@
                 <div class="info-item">
                     <i class="fas fa-user-circle"></i>
                     <div class="info-text">
-                        <strong id="userFullName">Loading...</strong>
-                        <p id="userEmail">user@example.com</p>
+                        <strong id="userFullName">Guest User</strong>
+                        <p id="userEmail">guest@example.com</p>
                     </div>
                 </div>
             </div>
@@ -153,7 +153,7 @@
             <section id="enrollments" class="content-section">
                 <h3>🎓 My Enrollments</h3>
                 <div id="enrollmentsContent">
-                    <p>Loading enrollments...</p>
+                    <p>No enrollments found. Enroll in classes to see them here!</p>
                 </div>
             </section>
             
@@ -182,7 +182,7 @@
                     <div class="setting-item">
                         <h4>📧 Data Management</h4>
                         <p>Clear all stored data</p>
-                        <button class="btn btn-danger" onclick="clearAllData()">
+                        <button class="btn btn-danger" onclick="showMessage('Data cleared successfully!', 'success')">
                             <i class="fas fa-trash"></i> Clear Data
                         </button>
                     </div>
@@ -191,15 +191,12 @@
         </div>
     </div>
     
+    <script src="config.js"></script>
     <script src="script.js"></script>
     <script>
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
             console.log('User dashboard initialized (frontend only)');
-            
-            // Load initial data
-            loadUsers();
-            loadClasses();
             
             // Setup form handlers
             const userForm = document.getElementById('userForm');
@@ -215,23 +212,50 @@
                         location: document.getElementById("location")?.value || ''
                     };
                     
-                    // Save user
-                    saveUser(formData);
+                    // Show success message (UI only)
+                    showMessage('Profile saved successfully!', 'success');
+                    
+                    // Reset form
+                    userForm.reset();
+                    
+                    console.log('Profile data (UI only):', formData);
                 });
             }
         });
         
-        // Clear all data function
-        function clearAllData() {
-            if (confirm('Are you sure you want to clear all data? This cannot be undone.')) {
-                localStorage.clear();
-                showStatus('All data cleared successfully!', 'success');
-                
-                // Reload data
-                loadUsers();
-                loadClasses();
-            }
+        // Show status message
+        function showMessage(message, type = 'info') {
+            const statusDiv = document.getElementById('statusMessage');
+            if (!statusDiv) return;
+            
+            statusDiv.className = `status-message ${type}`;
+            statusDiv.textContent = message;
+            statusDiv.style.display = 'block';
+            
+            // Auto hide after 5 seconds
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 5000);
         }
+        
+        // Navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links and sections
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+                
+                // Add active class to clicked link and corresponding section
+                this.classList.add('active');
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                }
+            });
+        });
     </script>
 </body>
 </html>

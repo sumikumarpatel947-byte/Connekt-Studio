@@ -4,124 +4,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Connekt Studio</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
+        /* Modern Admin Dashboard Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
             overflow-x: hidden;
         }
-
-        .admin-dashboard {
+        
+        .admin-container {
             display: flex;
             min-height: 100vh;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         }
-
-        /* Animated Sidebar */
+        
         .admin-sidebar {
             width: 280px;
-            background: linear-gradient(180deg, #1a5f3f 0%, #2d7a57 50%, #1a5f3f 100%);
+            background: linear-gradient(180deg, #1a5f3f 0%, #2d7a57 50%, #3a8d6a 100%);
             color: white;
-            padding: 0;
-            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
             position: relative;
             overflow: hidden;
-            animation: slideInLeft 0.6s ease-out;
         }
-
+        
         .admin-sidebar::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            animation: shimmer 3s infinite;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
         }
-
-        .admin-header {
-            padding: 30px 25px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            position: relative;
-            z-index: 2;
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-20px, -20px) rotate(180deg); }
         }
-
+        
         .admin-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 10px;
-            animation: fadeInDown 0.8s ease-out;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
         }
-
+        
         .admin-logo img {
-            height: 50px;
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            height: 60px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease;
         }
-
+        
         .admin-logo img:hover {
-            transform: scale(1.1) rotate(5deg);
+            transform: scale(1.05) rotate(5deg);
         }
-
-        .admin-title {
+        
+        .admin-logo h3 {
+            margin: 0;
             font-size: 1.4rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #fff, #f0f0f0);
+            background: linear-gradient(135deg, #fff, #e8f5e9);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin: 10px 0 5px 0;
-            animation: glow 2s ease-in-out infinite alternate;
         }
-
-        .admin-subtitle {
-            font-size: 0.85rem;
-            opacity: 0.8;
-            margin-top: 5px;
-        }
-
+        
         .admin-nav {
-            list-style: none;
-            padding: 20px 0;
-            margin: 0;
-        }
-
-        .admin-nav li {
-            margin-bottom: 5px;
+            flex: 1;
             position: relative;
-            overflow: hidden;
+            z-index: 1;
         }
-
-        .admin-nav a {
+        
+        .admin-nav .nav-link {
             display: flex;
             align-items: center;
-            color: rgba(255, 255, 255, 0.9);
+            padding: 16px 20px;
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
-            padding: 15px 25px;
-            transition: all 0.3s ease;
-            font-weight: 500;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
-
-        .admin-nav a::before {
+        
+        .admin-nav .nav-link::before {
             content: '';
             position: absolute;
             top: 0;
@@ -129,345 +110,449 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.3s ease;
+            transition: left 0.5s ease;
         }
-
-        .admin-nav a:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            transform: translateX(5px);
-        }
-
-        .admin-nav a:hover::before {
+        
+        .admin-nav .nav-link:hover::before {
             left: 100%;
         }
-
-        .admin-nav a.active {
+        
+        .admin-nav .nav-link:hover,
+        .admin-nav .nav-link.active {
             background: rgba(255, 255, 255, 0.15);
             color: white;
-            border-left: 3px solid #d4a574;
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-
-        .admin-nav i {
-            margin-right: 12px;
+        
+        .admin-nav .nav-link i {
+            width: 24px;
+            margin-right: 15px;
             font-size: 1.1rem;
-            width: 20px;
-            text-align: center;
+            transition: transform 0.3s ease;
         }
-
-        .nav-badge {
-            background: #ff4757;
+        
+        .admin-nav .nav-link:hover i {
+            transform: scale(1.1);
+        }
+        
+        .admin-user {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-user:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #fff, #e8f5e9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .user-avatar:hover {
+            transform: rotate(360deg);
+        }
+        
+        .user-avatar i {
+            color: #1a5f3f;
+            font-size: 1.2rem;
+        }
+        
+        .user-info {
+            flex: 1;
+        }
+        
+        .user-info strong {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        
+        .user-info small {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
             color: white;
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 10px;
-            margin-left: auto;
-            animation: pulse 2s infinite;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
-
-        /* Main Content Area */
+        
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+        
         .admin-main {
             flex: 1;
-            padding: 0;
-            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
         }
-
-        .admin-header-main {
+        
+        .admin-header {
             background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
-            padding: 25px 30px;
-            border-bottom: 1px solid #e9ecef;
+            padding: 25px 40px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            animation: slideInRight 0.6s ease-out;
         }
-
-        .admin-welcome {
+        
+        .header-left {
             display: flex;
             align-items: center;
-            gap: 15px;
         }
-
-        .admin-avatar {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+        
+        .menu-toggle {
+            background: linear-gradient(135deg, #1a5f3f, #2d7a57);
+            border: none;
+            font-size: 1.2rem;
+            margin-right: 25px;
+            cursor: pointer;
+            display: none;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(26, 95, 63, 0.3);
+        }
+        
+        .header-left h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #1a5f3f, #2d7a57);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        
+        .notification-btn {
+            position: relative;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border: none;
+            font-size: 1.2rem;
+            color: #666;
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .notification-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            font-size: 0.7rem;
+            padding: 3px 6px;
+            border-radius: 12px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-profile:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .admin-profile img {
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .admin-section {
+            display: none;
+            padding: 40px;
+            flex: 1;
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        .admin-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(26, 95, 63, 0.05) 0%, transparent 70%);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .stat-card:hover::before {
+            transform: scale(1.2);
+        }
+        
+        .stat-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #1a5f3f, #2d7a57);
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-weight: 600;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-            animation: bounceIn 0.8s ease-out;
-        }
-
-        .admin-info h1 {
             font-size: 1.8rem;
-            color: #1a5f3f;
-            margin: 0 0 5px 0;
-            font-family: 'Playfair Display', serif;
+            margin-right: 25px;
+            box-shadow: 0 10px 25px rgba(26, 95, 63, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
         }
-
-        .admin-info p {
-            color: #6c757d;
+        
+        .stat-card:hover .stat-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .stat-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .stat-content h3 {
             margin: 0;
-            font-size: 0.9rem;
+            font-size: 2.5rem;
+            color: #333;
+            font-weight: 700;
+            transition: all 0.3s ease;
         }
-
-        .admin-actions {
+        
+        .stat-card:hover .stat-content h3 {
+            transform: scale(1.05);
+        }
+        
+        .stat-content p {
+            margin: 8px 0 0 0;
+            color: #666;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        
+        .section-header {
             display: flex;
-            gap: 15px;
+            justify-content: space-between;
             align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
-
-        .admin-btn {
+        
+        .section-header h2 {
+            margin: 0;
+            color: #333;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .table-container {
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .table-container:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .table-container table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .table-container th {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 2px solid #e9ecef;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .table-container td {
+            padding: 20px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+        
+        .table-container tr:hover td {
+            background: linear-gradient(135deg, #f8f9fa, #fff);
+            transform: scale(1.01);
+        }
+        
+        .btn {
             padding: 10px 20px;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            font-size: 0.9rem;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #1a5f3f, #2d7a57);
-            color: white;
-            box-shadow: 0 4px 15px rgba(26, 95, 63, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(26, 95, 63, 0.4);
-        }
-
-        .btn-secondary {
-            background: #6c757d;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #5a6268;
-            transform: translateY(-1px);
-        }
-
-        .btn-danger {
-            background: linear-gradient(135deg, #dc3545, #c82333);
-            color: white;
-        }
-
-        .btn-danger:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
-        }
-
-        /* Stats Cards */
-        .admin-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            padding: 30px;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border-left: 4px solid #1a5f3f;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
             position: relative;
             overflow: hidden;
-            transition: all 0.3s ease;
         }
-
-        .stat-card::before {
+        
+        .btn::before {
             content: '';
             position: absolute;
             top: 0;
-            right: 0;
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, transparent, rgba(26, 95, 63, 0.05));
-            border-radius: 50%;
-            transform: translate(50%, -50%);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .stat-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #1a5f3f, #2d7a57);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .stat-card h3 {
-            color: #6c757d;
-            font-size: 0.9rem;
-            margin: 0 0 10px 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #1a5f3f;
-            margin: 0 0 5px 0;
-            font-family: 'Playfair Display', serif;
-            animation: countUp 1s ease-out;
-        }
-
-        .stat-change {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            margin-left: 10px;
-        }
-
-        .stat-change.positive {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .stat-change.negative {
-            background: #f8d7da;
-            color: #721c24;
-        }
-
-        /* Content Sections */
-        .admin-content {
-            padding: 0 30px 30px 30px;
-        }
-
-        .content-section {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-            overflow: hidden;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .section-header {
-            padding: 25px 30px;
-            border-bottom: 1px solid #e9ecef;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
-        }
-
-        .section-header h2 {
-            color: #1a5f3f;
-            margin: 0;
-            font-size: 1.5rem;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .section-body {
-            padding: 30px;
-        }
-
-        /* Table Styles */
-        .data-table {
+            left: -100%;
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
         }
-
-        .data-table th {
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary {
             background: linear-gradient(135deg, #1a5f3f, #2d7a57);
             color: white;
-            padding: 15px;
-            text-align: left;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
+            box-shadow: 0 5px 15px rgba(26, 95, 63, 0.3);
         }
-
-        .data-table td {
-            padding: 15px;
-            border-bottom: 1px solid #e9ecef;
-            transition: all 0.3s ease;
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(26, 95, 63, 0.4);
         }
-
-        .data-table tr:hover td {
-            background: #f8f9fa;
-            transform: scale(1.01);
-        }
-
-        .status-badge {
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .status-active {
-            background: linear-gradient(135deg, #28a745, #20c997);
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d, #5a6268);
             color: white;
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.3);
         }
-
-        .status-pending {
-            background: linear-gradient(135deg, #ffc107, #fd7e14);
-            color: white;
+        
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(108, 117, 125, 0.4);
         }
-
-        .status-inactive {
+        
+        .btn-danger {
             background: linear-gradient(135deg, #dc3545, #c82333);
             color: white;
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
         }
-
-        /* Action Buttons */
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
+        
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(220, 53, 69, 0.4);
         }
-
+        
         .btn-sm {
-            padding: 8px 15px;
-            font-size: 0.85rem;
-            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 0.8rem;
         }
-
-        .btn-edit {
-            background: linear-gradient(135deg, #ffc107, #fd7e14);
-            color: white;
-        }
-
-        .btn-delete {
-            background: linear-gradient(135deg, #dc3545, #c82333);
-            color: white;
-        }
-
-        /* Modal Styles */
+        
         .modal {
             display: none;
             position: fixed;
@@ -475,141 +560,183 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
             z-index: 1000;
-            animation: fadeIn 0.3s ease-out;
+            animation: fadeIn 0.3s ease;
         }
-
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
         .modal-content {
-            background: white;
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
             margin: 50px auto;
-            padding: 30px;
+            padding: 0;
             border-radius: 20px;
-            max-width: 600px;
+            max-width: 550px;
             width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            animation: slideInUp 0.3s ease-out;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideDown 0.3s ease;
         }
-
+        
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
         .modal-header {
+            padding: 25px 30px;
+            border-bottom: 1px solid #e9ecef;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 20px 20px 0 0;
         }
-
+        
         .modal-header h3 {
-            color: #1a5f3f;
             margin: 0;
-            font-size: 1.5rem;
+            color: #333;
+            font-size: 1.3rem;
+            font-weight: 600;
         }
-
-        .close {
+        
+        .close-btn {
             background: none;
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
-            color: #6c757d;
-            transition: color 0.3s ease;
+            color: #666;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
         }
-
-        .close:hover {
+        
+        .close-btn:hover {
+            background: rgba(220, 53, 69, 0.1);
             color: #dc3545;
+            transform: rotate(90deg);
         }
-
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
-
+        
         .form-group label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-            color: #495057;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95rem;
         }
-
+        
         .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 12px;
+            padding: 12px 16px;
             border: 2px solid #e9ecef;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 1rem;
-            transition: border-color 0.3s ease;
+            transition: all 0.3s ease;
+            background: #fff;
         }
-
+        
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
             border-color: #1a5f3f;
+            box-shadow: 0 0 0 3px rgba(26, 95, 63, 0.1);
+            transform: translateY(-1px);
         }
-
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
         .form-actions {
             display: flex;
-            gap: 10px;
             justify-content: flex-end;
-            margin-top: 25px;
-        }
-
-        /* Page Sections (Hidden by default) */
-        .page-section {
-            display: none;
-        }
-
-        .page-section.active {
-            display: block;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        /* Search and Filter */
-        .search-filter {
-            display: flex;
             gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
+            margin-top: 30px;
         }
-
-        .search-box {
-            flex: 1;
-            min-width: 200px;
-            position: relative;
-        }
-
-        .search-box input {
+        
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 12px 15px 12px 40px;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            font-size: 1rem;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
         }
-
-        .search-box i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #6c757d;
+        
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #1a5f3f;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
-
-        .filter-select {
-            min-width: 150px;
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-
-        /* Animations */
-        @keyframes slideInLeft {
-            from {
-                transform: translateX(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+        
+        .notification-toast {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #fff, #f8f9fa);
+            padding: 20px 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 3000;
+            animation: slideInRight 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
         }
-
+        
+        .notification-toast.success {
+            border-left: 4px solid #28a745;
+        }
+        
+        .notification-toast.error {
+            border-left: 4px solid #dc3545;
+        }
+        
+        .notification-toast.info {
+            border-left: 4px solid #17a2b8;
+        }
+        
         @keyframes slideInRight {
             from {
                 transform: translateX(100%);
@@ -620,719 +747,454 @@
                 opacity: 1;
             }
         }
-
-        @keyframes fadeInUp {
-            from {
-                transform: translateY(30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+        
+        .settings-container {
+            display: grid;
+            gap: 30px;
         }
-
-        @keyframes fadeInDown {
-            from {
-                transform: translateY(-30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+        
+        .setting-group {
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+        
+        .setting-group:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
-
-        @keyframes slideInUp {
-            from {
-                transform: translateY(50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+        
+        .setting-group h3 {
+            margin: 0 0 25px 0;
+            color: #333;
+            font-size: 1.2rem;
+            font-weight: 600;
         }
-
-        @keyframes bounceIn {
-            0% {
-                transform: scale(0);
-                opacity: 0;
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
+        
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: all 0.3s ease;
         }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
+        
+        .setting-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
         }
-
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 10px rgba(26, 95, 63, 0.5);
-            }
-            to {
-                text-shadow: 0 0 20px rgba(26, 95, 63, 0.8);
-            }
+        
+        .setting-item label {
+            font-weight: 500;
+            color: #333;
         }
-
-        @keyframes shimmer {
-            0% {
-                left: -100%;
-            }
-            100% {
-                left: 100%;
-            }
+        
+        .setting-item input {
+            padding: 10px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            width: 250px;
+            transition: all 0.3s ease;
         }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
+        
+        .setting-item input:focus {
+            outline: none;
+            border-color: #1a5f3f;
         }
-
-        @keyframes countUp {
-            from {
-                transform: scale(0.5);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
+        
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
         }
-
-        /* Loading Animation */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+        
+        .status-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        
+        .status-badge {
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-badge.success {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            color: #155724;
+        }
+        
+        .status-badge.info {
+            background: linear-gradient(135deg, #d1ecf1, #bee5eb);
+            color: #0c5460;
+        }
+        
+        .activity-list {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .activity-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .activity-item i {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #1a5f3f, #2d7a57);
+            color: white;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 9999;
+            margin-right: 20px;
+            font-size: 1.1rem;
         }
-
-        .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #1a5f3f;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+        
+        .activity-content {
+            flex: 1;
         }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        
+        .activity-content strong {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 5px;
         }
-
-        /* Notification Toast */
-        .notification-toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            min-width: 300px;
-            animation: slideInRight 0.3s ease-out;
+        
+        .activity-content small {
+            color: #666;
+            font-size: 0.85rem;
         }
-
-        .notification-toast.success {
-            border-left: 4px solid #28a745;
-        }
-
-        .notification-toast.error {
-            border-left: 4px solid #dc3545;
-        }
-
-        .notification-toast.info {
-            border-left: 4px solid #17a2b8;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1200px) {
-            .admin-stats {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 20px;
-                padding: 20px;
-            }
-        }
-
+        
         @media (max-width: 768px) {
-            .admin-dashboard {
-                flex-direction: column;
-            }
-            
             .admin-sidebar {
-                width: 100%;
-                height: auto;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+                width: 0;
+                position: fixed;
+                left: -280px;
+                top: 0;
+                height: 100vh;
+                z-index: 1000;
+                transition: left 0.3s ease;
             }
             
-            .admin-nav {
-                display: flex;
-                flex-wrap: wrap;
-                padding: 15px;
+            .admin-sidebar.active {
+                left: 0;
             }
             
-            .admin-nav li {
-                margin: 5px;
-                flex: 1;
-                min-width: 150px;
+            .menu-toggle {
+                display: block;
             }
             
-            .admin-nav a {
-                padding: 12px 15px;
-                font-size: 0.9rem;
-            }
-            
-            .admin-stats {
+            .stats-grid {
                 grid-template-columns: 1fr;
-                padding: 15px;
             }
             
-            .admin-header-main {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .admin-header {
-                padding: 20px 15px;
+            .form-row {
+                grid-template-columns: 1fr;
             }
             
-            .admin-logo img {
-                height: 40px;
-            }
-            
-            .admin-title {
-                font-size: 1.2rem;
-            }
-            
-            .admin-stats {
-                padding: 10px;
-            }
-            
-            .stat-card {
-                padding: 20px;
-            }
-            
-            .stat-number {
-                font-size: 2rem;
-            }
-            
-            .section-header {
-                padding: 20px 15px;
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .section-body {
-                padding: 20px 15px;
-            }
-            
-            .data-table {
-                font-size: 0.85rem;
-            }
-            
-            .data-table th,
-            .data-table td {
-                padding: 10px 5px;
+            .admin-main {
+                margin-left: 0;
             }
         }
     </style>
 </head>
 <body>
-    <div class="admin-dashboard">
-        <!-- Animated Sidebar -->
-        <aside class="admin-sidebar">
-            <div class="admin-header">
-                <div class="admin-logo">
-                    <img src="Images/logo.png" alt="Connekt Studio">
-                </div>
-                <h1 class="admin-title">Admin Panel</h1>
-                <p class="admin-subtitle">Complete Management System</p>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="admin-sidebar">
+            <div class="admin-logo">
+                <img src="Images/logo.png" alt="Connekt Studio">
+                <h3>Admin Panel</h3>
             </div>
             
-            <ul class="admin-nav">
-                <li>
-                    <a href="#dashboard" class="nav-link active" data-page="dashboard">
-                        <i class="fas fa-tachometer-alt"></i>
-                        Dashboard
-                        <span class="nav-badge">New</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#classes" class="nav-link" data-page="classes">
-                        <i class="fas fa-dumbbell"></i>
-                        Classes
-                    </a>
-                </li>
-                <li>
-                    <a href="#customers" class="nav-link" data-page="customers">
-                        <i class="fas fa-users"></i>
-                        Customers
-                    </a>
-                </li>
-                <li>
-                    <a href="#enrollments" class="nav-link" data-page="enrollments">
-                        <i class="fas fa-clipboard-list"></i>
-                        Enrollments
-                        <span class="nav-badge" id="enrollmentCount">12</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#revenue" class="nav-link" data-page="revenue">
-                        <i class="fas fa-chart-line"></i>
-                        Revenue
-                    </a>
-                </li>
-                <li>
-                    <a href="#settings" class="nav-link" data-page="settings">
-                        <i class="fas fa-cog"></i>
-                        Settings
-                    </a>
-                </li>
-                <li>
-                    <a href="#logs" class="nav-link" data-page="logs">
-                        <i class="fas fa-file-alt"></i>
-                        Logs
-                    </a>
-                </li>
-            </ul>
-        </aside>
-        
-        <!-- Main Content Area -->
-        <main class="admin-main">
-            <header class="admin-header-main">
-                <div class="admin-welcome">
-                    <div class="admin-avatar">A</div>
-                    <div class="admin-info">
-                        <h1 id="pageTitle">Dashboard</h1>
-                        <p id="pageSubtitle">Manage your Connekt Studio empire</p>
-                    </div>
+            <nav class="admin-nav">
+                <a href="#dashboard" class="nav-link active">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
+                </a>
+                <a href="#classes" class="nav-link">
+                    <i class="fas fa-chalkboard"></i>
+                    Classes
+                </a>
+                <a href="#users" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    Users
+                </a>
+                <a href="#enrollments" class="nav-link">
+                    <i class="fas fa-graduation-cap"></i>
+                    Enrollments
+                </a>
+                <a href="#settings" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </a>
+            </nav>
+            
+            <div class="admin-user">
+                <div class="user-avatar">
+                    <i class="fas fa-user-shield"></i>
                 </div>
-                <div class="admin-actions">
-                    <a href="index.html" class="admin-btn btn-primary">
-                        <i class="fas fa-home"></i>
-                        Website
-                    </a>
-                    <button class="admin-btn btn-secondary" onclick="exportData()">
-                        <i class="fas fa-download"></i>
-                        Export
+                <div class="user-info">
+                    <strong>Admin</strong>
+                    <small>Administrator</small>
+                </div>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="admin-main">
+            <!-- Header -->
+            <header class="admin-header">
+                <div class="header-left">
+                    <button class="menu-toggle">
+                        <i class="fas fa-bars"></i>
                     </button>
-                    <button class="admin-btn btn-danger" onclick="logout()">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Logout
+                    <h1 id="pageTitle">Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
                     </button>
+                    <div class="admin-profile">
+                        <img src="https://picsum.photos/seed/admin/40/40.jpg" alt="Admin">
+                        <span>Admin</span>
+                    </div>
                 </div>
             </header>
             
             <!-- Dashboard Section -->
-            <section id="dashboard" class="page-section active">
-                <!-- Animated Stats Cards -->
-                <div class="admin-stats">
+            <section id="dashboard" class="admin-section active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-chalkboard"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="totalClasses">0</h3>
+                            <p>Total Classes</p>
+                        </div>
+                    </div>
                     <div class="stat-card">
                         <div class="stat-icon">
                             <i class="fas fa-users"></i>
                         </div>
-                        <h3>Total Customers</h3>
-                        <div class="stat-number" id="totalCustomers">0</div>
-                        <span class="stat-change positive">+12.5%</span>
+                        <div class="stat-content">
+                            <h3 id="totalCustomers">0</h3>
+                            <p>Total Customers</p>
+                        </div>
                     </div>
-                    
                     <div class="stat-card">
                         <div class="stat-icon">
-                            <i class="fas fa-dumbbell"></i>
+                            <i class="fas fa-graduation-cap"></i>
                         </div>
-                        <h3>Active Classes</h3>
-                        <div class="stat-number" id="totalClasses">0</div>
-                        <span class="stat-change positive">+3 this month</span>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-clipboard-list"></i>
+                        <div class="stat-content">
+                            <h3 id="totalEnrollments">0</h3>
+                            <p>Total Enrollments</p>
                         </div>
-                        <h3>Total Enrollments</h3>
-                        <div class="stat-number" id="totalEnrollments">0</div>
-                        <span class="stat-change positive">+28.3%</span>
                     </div>
-                    
                     <div class="stat-card">
                         <div class="stat-icon">
                             <i class="fas fa-rupee-sign"></i>
                         </div>
-                        <h3>Monthly Revenue</h3>
-                        <div class="stat-number" id="monthlyRevenue">₹0</div>
-                        <span class="stat-change positive">+15.7%</span>
+                        <div class="stat-content">
+                            <h3 id="totalRevenue">₹0</h3>
+                            <p>Total Revenue</p>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- Recent Enrollments Section -->
-                <div class="content-section">
-                    <div class="section-header">
-                        <h2>Recent Enrollments</h2>
-                        <button class="admin-btn btn-primary" onclick="showAddClassModal()">
-                            <i class="fas fa-plus"></i>
-                            Add New Class
-                        </button>
-                    </div>
-                    <div class="section-body">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Customer Name</th>
-                                    <th>Class</th>
-                                    <th>Date</th>
-                                    <th>Amount</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="recentEnrollmentsTable">
-                                <!-- Data will be loaded here -->
-                            </tbody>
-                        </table>
+                <div class="dashboard-content">
+                    <div class="chart-container">
+                        <h3>Recent Activity</h3>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <i class="fas fa-user-plus"></i>
+                                <div class="activity-content">
+                                    <strong>New user registered</strong>
+                                    <small>2 minutes ago</small>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <i class="fas fa-chalkboard"></i>
+                                <div class="activity-content">
+                                    <strong>New class added</strong>
+                                    <small>1 hour ago</small>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <i class="fas fa-graduation-cap"></i>
+                                <div class="activity-content">
+                                    <strong>New enrollment</strong>
+                                    <small>3 hours ago</small>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
             
             <!-- Classes Section -->
-            <section id="classes" class="page-section">
-                <div class="content-section">
-                    <div class="section-header">
-                        <h2>Class Management</h2>
-                        <button class="admin-btn btn-primary" onclick="showAddClassModal()">
-                            <i class="fas fa-plus"></i>
-                            Add New Class
-                        </button>
-                    </div>
-                    <div class="section-body">
-                        <div class="search-filter">
-                            <div class="search-box">
-                                <i class="fas fa-search"></i>
-                                <input type="text" id="classSearch" placeholder="Search classes...">
-                            </div>
-                            <select class="filter-select" id="classCategoryFilter">
-                                <option value="">All Categories</option>
-                                <option value="yoga">Yoga</option>
-                                <option value="fitness">Fitness</option>
-                                <option value="meditation">Meditation</option>
-                                <option value="dance">Dance</option>
-                            </select>
-                            <select class="filter-select" id="classStatusFilter">
-                                <option value="">All Status</option>
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
-                            </select>
-                        </div>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Class Name</th>
-                                    <th>Category</th>
-                                    <th>Instructor</th>
-                                    <th>Price</th>
-                                    <th>Duration</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="classesTable">
-                                <!-- Data will be loaded here -->
-                            </tbody>
-                        </table>
-                    </div>
+            <section id="classes" class="admin-section">
+                <div class="section-header">
+                    <h2>Classes Management</h2>
+                    <button class="btn btn-primary" onclick="openAddClassModal()">
+                        <i class="fas fa-plus"></i> Add Class
+                    </button>
+                </div>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Class Name</th>
+                                <th>Description</th>
+                                <th>Duration</th>
+                                <th>Price</th>
+                                <th>Level</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="classesTable">
+                            <!-- Classes will be loaded here -->
+                        </tbody>
+                    </table>
                 </div>
             </section>
             
-            <!-- Customers Section -->
-            <section id="customers" class="page-section">
-                <div class="content-section">
-                    <div class="section-header">
-                        <h2>Customer Management</h2>
-                        <button class="admin-btn btn-primary" onclick="exportCustomers()">
-                            <i class="fas fa-download"></i>
-                            Export Customers
-                        </button>
-                    </div>
-                    <div class="section-body">
-                        <div class="search-filter">
-                            <div class="search-box">
-                                <i class="fas fa-search"></i>
-                                <input type="text" id="customerSearch" placeholder="Search customers...">
-                            </div>
-                            <select class="filter-select" id="customerGenderFilter">
-                                <option value="">All Genders</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
-                            </select>
-                            <select class="filter-select" id="customerStatusFilter">
-                                <option value="">All Status</option>
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
-                            </select>
-                        </div>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Location</th>
-                                    <th>Gender</th>
-                                    <th>Join Date</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="customersTable">
-                                <!-- Data will be loaded here -->
-                            </tbody>
-                        </table>
-                    </div>
+            <!-- Users Section -->
+            <section id="users" class="admin-section">
+                <div class="section-header">
+                    <h2>Users Management</h2>
+                    <button class="btn btn-secondary" onclick="refreshUsers()">
+                        <i class="fas fa-sync"></i> Refresh
+                    </button>
+                </div>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Location</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTable">
+                            <!-- Users will be loaded here -->
+                        </tbody>
+                    </table>
                 </div>
             </section>
             
             <!-- Enrollments Section -->
-            <section id="enrollments" class="page-section">
-                <div class="content-section">
-                    <div class="section-header">
-                        <h2>Enrollment Management</h2>
-                        <button class="admin-btn btn-primary" onclick="exportEnrollments()">
-                            <i class="fas fa-download"></i>
-                            Export Enrollments
-                        </button>
-                    </div>
-                    <div class="section-body">
-                        <div class="search-filter">
-                            <div class="search-box">
-                                <i class="fas fa-search"></i>
-                                <input type="text" id="enrollmentSearch" placeholder="Search enrollments...">
-                            </div>
-                            <select class="filter-select" id="enrollmentStatusFilter">
-                                <option value="">All Status</option>
-                                <option value="active">Active</option>
-                                <option value="pending">Pending</option>
-                                <option value="completed">Completed</option>
-                                <option value="cancelled">Cancelled</option>
-                            </select>
-                            <input type="date" id="enrollmentDateFilter" class="filter-select">
-                        </div>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Customer</th>
-                                    <th>Class</th>
-                                    <th>Enrollment Date</th>
-                                    <th>Amount</th>
-                                    <th>Status</th>
-                                    <th>Payment</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="enrollmentsTable">
-                                <!-- Data will be loaded here -->
-                            </tbody>
-                        </table>
-                    </div>
+            <section id="enrollments" class="admin-section">
+                <div class="section-header">
+                    <h2>Enrollments Management</h2>
+                    <button class="btn btn-secondary" onclick="refreshEnrollments()">
+                        <i class="fas fa-sync"></i> Refresh
+                    </button>
                 </div>
-            </section>
-            
-            <!-- Revenue Section -->
-            <section id="revenue" class="page-section">
-                <div class="content-section">
-                    <div class="section-header">
-                        <h2>Revenue Analytics</h2>
-                        <button class="admin-btn btn-primary" onclick="generateRevenueReport()">
-                            <i class="fas fa-file-pdf"></i>
-                            Generate Report
-                        </button>
-                    </div>
-                    <div class="section-body">
-                        <div class="admin-stats">
-                            <div class="stat-card">
-                                <div class="stat-icon">
-                                    <i class="fas fa-calendar"></i>
-                                </div>
-                                <h3>Today's Revenue</h3>
-                                <div class="stat-number" id="todayRevenue">₹0</div>
-                                <span class="stat-change positive">+8.2%</span>
-                            </div>
-                            
-                            <div class="stat-card">
-                                <div class="stat-icon">
-                                    <i class="fas fa-calendar-week"></i>
-                                </div>
-                                <h3>This Week</h3>
-                                <div class="stat-number" id="weekRevenue">₹0</div>
-                                <span class="stat-change positive">+12.1%</span>
-                            </div>
-                            
-                            <div class="stat-card">
-                                <div class="stat-icon">
-                                    <i class="fas fa-calendar-alt"></i>
-                                </div>
-                                <h3>This Month</h3>
-                                <div class="stat-number" id="monthRevenue">₹0</div>
-                                <span class="stat-change positive">+15.7%</span>
-                            </div>
-                            
-                            <div class="stat-card">
-                                <div class="stat-icon">
-                                    <i class="fas fa-chart-line"></i>
-                                </div>
-                                <h3>Total Revenue</h3>
-                                <div class="stat-number" id="totalRevenue">₹0</div>
-                                <span class="stat-change positive">+22.4%</span>
-                            </div>
-                        </div>
-                        
-                        <h3 style="margin-top: 30px; margin-bottom: 20px; color: #1a5f3f;">Revenue by Class</h3>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Class Name</th>
-                                    <th>Total Enrollments</th>
-                                    <th>Total Revenue</th>
-                                    <th>Average Revenue</th>
-                                    <th>Growth</th>
-                                </tr>
-                            </thead>
-                            <tbody id="revenueTable">
-                                <!-- Data will be loaded here -->
-                            </tbody>
-                        </table>
-                    </div>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Class</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="enrollmentsTable">
+                            <!-- Enrollments will be loaded here -->
+                        </tbody>
+                    </table>
                 </div>
             </section>
             
             <!-- Settings Section -->
-            <section id="settings" class="page-section">
-                <div class="content-section">
-                    <div class="section-header">
-                        <h2>Settings</h2>
-                        <button class="admin-btn btn-primary" onclick="saveSettings()">
-                            <i class="fas fa-save"></i>
-                            Save Settings
-                        </button>
+            <section id="settings" class="admin-section">
+                <div class="section-header">
+                    <h2>Settings</h2>
+                </div>
+                
+                <div class="settings-container">
+                    <div class="setting-group">
+                        <h3>General Settings</h3>
+                        <div class="setting-item">
+                            <label>Contact Email</label>
+                            <input type="email" id="contactEmail" value="connektbmsstudio@gmail.com">
+                        </div>
+                        <div class="setting-item">
+                            <label>Phone Number</label>
+                            <input type="tel" id="phoneNumber" value="+91 9039570885" readonly>
+                        </div>
+                        <div class="setting-item">
+                            <label>Owner</label>
+                            <input type="text" id="ownerName" value="Hina Pamnani" readonly>
+                        </div>
+                        <div class="setting-item">
+                            <label>Address</label>
+                            <input type="text" id="address" value="Ghanshyam niwas, Nai Basti, Gandhi Ganj, Katni, Madhya Pradesh 483501">
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-primary" onclick="saveSettingsToConfig()">
+                                <i class="fas fa-save"></i> Save Settings
+                            </button>
+                        </div>
                     </div>
-                    <div class="section-body">
-                        <div class="form-group">
-                            <label for="studioName">Studio Name</label>
-                            <input type="text" id="studioName" value="Connekt Studio">
+                    
+                    <div class="setting-group">
+                        <h3>System Status</h3>
+                        <div class="status-item">
+                            <span>Frontend Status</span>
+                            <span class="status-badge success">Active</span>
                         </div>
-                        <div class="form-group">
-                            <label for="studioEmail">Studio Email</label>
-                            <input type="email" id="studioEmail" value="info@connektstudio.com">
+                        <div class="status-item">
+                            <span>Backend Status</span>
+                            <span class="status-badge info">Disabled</span>
                         </div>
-                        <div class="form-group">
-                            <label for="studioPhone">Studio Phone</label>
-                            <input type="tel" id="studioPhone" value="+91 90395 70885">
-                        </div>
-                        <div class="form-group">
-                            <label for="studioAddress">Studio Address</label>
-                            <textarea id="studioAddress" rows="3">123 Main Street, Mumbai, Maharashtra 400001</textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="whatsappNumber">WhatsApp Number</label>
-                            <input type="tel" id="whatsappNumber" value="919039570885">
-                        </div>
-                        <div class="form-group">
-                            <label>
-                                <input type="checkbox" id="emailNotifications" checked>
-                                Enable Email Notifications
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <label>
-                                <input type="checkbox" id="smsNotifications" checked>
-                                Enable SMS Notifications
-                            </label>
+                        <div class="status-item">
+                            <span>Database Status</span>
+                            <span class="status-badge info">Disabled</span>
                         </div>
                     </div>
                 </div>
             </section>
-            
-            <!-- Logs Section -->
-            <section id="logs" class="page-section">
-                <div class="content-section">
-                    <div class="section-header">
-                        <h2>Activity Logs</h2>
-                        <button class="admin-btn btn-secondary" onclick="clearLogs()">
-                            <i class="fas fa-trash"></i>
-                            Clear Logs
-                        </button>
-                    </div>
-                    <div class="section-body">
-                        <div class="search-filter">
-                            <div class="search-box">
-                                <i class="fas fa-search"></i>
-                                <input type="text" id="logSearch" placeholder="Search logs...">
-                            </div>
-                            <select class="filter-select" id="logTypeFilter">
-                                <option value="">All Types</option>
-                                <option value="login">Login</option>
-                                <option value="enrollment">Enrollment</option>
-                                <option value="class">Class</option>
-                                <option value="customer">Customer</option>
-                                <option value="system">System</option>
-                            </select>
-                            <input type="date" id="logDateFilter" class="filter-select">
-                        </div>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Timestamp</th>
-                                    <th>Type</th>
-                                    <th>User</th>
-                                    <th>Action</th>
-                                    <th>Details</th>
-                                </tr>
-                            </thead>
-                            <tbody id="logsTable">
-                                <!-- Data will be loaded here -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-        </main>
+        </div>
     </div>
     
     <!-- Add Class Modal -->
@@ -1340,60 +1202,125 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3>Add New Class</h3>
-                <button class="close" onclick="closeModal('addClassModal')">&times;</button>
+                <button class="close-btn" onclick="closeModal('addClassModal')">&times;</button>
             </div>
             <form id="addClassForm">
                 <div class="form-group">
-                    <label for="className">Class Name</label>
+                    <label>Class Name</label>
                     <input type="text" id="className" required>
                 </div>
                 <div class="form-group">
-                    <label for="classCategory">Category</label>
-                    <select id="classCategory" required>
-                        <option value="">Select Category</option>
-                        <option value="yoga">Yoga</option>
-                        <option value="fitness">Fitness</option>
-                        <option value="meditation">Meditation</option>
-                        <option value="dance">Dance</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="classPrice">Price (₹)</label>
-                    <input type="number" id="classPrice" required>
-                </div>
-                <div class="form-group">
-                    <label for="classDuration">Duration</label>
-                    <input type="text" id="classDuration" placeholder="e.g., 60 minutes">
-                </div>
-                <div class="form-group">
-                    <label for="classInstructor">Instructor</label>
-                    <input type="text" id="classInstructor" required>
-                </div>
-                <div class="form-group">
-                    <label for="classSchedule">Schedule</label>
-                    <input type="text" id="classSchedule" placeholder="e.g., Mon, Wed, Fri - 6:00 AM">
-                </div>
-                <div class="form-group">
-                    <label for="classDescription">Description</label>
+                    <label>Description</label>
                     <textarea id="classDescription" required></textarea>
                 </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Duration</label>
+                        <input type="text" id="classDuration" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Price</label>
+                        <input type="text" id="classPrice" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Level</label>
+                    <select id="classLevel" required>
+                        <option value="">Select Level</option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                        <option value="All Levels">All Levels</option>
+                    </select>
+                </div>
                 <div class="form-actions">
-                    <button type="button" class="admin-btn btn-secondary" onclick="closeModal('addClassModal')">Cancel</button>
-                    <button type="submit" class="admin-btn btn-primary">Add Class</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('addClassModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Class</button>
                 </div>
             </form>
+        </div>
+    </div>
+    
     <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay" style="display: none;">
         <div class="loading-spinner"></div>
     </div>
     
+    <script src="config.js"></script>
     <script src="script.js"></script>
     <script>
+        // Static dummy data for demo
+        const DUMMY_CLASSES = [
+            {
+                id: 1,
+                name: "21 Days Dincharya Program",
+                description: "Perfect for beginners",
+                duration: "21 Days",
+                price: "₹2,499",
+                level: "Beginner"
+            },
+            {
+                id: 2,
+                name: "Advanced Yoga Flow",
+                description: "For experienced practitioners",
+                duration: "90 minutes",
+                price: "₹1,999",
+                level: "Advanced"
+            }
+        ];
+        
+        const DUMMY_USERS = [
+            {
+                id: 1,
+                fullName: "John Doe",
+                email: "john@example.com",
+                phone: "1234567890",
+                location: "Mumbai"
+            },
+            {
+                id: 2,
+                fullName: "Jane Smith",
+                email: "jane@example.com",
+                phone: "9876543210",
+                location: "Delhi"
+            }
+        ];
+        
+        // Load settings from configuration
+        function loadSettingsFromConfig() {
+            const config = CONFIG.current;
+            
+            // Update settings form
+            document.getElementById('contactEmail').value = config.contactEmail;
+            document.getElementById('phoneNumber').value = config.phoneNumber;
+            document.getElementById('ownerName').value = config.ownerName;
+            document.getElementById('address').value = config.address;
+        }
+        
+        // Save settings to configuration
+        function saveSettingsToConfig() {
+            const config = {
+                websiteName: CONFIG.current.websiteName, // Keep existing website name
+                contactEmail: document.getElementById('contactEmail').value,
+                phoneNumber: document.getElementById('phoneNumber').value,
+                ownerName: document.getElementById('ownerName').value,
+                address: document.getElementById('address').value,
+                whatsappNumber: document.getElementById('phoneNumber').value.replace(/[^\d]/g, ''),
+                socialLinks: CONFIG.current.socialLinks,
+                businessHours: CONFIG.current.businessHours,
+                meta: CONFIG.current.meta
+            };
+            
+            CONFIG.save(config);
+            showNotification('Settings saved successfully! Changes will be reflected across all pages.', 'success');
+        }
+        
         // Initialize data from frontend
         function initializeData() {
             console.log('Admin dashboard initialized with frontend-only data');
+            loadSettingsFromConfig();
         }
-
+        
         // Navigation
         function setActiveSection(sectionId) {
             // Hide all sections
@@ -1402,66 +1329,67 @@
             });
             
             // Show selected section
-            const selectedSection = document.getElementById(sectionId);
-            if (selectedSection) {
-                selectedSection.classList.add('active');
-            }
+            document.getElementById(sectionId).classList.add('active');
             
             // Update navigation
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
             });
             
-            const activeNavItem = document.querySelector(`[data-section="${sectionId}"]`);
-            if (activeNavItem) {
-                activeNavItem.classList.add('active');
-            }
+            // Update page title
+            const titles = {
+                dashboard: 'Dashboard',
+                classes: 'Classes Management',
+                users: 'Users Management',
+                enrollments: 'Enrollments Management',
+                settings: 'Settings'
+            };
+            
+            document.getElementById('pageTitle').textContent = titles[sectionId] || 'Dashboard';
+            
+            // Load page data
+            loadPageData(sectionId);
         }
-
-        // Check authentication
+        
+        // Check authentication (UI only)
         function checkAuth() {
-            const sessionData = sessionStorage.getItem('adminLoggedIn');
-            if (!sessionData || sessionData !== 'true') {
-                window.location.href = 'admin-login.html';
-                return null;
-            }
+            // For demo purposes, always return true
             return true;
         }
-
+        
         // Logout function
         function logout() {
-            showLoading();
-            addLog('logout', 'Admin', 'Logged out of admin panel');
-            setTimeout(() => {
-                sessionStorage.removeItem('adminLoggedIn');
-                sessionStorage.removeItem('adminUsername');
-                sessionStorage.removeItem('adminId');
-                window.location.href = 'admin-login.html';
-            }, 1000);
+            if (confirm('Are you sure you want to logout?')) {
+                showNotification('Logging out...', 'info');
+                
+                // Simulate logout and redirect to main website
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1000);
+            }
         }
-
+        
         // Show loading overlay
         function showLoading() {
             document.getElementById('loadingOverlay').style.display = 'flex';
         }
-
+        
         // Hide loading overlay
         function hideLoading() {
             document.getElementById('loadingOverlay').style.display = 'none';
         }
-
+        
         // Show notification
         function showNotification(message, type = 'success') {
             const notification = document.createElement('div');
             notification.className = `notification-toast ${type}`;
             notification.innerHTML = `
-                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
                 <span>${message}</span>
             `;
             
             document.body.appendChild(notification);
             
-            // Auto remove after 3 seconds
             setTimeout(() => {
                 notification.style.animation = 'slideInRight 0.3s ease-out reverse';
                 setTimeout(() => {
@@ -1469,49 +1397,7 @@
                 }, 300);
             }, 3000);
         }
-
-        // Add log entry
-        function addLog(type, user, action, details = '') {
-            console.log(`Admin Log: ${type} - ${user} - ${action} - ${details}`);
-            // In future, this could save to backend
-        }
-
-        // Navigation
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Remove active class from all links
-                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                
-                // Add active class to clicked link
-                this.classList.add('active');
-                
-                // Get page name
-                const pageName = this.getAttribute('data-page');
-                
-                // Hide all sections
-                document.querySelectorAll('.page-section').forEach(section => {
-                    section.classList.remove('active');
-                });
-                
-                // Show selected section
-                const targetSection = document.getElementById(pageName);
-                if (targetSection) {
-                    targetSection.classList.add('active');
-                    
-                    // Update page title
-                    const pageTitle = this.querySelector('i').parentElement.textContent.trim();
-                    document.getElementById('pageTitle').textContent = pageTitle;
-                    
-                    // Load data for the page
-                    loadPageData(pageName);
-                }
-                
-                addLog('navigation', 'Admin', `Navigated to ${pageName}`);
-            });
-        });
-
+        
         // Load page data
         function loadPageData(pageName) {
             switch(pageName) {
@@ -1521,186 +1407,175 @@
                 case 'classes':
                     loadClassesData();
                     break;
-                case 'customers':
-                    loadCustomersData();
+                case 'users':
+                    loadUsersData();
                     break;
                 case 'enrollments':
                     loadEnrollmentsData();
                     break;
-                case 'revenue':
-                    // Revenue data placeholder
-                    console.log('Revenue data - Coming soon');
-                    break;
-                case 'logs':
-                    // Logs data placeholder
-                    console.log('Logs data - Coming soon');
+                case 'settings':
+                    // Settings are static
                     break;
             }
         }
-
+        
         // Load dashboard data
-        async function loadDashboardData() {
-            try {
-                // Load data from frontend
-                const classes = loadClasses();
-                const users = loadUsers();
-                
-                // Update stats
-                document.getElementById('totalClasses').textContent = classes.length;
-                document.getElementById('totalCustomers').textContent = users.length;
-                document.getElementById('totalEnrollments').textContent = '0';
-                document.getElementById('totalRevenue').textContent = '₹0';
-            } catch (error) {
-                console.error('Error loading dashboard data:', error);
-                
-                // Set default values
-                document.getElementById('totalClasses').textContent = '0';
-                document.getElementById('totalCustomers').textContent = '0';
-                document.getElementById('totalEnrollments').textContent = '0';
-                document.getElementById('totalRevenue').textContent = '₹0';
-            }
+        function loadDashboardData() {
+            // Update stats with dummy data
+            document.getElementById('totalClasses').textContent = DUMMY_CLASSES.length;
+            document.getElementById('totalCustomers').textContent = DUMMY_USERS.length;
+            document.getElementById('totalEnrollments').textContent = '0';
+            document.getElementById('totalRevenue').textContent = '₹0';
         }
-
+        
         // Load classes data
-        async function loadClassesData() {
-            try {
-                // Load classes from frontend
-                const classes = loadClasses();
-                const tbody = document.getElementById('classesTable');
-                if (tbody) {
-                    tbody.innerHTML = classes.map(cls => `
-                        <tr>
-                            <td>${cls.name || 'Untitled Class'}</td>
-                            <td>${cls.description || 'No description'}</td>
-                            <td>${cls.duration || 'Not specified'}</td>
-                            <td>${cls.price || 'Not specified'}</td>
-                            <td>${cls.level || 'Not specified'}</td>
-                            <td>
-                                <button class="admin-btn btn-sm btn-primary" onclick="editClass('${cls.id}')">Edit</button>
-                                <button class="admin-btn btn-sm btn-danger" onclick="deleteClass('${cls.id}')">Delete</button>
-                            </td>
-                        </tr>
-                    `).join('');
-                }
-            } catch (error) {
-                console.error('Error loading classes:', error);
+        function loadClassesData() {
+            const tbody = document.getElementById('classesTable');
+            if (tbody) {
+                tbody.innerHTML = DUMMY_CLASSES.map(cls => `
+                    <tr>
+                        <td>${cls.name}</td>
+                        <td>${cls.description}</td>
+                        <td>${cls.duration}</td>
+                        <td>${cls.price}</td>
+                        <td>${cls.level}</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" onclick="editClass('${cls.id}')">Edit</button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteClass('${cls.id}')">Delete</button>
+                        </td>
+                    </tr>
+                `).join('');
             }
         }
-
-        // Load customers data
-        async function loadCustomersData() {
-            try {
-                // Load users from frontend
-                const users = loadUsers();
-                const tbody = document.getElementById('customersTable');
-                if (tbody) {
-                    tbody.innerHTML = users.map(user => `
-                        <tr>
-                            <td>${user.fullName}</td>
-                            <td>${user.email}</td>
-                            <td>${user.phone}</td>
-                            <td>${user.location || 'Not specified'}</td>
-                            <td>
-                                <button class="admin-btn btn-sm btn-primary" onclick="editCustomer('${user.id}')">Edit</button>
-                                <button class="admin-btn btn-sm btn-danger" onclick="deleteCustomer('${user.id}')">Delete</button>
-                            </td>
-                        </tr>
-                    `).join('');
-                }
-            } catch (error) {
-                console.error('Error loading customers:', error);
+        
+        // Load users data
+        function loadUsersData() {
+            const tbody = document.getElementById('usersTable');
+            if (tbody) {
+                tbody.innerHTML = DUMMY_USERS.map(user => `
+                    <tr>
+                        <td>${user.fullName}</td>
+                        <td>${user.email}</td>
+                        <td>${user.phone}</td>
+                        <td>${user.location}</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" onclick="editUser('${user.id}')">Edit</button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteUser('${user.id}')">Delete</button>
+                        </td>
+                    </tr>
+                `).join('');
             }
         }
-
-        // Load enrollments data (placeholder)
+        
+        // Load enrollments data
         function loadEnrollmentsData() {
             const tbody = document.getElementById('enrollmentsTable');
             if (tbody) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 40px;">No enrollments found. Enrollment management coming soon!</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 40px;">No enrollments found. Enrollment management coming soon!</td></tr>';
             }
         }
-
-        // Delete class
+        
+        // Modal functions
+        function openAddClassModal() {
+            document.getElementById('addClassModal').style.display = 'block';
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        // Form submission (UI only)
+        document.getElementById('addClassForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('className').value,
+                description: document.getElementById('classDescription').value,
+                duration: document.getElementById('classDuration').value,
+                price: document.getElementById('classPrice').value,
+                level: document.getElementById('classLevel').value
+            };
+            
+            // Show success message (UI only)
+            showNotification('Class added successfully!', 'success');
+            
+            // Close modal and reset form
+            closeModal('addClassModal');
+            this.reset();
+            
+            // Reload classes data
+            loadClassesData();
+        });
+        
+        // Delete functions (UI only)
         function deleteClass(id) {
-            if (!confirm('Are you sure you want to delete this class?')) {
-                return;
-            }
-            
-            try {
-                // Get classes from localStorage
-                let classes = JSON.parse(localStorage.getItem('classes') || '[]');
-                
-                // Remove class
-                classes = classes.filter(cls => cls.id != id);
-                localStorage.setItem('classes', JSON.stringify(classes));
-                
-                // Reload classes
-                loadClassesData();
-                
+            if (confirm('Are you sure you want to delete this class?')) {
                 showNotification('Class deleted successfully!', 'success');
-            } catch (error) {
-                console.error('Error deleting class:', error);
-                showNotification('Error deleting class: ' + error.message, 'error');
+                loadClassesData();
             }
         }
-
-        // Delete customer
-        function deleteCustomer(id) {
-            if (!confirm('Are you sure you want to delete this customer?')) {
-                return;
-            }
-            
-            try {
-                // Get users from localStorage
-                let users = JSON.parse(localStorage.getItem('users') || '[]');
-                
-                // Remove user
-                users = users.filter(user => user.id != id);
-                localStorage.setItem('users', JSON.stringify(users));
-                
-                // Reload users
-                loadCustomersData();
-                
-                showNotification('Customer deleted successfully!', 'success');
-            } catch (error) {
-                console.error('Error deleting customer:', error);
-                showNotification('Error deleting customer: ' + error.message, 'error');
+        
+        function deleteUser(id) {
+            if (confirm('Are you sure you want to delete this user?')) {
+                showNotification('User deleted successfully!', 'success');
+                loadUsersData();
             }
         }
-
+        
         function deleteEnrollment(id) {
             if (confirm('Are you sure you want to delete this enrollment?')) {
-                console.log('Delete enrollment:', id);
-                showNotification('Enrollment deleted successfully!');
+                showNotification('Enrollment deleted successfully!', 'success');
                 loadEnrollmentsData();
-                loadDashboardData();
             }
         }
-
+        
         // Edit functions (placeholders)
         function editClass(id) {
-            console.log('Edit class:', id);
-            showNotification('Class editing coming soon!');
+            showNotification('Class editing coming soon!', 'info');
         }
-
-        function editCustomer(id) {
-            console.log('Edit customer:', id);
-            showNotification('Customer editing coming soon!');
+        
+        function editUser(id) {
+            showNotification('User editing coming soon!', 'info');
         }
-
+        
         function editEnrollment(id) {
-            console.log('Edit enrollment:', id);
-            showNotification('Enrollment editing coming soon!');
+            showNotification('Enrollment editing coming soon!', 'info');
         }
-
-        // Initialize
-        window.addEventListener('load', async function() {
+        
+        // Refresh functions
+        function refreshUsers() {
+            showLoading();
+            setTimeout(() => {
+                loadUsersData();
+                hideLoading();
+                showNotification('Users refreshed successfully!', 'success');
+            }, 1000);
+        }
+        
+        function refreshEnrollments() {
+            showLoading();
+            setTimeout(() => {
+                loadEnrollmentsData();
+                hideLoading();
+                showNotification('Enrollments refreshed successfully!', 'success');
+            }, 1000);
+        }
+        
+        // Initialize navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const sectionId = this.getAttribute('href').substring(1);
+                setActiveSection(sectionId);
+            });
+        });
+        
+        // Initialize on page load
+        window.addEventListener('load', function() {
             if (checkAuth()) {
                 initializeData();
-                await loadDashboardData();
-                
-                // Add initial log
-                addLog('login', 'Admin', 'Logged in to admin panel');
+                loadDashboardData();
             }
         });
     </script>

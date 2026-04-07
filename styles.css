@@ -991,35 +991,214 @@ section {
 
 /* WhatsApp Button */
 .whatsapp-btn {
-    display: inline-block;
-    background: #25d366;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
-    cursor: pointer;
+display: inline-block;
+background: #25d366;
+color: white;
+padding: 0.8rem 1.5rem;
+border-radius: 25px;
+text-decoration: none;
+font-weight: 500;
+transition: all 0.3s ease;
+cursor: pointer;
 }
 
 .whatsapp-btn:hover {
-    background: #128c7e;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
-    color: white;
+background: #128c7e;
+transform: translateY(-2px);
+box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
+color: white;
 }
 
 .whatsapp-btn i {
-    margin-right: 8px;
-    font-size: 1.1rem;
+margin-right: 8px;
+font-size: 1.1rem;
+}
+
+/* Notification Toast */
+.notification-toast {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    background: linear-gradient(135deg, #fff, #f8f9fa);
+    padding: 20px 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 3000;
+    animation: slideInRight 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    min-width: 300px;
+    max-width: 500px;
+}
+
+.notification-toast.success {
+    border-left: 4px solid #28a745;
+    color: #155724;
+}
+
+.notification-toast.error {
+    border-left: 4px solid #dc3545;
+    color: #721c24;
+}
+
+.notification-toast.info {
+    border-left: 4px solid #17a2b8;
+    color: #0c5460;
+}
+
+.notification-toast i {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.notification-toast.success i {
+    color: #28a745;
+}
+
+.notification-toast.error i {
+    color: #dc3545;
+}
+
+.notification-toast.info i {
+    color: #17a2b8;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* FAQ Accordion Styles */
+.faq-item {
+    background: white;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.faq-item.active {
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.faq-question {
+    padding: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #1a5f3f;
+    border-bottom: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq-question:hover {
+    background: #f8f9fa;
+}
+
+.faq-question::after {
+    content: '+';
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-question::after {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.faq-answer p {
+    padding: 20px;
+    margin: 0;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Mobile Menu Styles */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 4px;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: #1a5f3f;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        flex-direction: column;
+        background: white;
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+        padding: 20px 0;
+    }
+    
+    .nav-menu.active {
+        left: 0;
+    }
 }
 
 /* Floating WhatsApp Button */
 .floating-whatsapp-btn {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
+position: fixed;
+bottom: 25px;
+right: 25px;
+width: 60px;
+height: 60px;
+background: #25d366;
+color: white;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+text-decoration: none;
+font-size: 1.8rem;
+box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+transition: all 0.3s ease;
+z-index: 9999;
+border: 3px solid rgba(255, 255, 255, 0.2);
     width: 60px;
     height: 60px;
     background: #25d366;
