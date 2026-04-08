@@ -49,152 +49,56 @@ const STATIC_CLASSES = [
             "Breathwork Techniques",
             "Meditation Integration",
             "Strength Building",
-            "Flexibility Advanced"
+            "Flexibility Training"
         ],
-        image: "https://images.unsplash.com/photo-1599901860903-17e6edead8c8?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaGox"
+        image: "https://images.unsplash.com/photo-1599901860903-17e6ed7083a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
     },
     {
         id: 3,
-        name: "Gentle Yoga Therapy",
-        description: "Therapeutic yoga sessions focused on healing, relaxation, and stress relief through gentle movements.",
+        name: "Meditation & Mindfulness",
+        description: "Learn meditation techniques to reduce stress and improve mental clarity.",
         duration: "60 minutes",
         price: "₹1,499",
         level: "All Levels",
-        schedule: "Mon-Wed, 6:00 PM",
-        instructor: "Certified Therapist",
+        schedule: "Daily, 6:00 PM",
+        instructor: "Meditation Expert",
         experience: "8 years",
-        students: 89,
+        students: 180,
         rating: 4.7,
         features: [
-            "Therapeutic Approach",
-            "Stress Relief",
-            "Gentle Movements",
-            "Relaxation Techniques",
-            "Healing Focus",
-            "Mind-Body Connection"
+            "Guided Meditation",
+            "Breathing Techniques",
+            "Stress Management",
+            "Mindfulness Practices",
+            "Mental Clarity"
         ],
-        image: "https://images.unsplash.com/photo-1545205597-1609c0e9e78?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaGox"
+        image: "https://images.unsplash.com/photo-1588286840104-8957b019727f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+        id: 4,
+        name: "Yoga for Weight Loss",
+        description: "Specialized yoga program designed for weight management and body toning.",
+        duration: "45 minutes",
+        price: "₹1,799",
+        level: "Intermediate",
+        schedule: "Mon-Wed-Fri, 5:00 PM",
+        instructor: "Fitness Expert",
+        experience: "6 years",
+        students: 200,
+        rating: 4.6,
+        features: [
+            "Weight Loss Focus",
+            "Cardio Yoga",
+            "Strength Training",
+            "Diet Guidance",
+            "Body Toning"
+        ],
+        image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
     }
 ];
 
 // ============================================================================
-// UI FUNCTIONS (No Backend Logic)
-// ============================================================================
-
-// Show status message (UI only)
-function showStatus(message, type = 'info') {
-    const statusDiv = document.getElementById('statusMessage');
-    if (!statusDiv) return;
-    
-    statusDiv.className = `status-message ${type}`;
-    statusDiv.textContent = message;
-    statusDiv.style.display = 'block';
-    
-    // Auto hide after 5 seconds
-    setTimeout(() => {
-        statusDiv.style.display = 'none';
-    }, 5000);
-}
-
-// Load classes (static data)
-function loadClasses() {
-    console.log('Loading static classes data');
-    displayClasses(STATIC_CLASSES);
-    return STATIC_CLASSES;
-}
-
-// Display classes
-function displayClasses(classes) {
-    const classesGrid = document.getElementById('classesGrid');
-    if (!classesGrid) return;
-    
-    classesGrid.innerHTML = classes.map(cls => `
-        <div class="class-card stagger-animation">
-            <div class="class-image">
-                <img src="${cls.image}" alt="${cls.name}">
-                <div class="class-badge">${cls.level}</div>
-            </div>
-            <div class="class-content">
-                <h3>${cls.name}</h3>
-                <p>${cls.description}</p>
-                <div class="class-meta">
-                    <span><i class="fas fa-clock"></i> ${cls.duration}</span>
-                    <span><i class="fas fa-tag"></i> ${cls.price}</span>
-                    <span><i class="fas fa-signal"></i> ${cls.level}</span>
-                </div>
-                <div class="class-instructor">
-                    <img src="https://picsum.photos/seed/instructor${cls.id}/40/40.jpg" alt="${cls.instructor}">
-                    <div>
-                        <strong>${cls.instructor}</strong>
-                        <small>${cls.experience} experience</small>
-                    </div>
-                </div>
-                <button class="btn btn-primary" onclick="enrollInClass(${cls.id})">
-                    Enroll Now
-                </button>
-            </div>
-        </div>
-    `).join('');
-}
-
-// Enroll in class (UI only - no backend)
-function enrollInClass(classId) {
-    const classData = STATIC_CLASSES.find(cls => cls.id === classId);
-    if (classData) {
-        showStatus(`Successfully enrolled in ${classData.name}!`, 'success');
-    } else {
-        showStatus('Class not found', 'error');
-    }
-}
-
-// Check frontend data (UI function)
-function checkFrontendData() {
-    console.log('Checking frontend data...');
-    showStatus('Frontend data loaded successfully!', 'success');
-}
-
-// Add test user (UI only)
-function addTestUser() {
-    console.log('Adding test user (UI only)...');
-    showStatus('Test user added successfully!', 'success');
-}
-
-// Refresh classes (UI only)
-function refreshClasses() {
-    console.log('Refreshing classes...');
-    loadClasses();
-    showStatus('Classes refreshed!', 'success');
-}
-
-// ============================================================================
-// FORM HANDLERS (No Backend Submit)
-// ============================================================================
-
-// Handle user form submission (UI only)
-function handleUserFormSubmit(event) {
-    event.preventDefault();
-    
-    // Get form data
-    const formData = {
-        fullName: document.getElementById("fullName")?.value || '',
-        email: document.getElementById("email")?.value || '',
-        phone: document.getElementById("phone")?.value || '',
-        location: document.getElementById("location")?.value || ''
-    };
-    
-    // Show success message (no backend save)
-    showStatus('Form submitted successfully!', 'success');
-    
-    // Reset form
-    if (event.target) {
-        event.target.reset();
-    }
-    
-    console.log('Form data (UI only):', formData);
-}
-
-// ============================================================================
-// NAVIGATION AND UI INTERACTIONS
+// BUTTON FUNCTIONS AND INTERACTIONS
 // ============================================================================
 
 // Smooth scroll to section
@@ -205,48 +109,129 @@ function scrollToSection(sectionId) {
     }
 }
 
-// ============================================================================
-// BUTTON FUNCTIONS AND INTERACTIONS
-// ============================================================================
-
-// Enroll in class
+// Enroll in class - Professional Implementation
 function enrollInClass(classId) {
     const classData = STATIC_CLASSES.find(c => c.id === classId);
     if (classData) {
-        console.log('Enrolling in:', classData.name);
-        showMessage('info', `Enrollment for "${classData.name}" initiated! Please contact us to complete enrollment.`);
+        // Create WhatsApp message with class details
+        const whatsappMessage = encodeURIComponent(
+            `Hi! I'm interested in enrolling in the "${classData.name}" class.\n\n` +
+            `Schedule: ${classData.schedule}\n` +
+            `Instructor: ${classData.instructor}\n` +
+            `Duration: ${classData.duration}\n` +
+            `Price: ${classData.price}\n` +
+            `Level: ${classData.level}\n\n` +
+            `Please provide more information about enrollment. Thank you!`
+        );
         
-        // Scroll to contact section
+        // Open WhatsApp with pre-filled message
+        const whatsappUrl = `https://wa.me/919039570885?text=${whatsappMessage}`;
+        
+        // Show notification and redirect
+        showMessage('success', `Opening WhatsApp to enroll in "${classData.name}"...`);
+        
+        // Open WhatsApp in new tab
         setTimeout(() => {
-            scrollToSection('contact');
-        }, 1500);
+            window.open(whatsappUrl, '_blank');
+        }, 1000);
     }
 }
 
-// Show class details
+// Show class details - Professional Implementation
 function showClassDetails(classId) {
     const classData = STATIC_CLASSES.find(c => c.id === classId);
     if (classData) {
-        console.log('Showing details for:', classData.name);
-        
-        // Create modal content
+        // Create comprehensive modal content
         const modalContent = `
-            <h3>${classData.name}</h3>
-            <p><strong>Instructor:</strong> ${classData.instructor}</p>
-            <p><strong>Duration:</strong> ${classData.duration}</p>
-            <p><strong>Level:</strong> ${classData.level}</p>
-            <p><strong>Schedule:</strong> ${classData.schedule}</p>
-            <p><strong>Price:</strong> ${classData.price}</p>
-            <p><strong>Students:</strong> ${classData.students}</p>
-            <p><strong>Rating:</strong> ${classData.rating} stars</p>
-            <p>${classData.description}</p>
-            <h4>Features:</h4>
-            <ul>
-                ${classData.features.map(feature => `<li>${feature}</li>`).join('')}
-            </ul>
-            <div style="margin-top: 20px;">
-                <button class="btn btn-primary" onclick="enrollInClass(${classId})">Enroll Now</button>
-                <button class="btn btn-secondary" onclick="closeModal('classModal')">Close</button>
+            <div class="class-details-modal">
+                <div class="class-details-header">
+                    <div class="class-details-image">
+                        <img src="${classData.image}" alt="${classData.name}">
+                        <div class="class-details-badge">${classData.level}</div>
+                    </div>
+                    <div class="class-details-info">
+                        <h2>${classData.name}</h2>
+                        <div class="class-details-meta">
+                            <div class="meta-detail">
+                                <i class="fas fa-user-tie"></i>
+                                <div>
+                                    <strong>Instructor</strong>
+                                    <span>${classData.instructor}</span>
+                                </div>
+                            </div>
+                            <div class="meta-detail">
+                                <i class="fas fa-clock"></i>
+                                <div>
+                                    <strong>Duration</strong>
+                                    <span>${classData.duration}</span>
+                                </div>
+                            </div>
+                            <div class="meta-detail">
+                                <i class="fas fa-calendar"></i>
+                                <div>
+                                    <strong>Schedule</strong>
+                                    <span>${classData.schedule}</span>
+                                </div>
+                            </div>
+                            <div class="meta-detail">
+                                <i class="fas fa-tag"></i>
+                                <div>
+                                    <strong>Price</strong>
+                                    <span>${classData.price}</span>
+                                </div>
+                            </div>
+                            <div class="meta-detail">
+                                <i class="fas fa-signal"></i>
+                                <div>
+                                    <strong>Level</strong>
+                                    <span>${classData.level}</span>
+                                </div>
+                            </div>
+                            <div class="meta-detail">
+                                <i class="fas fa-users"></i>
+                                <div>
+                                    <strong>Students</strong>
+                                    <span>${classData.students} enrolled</span>
+                                </div>
+                            </div>
+                            <div class="meta-detail">
+                                <i class="fas fa-star"></i>
+                                <div>
+                                    <strong>Rating</strong>
+                                    <span>${classData.rating} / 5.0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="class-details-description">
+                    <h3>About This Class</h3>
+                    <p>${classData.description}</p>
+                </div>
+                
+                <div class="class-details-features">
+                    <h3>What You'll Learn</h3>
+                    <div class="features-grid">
+                        ${classData.features.map(feature => `
+                            <div class="feature-card">
+                                <i class="fas fa-check-circle"></i>
+                                <span>${feature}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <div class="class-details-actions">
+                    <button class="btn btn-primary btn-large" onclick="enrollInClass(${classId})">
+                        <i class="fas fa-plus-circle"></i>
+                        Enroll Now
+                    </button>
+                    <button class="btn btn-secondary btn-large" onclick="closeModal('classModal')">
+                        <i class="fas fa-times"></i>
+                        Close
+                    </button>
+                </div>
             </div>
         `;
         
@@ -255,7 +240,7 @@ function showClassDetails(classId) {
     }
 }
 
-// Show class modal
+// Show class modal - Professional Implementation
 function showClassModal(content) {
     // Create modal if it doesn't exist
     let modal = document.getElementById('classModal');
@@ -283,20 +268,45 @@ function showClassModal(content) {
     document.body.style.overflow = 'hidden';
 }
 
-// Toggle FAQ item
-function toggleFAQ(element) {
-    const faqItem = element.parentElement;
-    const answer = faqItem.querySelector('.faq-answer');
-    const icon = element.querySelector('i');
+
+// Filter FAQ by category
+function filterFAQ(category) {
+    // Update active tab
+    document.querySelectorAll('.category-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    // Find the clicked tab and make it active
+    event.target.classList.add('active');
+    
+    // Filter FAQ items
+    document.querySelectorAll('.faq-item').forEach(item => {
+        const itemCategory = item.dataset.category;
+        if (category === 'all' || itemCategory === category) {
+            item.style.display = 'block';
+            item.style.animation = 'slideDown 0.3s ease';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+
+// FAQ Toggle Function - Final Working Implementation
+function toggleFAQ(index) {
+    const faqItems = document.querySelectorAll('.faq-item');
+    const clickedItem = faqItems[index];
+    const answer = clickedItem.querySelector('.faq-answer');
+    const icon = clickedItem.querySelector('.faq-question i');
     
     // Close all other FAQ items
-    document.querySelectorAll('.faq-item').forEach(item => {
-        if (item !== faqItem) {
+    faqItems.forEach((item, i) => {
+        if (i !== index) {
             item.classList.remove('active');
             const otherAnswer = item.querySelector('.faq-answer');
             const otherIcon = item.querySelector('.faq-question i');
             if (otherAnswer) {
-                otherAnswer.style.maxHeight = '0';
+                otherAnswer.style.display = 'none';
+                otherAnswer.style.opacity = '0';
             }
             if (otherIcon) {
                 otherIcon.style.transform = 'rotate(0deg)';
@@ -305,39 +315,36 @@ function toggleFAQ(element) {
     });
     
     // Toggle current item
-    faqItem.classList.toggle('active');
-    if (answer) {
-        answer.style.maxHeight = faqItem.classList.contains('active') 
-            ? answer.scrollHeight + 'px' 
-            : '0';
-    }
-    
-    // Rotate icon
-    if (icon) {
-        icon.style.transform = faqItem.classList.contains('active') 
-            ? 'rotate(180deg)' 
-            : 'rotate(0deg)';
+    if (clickedItem.classList.contains('active')) {
+        clickedItem.classList.remove('active');
+        answer.style.display = 'none';
+        answer.style.opacity = '0';
+        icon.style.transform = 'rotate(0deg)';
+    } else {
+        clickedItem.classList.add('active');
+        answer.style.display = 'block';
+        answer.style.opacity = '1';
+        icon.style.transform = 'rotate(180deg)';
     }
 }
 
-// Filter FAQ by category
+// FAQ Filter Function - New Implementation
 function filterFAQ(category) {
+    const faqItems = document.querySelectorAll('.faq-item');
+    const tabs = document.querySelectorAll('.category-tab');
+    
     // Update active tab
-    document.querySelectorAll('.category-tab').forEach(tab => {
-        tab.classList.remove('active');
-    });
+    tabs.forEach(tab => tab.classList.remove('active'));
     event.target.classList.add('active');
     
-    // Filter FAQ items
-    document.querySelectorAll('.faq-item').forEach(item => {
+    // Filter items
+    faqItems.forEach(item => {
         if (category === 'all' || item.dataset.category === category) {
             item.style.display = 'block';
         } else {
             item.style.display = 'none';
         }
     });
-    
-    console.log('FAQ filtered by category:', category);
 }
 
 // Refresh classes
@@ -375,12 +382,62 @@ function addTestUser() {
 function handleSubmit(event) {
     event.preventDefault();
     const form = event.target;
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
+    
+    // Get form data
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const message = document.getElementById('message').value.trim();
+    
+    // Validation
+    const errors = [];
+    
+    if (!name) {
+        errors.push('Name is required');
+    }
+    
+    if (!email) {
+        errors.push('Email is required');
+    } else if (!isValidEmail(email)) {
+        errors.push('Please enter a valid email address');
+    }
+    
+    if (!phone) {
+        errors.push('Phone number is required');
+    } else if (!isValidPhone(phone)) {
+        errors.push('Please enter a valid phone number');
+    }
+    
+    if (!message) {
+        errors.push('Message is required');
+    } else if (message.length < 10) {
+        errors.push('Message must be at least 10 characters long');
+    }
+    
+    // If there are errors, show them
+    if (errors.length > 0) {
+        showMessage('error', errors.join(', '));
+        return;
+    }
+    
+    // Create data object
+    const data = { name, email, phone, message };
     
     console.log('Contact form submitted:', data);
     showMessage('success', 'Thank you for contacting us! We will get back to you soon.');
     form.reset();
+}
+
+// Email validation helper
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+// Phone validation helper
+function isValidPhone(phone) {
+    const phoneRegex = /^[\d\s\-\(\)]+$/;
+    return phoneRegex.test(phone) && phone.length >= 10;
 }
 
 // Close modal function (global)
@@ -397,9 +454,37 @@ function closePaymentModal() {
     closeModal('paymentModal');
 }
 
+// Show notification message
+function showMessage(type, message) {
+    // Remove existing messages
+    const existingMessages = document.querySelectorAll('.notification-toast');
+    existingMessages.forEach(msg => msg.remove());
+    
+    // Create new notification
+    const notification = document.createElement('div');
+    notification.className = `notification-toast ${type}`;
+    notification.innerHTML = `
+        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+        <span>${message}</span>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Auto remove after 3 seconds
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.remove();
+        }
+    }, 3000);
+}
+
+// ============================================================================
+// INITIALIZATION
+// ============================================================================
+
 // Handle navigation clicks
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Frontend initialized (no backend)');
+    console.log('DOM loaded - initializing FAQ');
     
     // Initialize configuration
     if (typeof CONFIG !== 'undefined') {
@@ -436,20 +521,19 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Setup enrollment buttons
-    const enrollButtons = document.querySelectorAll('[onclick*="enroll"]');
-    enrollButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
+    // Setup category tabs
+    const categoryTabs = document.querySelectorAll('.category-tab');
+    categoryTabs.forEach(tab => {
+        tab.addEventListener('click', function(e) {
             e.preventDefault();
-            handleEnrollment(this);
+            // Get category from text content
+            let category = this.textContent.toLowerCase().replace(' questions', '').replace(' ', '-');
+            if (category === 'all') {
+                category = 'all';
+            }
+            filterFAQ(category);
         });
     });
-    
-    // Setup FAQ accordion
-    setupFAQ();
-    
-    // Setup class cards
-    setupClassCards();
 });
 
 // Handle contact form submission
@@ -457,106 +541,8 @@ function handleContactForm(form) {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
     
-    console.log('Contact form submitted:', data);
     showMessage('success', 'Thank you for contacting us! We will get back to you soon.');
     form.reset();
-}
-
-// Handle enrollment
-function handleEnrollment(button) {
-    const className = button.getAttribute('data-class') || 'Class';
-    console.log('Enrollment requested for:', className);
-    showMessage('info', 'Enrollment feature coming soon! Please contact us directly for now.');
-}
-
-// Setup FAQ accordion
-function setupFAQ() {
-    const faqItems = document.querySelectorAll('.faq-item');
-    
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        const answer = item.querySelector('.faq-answer');
-        
-        if (question && answer) {
-            question.addEventListener('click', function() {
-                const isActive = item.classList.contains('active');
-                
-                // Close all FAQ items
-                faqItems.forEach(faqItem => {
-                    faqItem.classList.remove('active');
-                    const faqAnswer = faqItem.querySelector('.faq-answer');
-                    if (faqAnswer) {
-                        faqAnswer.style.maxHeight = '0';
-                    }
-                });
-                
-                // Open clicked item if it wasn't active
-                if (!isActive) {
-                    item.classList.add('active');
-                    answer.style.maxHeight = answer.scrollHeight + 'px';
-                }
-            });
-        }
-    });
-}
-
-// Setup class cards
-function setupClassCards() {
-    const classCards = document.querySelectorAll('.class-card');
-    
-    classCards.forEach(card => {
-        const enrollBtn = card.querySelector('.enroll-btn');
-        const viewDetailsBtn = card.querySelector('.view-details-btn');
-        
-        if (enrollBtn) {
-            enrollBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const className = card.querySelector('.class-title')?.textContent || 'Class';
-                handleEnrollment(this);
-            });
-        }
-        
-        if (viewDetailsBtn) {
-            viewDetailsBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const classId = card.getAttribute('data-class-id');
-                showClassDetails(classId);
-            });
-        }
-    });
-}
-
-// Show notification message
-function showMessage(type, message) {
-    // Remove existing messages
-    const existingMessages = document.querySelectorAll('.notification-toast');
-    existingMessages.forEach(msg => msg.remove());
-    
-    // Create new notification
-    const notification = document.createElement('div');
-    notification.className = `notification-toast ${type}`;
-    notification.innerHTML = `
-        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
-        <span>${message}</span>
-    `;
-    
-    document.body.appendChild(notification);
-    
-    // Auto remove after 3 seconds
-    setTimeout(() => {
-        if (notification.parentNode) {
-            notification.remove();
-        }
-    }, 3000);
-}
-
-// Handle modal functions
-function openModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
-    }
 }
 
 // Close modal on outside click
@@ -575,74 +561,3 @@ document.addEventListener('keydown', function(e) {
         }
     }
 });
-    
-    // Setup scroll animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate');
-            }
-        });
-    }, observerOptions);
-    
-    // Observe elements for animation
-    const animateElements = document.querySelectorAll('.stagger-animation, .fade-in');
-    animateElements.forEach(el => {
-        observer.observe(el);
-    });
-    
-    console.log('Frontend initialization complete');
-});
-
-// ============================================================================
-// UTILITY FUNCTIONS (UI Only)
-// ============================================================================
-
-// Format currency
-function formatCurrency(amount) {
-    return `₹${amount.toLocaleString()}`;
-}
-
-// Format date
-function formatDate(date) {
-    return new Date(date).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
-}
-
-// Validate email (UI only)
-function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-}
-
-// Validate phone (UI only)
-function validatePhone(phone) {
-    const re = /^[0-9]{10}$/;
-    return re.test(phone);
-}
-
-// Show loading state
-function showLoading(element) {
-    if (element) {
-        element.disabled = true;
-        element.innerHTML = '<span class="spinner"></span> Loading...';
-    }
-}
-
-// Hide loading state
-function hideLoading(element, originalText) {
-    if (element) {
-        element.disabled = false;
-        element.innerHTML = originalText;
-    }
-}
-
-console.log('Connekt Studio Frontend Script Loaded Successfully');

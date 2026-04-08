@@ -93,180 +93,300 @@
     </section>
 
     <!-- Classes Section -->
-    <section id="classes" class="classes section-alt" style="background: #f8f9fa; padding: 80px 0;">
+    <section id="classes" class="classes section-alt">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Our Classes</h2>
                 <p class="section-subtitle">Choose from our wide range of yoga and fitness programs</p>
-                <div style="margin-bottom: 20px;">
-                    <button class="btn btn-secondary" onclick="refreshClasses()">
-                        <i class="fas fa-sync-alt"></i>
-                        Refresh Classes
-                    </button>
-                    <button class="btn btn-primary" onclick="checkFrontendData()" style="margin-left: 10px;">
-                        <i class="fas fa-database"></i>
-                        Check Frontend Data
-                    </button>
-                    <button class="btn btn-success" onclick="addTestUser()" style="margin-left: 10px;">
-                        <i class="fas fa-plus"></i>
-                        Add Test User
-                    </button>
-                </div>
             </div>
-            <div class="classes-grid stagger-animation" id="classesGrid">
-                <!-- Fallback classes content -->
+            <div class="classes-grid" id="classesGrid">
+                <!-- Class 1 -->
                 <div class="class-card">
-                    <div class="class-image">
-                        <img src="https://images.unsplash.com/photo-1774857491446-dfab0acd73a8?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="21 Days Dincharya Program">
-                        <div class="class-badge">Beginner</div>
+                    <div class="class-image-container">
+                        <img src="https://images.unsplash.com/photo-1774857491446-dfab0acd73a8?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="21 Days Dincharya Program" class="class-image">
+                        <div class="class-badge beginner">Beginner</div>
+                        <div class="class-overlay">
+                            <div class="class-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>4.8</span>
+                            </div>
+                            <div class="class-students">
+                                <i class="fas fa-users"></i>
+                                <span>117 Students</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="class-content">
-                        <h3 class="class-title">21 Days Dincharya Program</h3>
+                        <div class="class-header">
+                            <h3 class="class-title">21 Days Dincharya Program</h3>
+                            <div class="class-price">
+                                <span class="price-amount">Rs 2,499</span>
+                                <span class="price-period">21 Days</span>
+                            </div>
+                        </div>
                         <p class="class-description">Perfect for those new to yoga. Learn fundamental poses, improve sleep cycle, and basic meditation.</p>
-                        <div class="class-details">
-                            <div class="class-duration">
+                        
+                        <div class="class-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-user-tie"></i>
+                                <span>Hina Pamnani</span>
+                            </div>
+                            <div class="meta-item">
                                 <i class="fas fa-clock"></i>
-                                <span>21 Days</span>
+                                <span>21 Days Program</span>
                             </div>
-                            <div class="class-price">
-                                <i class="fas fa-tag"></i>
-                                <span>₹2,499</span>
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Mon-Sat, 6th April</span>
                             </div>
                         </div>
-                        <div class="class-instructor">
-                            <i class="fas fa-user"></i>
-                            <span>Hina Pamnani</span>
-                        </div>
+                        
                         <div class="class-features">
-                            <span class="feature-tag">21 Days Live Sessions</span>
-                            <span class="feature-tag">Basic Yoga Poses</span>
-                            <span class="feature-tag">Pranayama Practices</span>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>21 Days Live Sessions</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Basic Yoga Poses</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Pranayama Practices</span>
+                            </div>
                         </div>
+                        
                         <div class="class-actions">
-                            <button class="btn-enroll" onclick="enrollInClass(1)">
+                            <button class="btn btn-enroll" onclick="enrollInClass(1)">
                                 <i class="fas fa-plus-circle"></i>
                                 Enroll Now
                             </button>
-                            <button class="btn-details" onclick="showClassDetails(1)">
+                            <button class="btn btn-details" onclick="showClassDetails(1)">
                                 <i class="fas fa-info-circle"></i>
-                                Details
+                                View Details
                             </button>
                         </div>
                     </div>
                 </div>
+
+                <!-- Class 2 -->
                 <div class="class-card">
-                    <div class="class-image">
-                        <img src="https://images.unsplash.com/photo-1599901860903-17e6ed7083a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Power Yoga">
-                        <div class="class-badge">Intermediate</div>
+                    <div class="class-image-container">
+                        <img src="https://images.unsplash.com/photo-1599901860903-17e6ed7083a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Power Yoga" class="class-image">
+                        <div class="class-badge intermediate">Intermediate</div>
+                        <div class="class-overlay">
+                            <div class="class-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>4.9</span>
+                            </div>
+                            <div class="class-students">
+                                <i class="fas fa-users"></i>
+                                <span>250 Students</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="class-content">
-                        <h3 class="class-title">Power Yoga</h3>
+                        <div class="class-header">
+                            <h3 class="class-title">Power Yoga</h3>
+                            <div class="class-price">
+                                <span class="price-amount">Rs 1,999</span>
+                                <span class="price-period">1 Month</span>
+                            </div>
+                        </div>
                         <p class="class-description">Dynamic and challenging yoga practice for building strength, flexibility, and endurance.</p>
-                        <div class="class-details">
-                            <div class="class-duration">
+                        
+                        <div class="class-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-user-tie"></i>
+                                <span>Rahul Verma</span>
+                            </div>
+                            <div class="meta-item">
                                 <i class="fas fa-clock"></i>
-                                <span>1 Month</span>
+                                <span>90 minutes</span>
                             </div>
-                            <div class="class-price">
-                                <i class="fas fa-tag"></i>
-                                <span>₹1,999</span>
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Daily, 7:00 AM</span>
                             </div>
                         </div>
-                        <div class="class-instructor">
-                            <i class="fas fa-user"></i>
-                            <span>Rahul Verma</span>
-                        </div>
+                        
                         <div class="class-features">
-                            <span class="feature-tag">12 Live Sessions</span>
-                            <span class="feature-tag">Advanced Poses</span>
-                            <span class="feature-tag">Strength Building</span>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>12 Live Sessions</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Advanced Poses</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Strength Building</span>
+                            </div>
                         </div>
+                        
                         <div class="class-actions">
-                            <button class="btn-enroll" onclick="enrollInClass(2)">
+                            <button class="btn btn-enroll" onclick="enrollInClass(2)">
                                 <i class="fas fa-plus-circle"></i>
                                 Enroll Now
                             </button>
-                            <button class="btn-details" onclick="showClassDetails(2)">
+                            <button class="btn btn-details" onclick="showClassDetails(2)">
                                 <i class="fas fa-info-circle"></i>
-                                Details
+                                View Details
                             </button>
                         </div>
                     </div>
                 </div>
+
+                <!-- Class 3 -->
                 <div class="class-card">
-                    <div class="class-image">
-                        <img src="https://images.unsplash.com/photo-1588286840104-8957b019727f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Meditation & Mindfulness">
-                        <div class="class-badge">All Levels</div>
+                    <div class="class-image-container">
+                        <img src="https://images.unsplash.com/photo-1588286840104-8957b019727f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Meditation & Mindfulness" class="class-image">
+                        <div class="class-badge all-levels">All Levels</div>
+                        <div class="class-overlay">
+                            <div class="class-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>4.7</span>
+                            </div>
+                            <div class="class-students">
+                                <i class="fas fa-users"></i>
+                                <span>180 Students</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="class-content">
-                        <h3 class="class-title">Meditation & Mindfulness</h3>
+                        <div class="class-header">
+                            <h3 class="class-title">Meditation & Mindfulness</h3>
+                            <div class="class-price">
+                                <span class="price-amount">Rs 1,499</span>
+                                <span class="price-period">1 Month</span>
+                            </div>
+                        </div>
                         <p class="class-description">Learn various meditation techniques to reduce stress, improve focus, and find inner peace.</p>
-                        <div class="class-details">
-                            <div class="class-duration">
+                        
+                        <div class="class-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-user-tie"></i>
+                                <span>Meditation Expert</span>
+                            </div>
+                            <div class="meta-item">
                                 <i class="fas fa-clock"></i>
-                                <span>1 Month</span>
+                                <span>60 minutes</span>
                             </div>
-                            <div class="class-price">
-                                <i class="fas fa-tag"></i>
-                                <span>₹1,499</span>
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Daily, 6:00 PM</span>
                             </div>
                         </div>
-                        <div class="class-instructor">
-                            <i class="fas fa-user"></i>
-                            <span>Anita Patel</span>
-                        </div>
+                        
                         <div class="class-features">
-                            <span class="feature-tag">30 Live Sessions</span>
-                            <span class="feature-tag">Guided Meditation</span>
-                            <span class="feature-tag">Breathing Techniques</span>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Guided Meditation</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Breathing Techniques</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Stress Management</span>
+                            </div>
                         </div>
+                        
                         <div class="class-actions">
-                            <button class="btn-enroll" onclick="enrollInClass(3)">
+                            <button class="btn btn-enroll" onclick="enrollInClass(3)">
                                 <i class="fas fa-plus-circle"></i>
                                 Enroll Now
                             </button>
-                            <button class="btn-details" onclick="showClassDetails(3)">
+                            <button class="btn btn-details" onclick="showClassDetails(3)">
                                 <i class="fas fa-info-circle"></i>
-                                Details
+                                View Details
                             </button>
                         </div>
                     </div>
                 </div>
+
+                <!-- Class 4 -->
                 <div class="class-card">
-                    <div class="class-image">
-                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Yoga for Weight Loss">
-                        <div class="class-badge">Intermediate</div>
+                    <div class="class-image-container">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Yoga for Weight Loss" class="class-image">
+                        <div class="class-badge intermediate">Intermediate</div>
+                        <div class="class-overlay">
+                            <div class="class-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>4.6</span>
+                            </div>
+                            <div class="class-students">
+                                <i class="fas fa-users"></i>
+                                <span>200 Students</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="class-content">
-                        <h3 class="class-title">Yoga for Weight Loss</h3>
-                        <p class="class-description">Specialized yoga program designed for effective weight loss and body toning.</p>
-                        <div class="class-details">
-                            <div class="class-duration">
-                                <i class="fas fa-clock"></i>
-                                <span>45 Days</span>
-                            </div>
+                        <div class="class-header">
+                            <h3 class="class-title">Yoga for Weight Loss</h3>
                             <div class="class-price">
-                                <i class="fas fa-tag"></i>
-                                <span>₹3,499</span>
+                                <span class="price-amount">Rs 1,799</span>
+                                <span class="price-period">45 minutes</span>
                             </div>
                         </div>
-                        <div class="class-instructor">
-                            <i class="fas fa-user"></i>
-                            <span>Priya Sharma</span>
+                        <p class="class-description">Specialized yoga program designed for weight management and body toning.</p>
+                        
+                        <div class="class-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-user-tie"></i>
+                                <span>Fitness Expert</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>45 minutes</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Mon-Wed-Fri, 5:00 PM</span>
+                            </div>
                         </div>
+                        
                         <div class="class-features">
-                            <span class="feature-tag">45 Live Sessions</span>
-                            <span class="feature-tag">Weight Loss Focus</span>
-                            <span class="feature-tag">Diet Guidance</span>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Weight Loss Focus</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Cardio Yoga</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Diet Guidance</span>
+                            </div>
                         </div>
+                        
                         <div class="class-actions">
-                            <button class="btn-enroll" onclick="enrollInClass(4)">
+                            <button class="btn btn-enroll" onclick="enrollInClass(4)">
                                 <i class="fas fa-plus-circle"></i>
                                 Enroll Now
                             </button>
-                            <button class="btn-details" onclick="showClassDetails(4)">
+                            <button class="btn btn-details" onclick="showClassDetails(4)">
                                 <i class="fas fa-info-circle"></i>
-                                Details
+                                View Details
                             </button>
                         </div>
                     </div>
@@ -367,7 +487,7 @@
             <div class="faq-content">
                 <!-- Getting Started Questions -->
                 <div class="faq-item" data-category="getting-started">
-                    <div class="faq-question" onclick="toggleFAQ(this)">
+                    <div class="faq-question" onclick="toggleFAQ(0)">
                         <h3>How do I get started with Connekt Studio?</h3>
                         <i class="fas fa-chevron-down"></i>
                     </div>
@@ -384,7 +504,7 @@
                     </div>
                 </div>
                 <div class="faq-item" data-category="getting-started">
-                    <div class="faq-question" onclick="toggleFAQ(this)">
+                    <div class="faq-question" onclick="toggleFAQ(1)">
                         <h3>What equipment do I need for online classes?</h3>
                         <i class="fas fa-chevron-down"></i>
                     </div>
@@ -401,7 +521,7 @@
                     </div>
                 </div>
                 <div class="faq-item" data-category="classes">
-                    <div class="faq-question" onclick="toggleFAQ(this)">
+                    <div class="faq-question" onclick="toggleFAQ(2)">
                         <h3>What types of classes do you offer?</h3>
                         <i class="fas fa-chevron-down"></i>
                     </div>
@@ -418,23 +538,23 @@
                     </div>
                 </div>
                 <div class="faq-item" data-category="pricing">
-                    <div class="faq-question" onclick="toggleFAQ(this)">
+                    <div class="faq-question" onclick="toggleFAQ(3)">
                         <h3>What are your pricing options?</h3>
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
                         <p>We have different prices to fit your budget:</p>
                         <ul>
-                            <li><strong>Monthly:</strong> ₹1,499 per month - All classes included</li>
-                            <li><strong>3 Months:</strong> ₹3,999 - You save 11%</li>
-                            <li><strong>1 Year:</strong> ₹12,999 - You save 28%</li>
-                            <li><strong>One Class:</strong> ₹299 - Pay only when you come</li>
+                            <li><strong>Monthly:</strong> Rs 1,499 per month - All classes included</li>
+                            <li><strong>3 Months:</strong> Rs 3,999 - You save 11%</li>
+                            <li><strong>1 Year:</strong> Rs 12,999 - You save 28%</li>
+                            <li><strong>One Class:</strong> Rs 299 - Pay only when you come</li>
                         </ul>
                         <p>All plans let you watch class recordings again and get personal help from teachers.</p>
                     </div>
                 </div>
                 <div class="faq-item" data-category="technical">
-                    <div class="faq-question" onclick="toggleFAQ(this)">
+                    <div class="faq-question" onclick="toggleFAQ(4)">
                         <h3>What if I miss a live class?</h3>
                         <i class="fas fa-chevron-down"></i>
                     </div>
@@ -449,7 +569,7 @@
                     </div>
                 </div>
                 <div class="faq-item" data-category="health">
-                    <div class="faq-question" onclick="toggleFAQ(this)">
+                    <div class="faq-question" onclick="toggleFAQ(5)">
                         <h3>Is online yoga safe for beginners?</h3>
                         <i class="fas fa-chevron-down"></i>
                     </div>
@@ -614,43 +734,7 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- Modal -->
-    <div id="classModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <div id="modalBody">
-                <!-- Modal content will be dynamically loaded -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Enrollment Modal -->
-    <div id="enrollmentModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <div id="modalBody">
-                <!-- Enrollment form will be dynamically loaded -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Payment Modal -->
-    <div id="paymentModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closePaymentModal()">&times;</span>
-            <div id="paymentBody">
-                <!-- Payment content will be dynamically loaded -->
-            </div>
-        </div>
-    </div>
-
     <!-- Scripts -->
-    <script src="config.js"></script>
     <script src="script.js"></script>
-
-
-
-
-
 </body>
 </html>
